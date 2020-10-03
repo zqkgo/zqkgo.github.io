@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Z.Q.K 张乾坤</title>
+    <link>https://example.com/tags/</link>
+    <description>Recent content in Tags on Z.Q.K 张乾坤</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 Nov 2019 14:03:25 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>go</title>
+      <link>https://example.com/tags/go/</link>
+      <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
+      
+      <guid>https://example.com/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://example.com/tags/hugo/</link>
+      <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
+      
+      <guid>https://example.com/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cache</title>
+      <link>https://example.com/tags/cache/</link>
+      <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
+      
+      <guid>https://example.com/tags/cache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://example.com/tags/mysql/</link>
+      <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
+      
+      <guid>https://example.com/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>network</title>
+      <link>https://example.com/tags/network/</link>
+      <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
+      
+      <guid>https://example.com/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHP</title>
+      <link>https://example.com/tags/php/</link>
+      <pubDate>Sat, 08 Jun 2019 21:54:53 +0800</pubDate>
+      
+      <guid>https://example.com/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>c语言</title>
+      <link>https://example.com/tags/c%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
+      
+      <guid>https://example.com/tags/c%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
