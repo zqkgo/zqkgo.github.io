@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Z.Q.K 张乾坤</title>
-        <link>https://example.com/</link>
+        <link>https://zqkgo.github.io/</link>
         <description>Recent content on Z.Q.K 张乾坤</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 02 Nov 2019 14:03:25 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 02 Nov 2019 14:03:25 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go中复制map可能遇到坑</title>
-        <link>https://example.com/p/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
+        <link>https://zqkgo.github.io/p/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
         <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
         
-        <guid>https://example.com/p/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</guid>
+        <guid>https://zqkgo.github.io/p/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</guid>
         <description>&lt;p&gt;昨天下午遇到一个问题。服务A与服务B批量建立tcp连接，并定时发送rpc请求（rpc.Ping()）检查连接的健康状态。A服务在kibana出现报错：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;use of closed network connection
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第一反应是B服务重启导致连接断开，正好落在A服务检查出错与重连的时间窗口。运维同学帮拉日志，发现错误：&lt;/p&gt;
@@ -63,10 +63,10 @@
         </item>
         <item>
         <title>Go Module本地依赖的两种玩法</title>
-        <link>https://example.com/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</link>
+        <link>https://zqkgo.github.io/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</link>
         <pubDate>Sun, 23 Jun 2019 11:34:55 +0800</pubDate>
         
-        <guid>https://example.com/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</guid>
+        <guid>https://zqkgo.github.io/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</guid>
         <description>&lt;h2 id=&#34;两种情况&#34;&gt;两种情况&lt;/h2&gt;
 &lt;p&gt;先看两种依赖关系，如下：&lt;/p&gt;
 &lt;ol&gt;
@@ -74,9 +74,9 @@
 &lt;li&gt;不同&lt;code&gt;module&lt;/code&gt;下的不同&lt;code&gt;package&lt;/code&gt;依赖&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;第一种情况，假设&lt;code&gt;module&lt;/code&gt;名称是&lt;code&gt;go_play&lt;/code&gt;，&lt;code&gt;package&lt;/code&gt;分别是&lt;code&gt;foo&lt;/code&gt;、&lt;code&gt;bar&lt;/code&gt;、&lt;code&gt;biz&lt;/code&gt;则依赖关系简单表示为：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://example.com/images/local_same_module.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zqkgo.github.io/images/local_same_module.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;第二种情况，假设两个&lt;code&gt;module&lt;/code&gt;分别是&lt;code&gt;go_play&lt;/code&gt;和&lt;code&gt;go_play_another&lt;/code&gt;，新增的&lt;code&gt;package&lt;/code&gt;是&lt;code&gt;baz&lt;/code&gt;，则依赖关系简单表示为：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://example.com/images/local_diff_module.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zqkgo.github.io/images/local_diff_module.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
 &lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
 &lt;h3 id=&#34;情况一&#34;&gt;情况一&lt;/h3&gt;
 &lt;p&gt;第一种情况，目录结构如下：&lt;/p&gt;
@@ -124,10 +124,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>看看slice底层struct的数据结构</title>
-        <link>https://example.com/p/%E7%9C%8B%E7%9C%8Bslice%E5%BA%95%E5%B1%82struct%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+        <link>https://zqkgo.github.io/p/%E7%9C%8B%E7%9C%8Bslice%E5%BA%95%E5%B1%82struct%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
         <pubDate>Thu, 13 Jun 2019 17:51:40 +0800</pubDate>
         
-        <guid>https://example.com/p/%E7%9C%8B%E7%9C%8Bslice%E5%BA%95%E5%B1%82struct%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+        <guid>https://zqkgo.github.io/p/%E7%9C%8B%E7%9C%8Bslice%E5%BA%95%E5%B1%82struct%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
         <description>&lt;p&gt;我们知道&lt;code&gt;slice&lt;/code&gt;底层的数据结构是&lt;code&gt;SliceHeader&lt;/code&gt;，位于&lt;a class=&#34;link&#34; href=&#34;https://github.com/golang/go/blob/master/src/reflect/value.go#L1958&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;value.go&lt;/a&gt;如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;SliceHeader&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -191,10 +191,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>折腾hugo</title>
-        <link>https://example.com/p/%E6%8A%98%E8%85%BEhugo/</link>
+        <link>https://zqkgo.github.io/p/%E6%8A%98%E8%85%BEhugo/</link>
         <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
         
-        <guid>https://example.com/p/%E6%8A%98%E8%85%BEhugo/</guid>
+        <guid>https://zqkgo.github.io/p/%E6%8A%98%E8%85%BEhugo/</guid>
         <description>&lt;p&gt;阿里云的服务器过期，费用不菲，暂不续，迁到&lt;code&gt;github page&lt;/code&gt;。以前用hexo，觉得不错，静态网页，完全控制页面功能不简单，速度块。之前用阿里云，因为用&lt;code&gt;Laravel&lt;/code&gt;写博客页面功能容易掌控。既然是信息类网站，类似&lt;code&gt;hexo&lt;/code&gt;或&lt;code&gt;hugo&lt;/code&gt;这种直接基于&lt;code&gt;markdown&lt;/code&gt;文件配合主题根据配置生成静态页面的工具完全能够胜任一些基本的展示工作。为什么选&lt;code&gt;hugo&lt;/code&gt;而不是&lt;code&gt;hexo&lt;/code&gt;？一是因为&lt;code&gt;hugo&lt;/code&gt;采用&lt;code&gt;Go&lt;/code&gt;实现，执行常规的命令例如创建页面，构建网站等速度上稍微快一些。并且，支持&lt;code&gt;Go&lt;/code&gt;。二是因为实在不想看到&lt;code&gt;hexo&lt;/code&gt;下载的一堆依赖。前端深似海，入行需谨慎。&lt;/p&gt;
 &lt;h2 id=&#34;小试牛刀&#34;&gt;小试牛刀&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;hugo&lt;/code&gt;的文档挺多，方方面面，跟着文档走靠谱。但可能不想通读文档，遇到需要的功能点直接搜，以下是我用到的功能点和相关文档。&lt;/p&gt;
@@ -308,10 +308,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>索引与缓存的坑</title>
-        <link>https://example.com/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+        <link>https://zqkgo.github.io/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
         <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
         
-        <guid>https://example.com/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+        <guid>https://zqkgo.github.io/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
         <description>&lt;p&gt;以为是一次小改动，欢喜自测上线，没多久500扑面而来。上机器，看日志，数据库连接报错。本地客户端连连看，返回如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;nx&#34;&gt;ERROR&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1203&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;42000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;xxx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;already&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;has&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;more&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;than&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;max_user_connections&amp;#39;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;active&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;connections&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当前用户的活跃连接超过了&lt;code&gt;max_user_connections&lt;/code&gt;的设置，根据&lt;a class=&#34;link&#34; href=&#34;https://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_max_user_connections&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -375,10 +375,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>数据类型在网络传输中的表现</title>
-        <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
+        <link>https://zqkgo.github.io/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
         <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
         
-        <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
+        <guid>https://zqkgo.github.io/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
         <description>&lt;p&gt;使用弱类型语言（PHP、Python等）开发接口的时候，有时会不考虑数据类型的问题，因为语言的解释器会自动进行类型转换。当一种强类型语言根据文档调用弱类型语言开发的接口，此时弱类型语言的开发者如果没去仔细关注返回的数据类型，结果可能给接口调用方造成不便。&lt;/p&gt;
 &lt;p&gt;下面的例程使用PHP开发&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
@@ -409,10 +409,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>代理小故障排查</title>
-        <link>https://example.com/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
+        <link>https://zqkgo.github.io/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
         <pubDate>Sat, 08 Jun 2019 21:55:46 +0800</pubDate>
         
-        <guid>https://example.com/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
+        <guid>https://zqkgo.github.io/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
         <description>&lt;p&gt;昨天下班前按照&lt;a class=&#34;link&#34; href=&#34;https://askubuntu.com/questions/922377/how-to-install-fiddler-on-ubuntu&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;这里&lt;/a&gt;描述装了Fiddler，手机wifi设置代理通过PC上的Fiddler作为代理服务器向外网发送&lt;code&gt;http(s)&lt;/code&gt;请求 。&lt;/p&gt;
 &lt;p&gt;早上来到，关掉Fiddler，发现所有请求都被代理到&lt;code&gt;127.0.0.1:8888&lt;/code&gt;&lt;/p&gt;
@@ -448,10 +448,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>位运算在PHP错误级别中的运用</title>
-        <link>https://example.com/p/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</link>
+        <link>https://zqkgo.github.io/p/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</link>
         <pubDate>Sat, 08 Jun 2019 21:54:53 +0800</pubDate>
         
-        <guid>https://example.com/p/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</guid>
+        <guid>https://zqkgo.github.io/p/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</guid>
         <description>&lt;p&gt;首先，我们要解决的第一个问题是&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;什么是位运算？&lt;/p&gt;
@@ -708,10 +708,10 @@ replace go_play =&amp;gt; ../go_play
         </item>
         <item>
         <title>C语言中的数组和指针</title>
-        <link>https://example.com/p/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
+        <link>https://zqkgo.github.io/p/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
         <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
         
-        <guid>https://example.com/p/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+        <guid>https://zqkgo.github.io/p/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
         <description>&lt;p&gt;先看段代码&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;arr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;344&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;243&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;55&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 

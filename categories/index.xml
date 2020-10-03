@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Z.Q.K 张乾坤</title>
-    <link>https://example.com/categories/</link>
+    <link>https://zqkgo.github.io/categories/</link>
     <description>Recent content in Categories on Z.Q.K 张乾坤</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Nov 2019 14:03:25 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Nov 2019 14:03:25 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cs</title>
-      <link>https://example.com/categories/cs/</link>
+      <link>https://zqkgo.github.io/categories/cs/</link>
       <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
       
-      <guid>https://example.com/categories/cs/</guid>
+      <guid>https://zqkgo.github.io/categories/cs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>growth</title>
-      <link>https://example.com/categories/growth/</link>
+      <link>https://zqkgo.github.io/categories/growth/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/categories/growth/</guid>
+      <guid>https://zqkgo.github.io/categories/growth/</guid>
       <description></description>
     </item>
     

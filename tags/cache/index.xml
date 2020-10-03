@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cache on Z.Q.K 张乾坤</title>
-    <link>https://example.com/tags/cache/</link>
+    <link>https://zqkgo.github.io/tags/cache/</link>
     <description>Recent content in cache on Z.Q.K 张乾坤</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jun 2019 21:45:40 +0800</lastBuildDate><atom:link href="https://example.com/tags/cache/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jun 2019 21:45:40 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/cache/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>索引与缓存的坑</title>
-      <link>https://example.com/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+      <link>https://zqkgo.github.io/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
       
-      <guid>https://example.com/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+      <guid>https://zqkgo.github.io/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
       <description>以为是一次小改动，欢喜自测上线，没多久500扑面而来。上机器，看日志，数据库连接报错。本地客户端连连看，返回如下：
 ERROR 1203 (42000): User xxx already has more than &amp;#39;max_user_connections&amp;#39; active connections 当前用户的活跃连接超过了max_user_connections的设置，根据文档描述，该设置控制单个MySQL用户能够达到的并发连接数。超过此设置，MySQL连接失败，所有经过数据层的接口都会报500。
 正常情况，这个项目典型的读多写少，读请求占97%以上，缓存早已稳稳加上，绝大多数读请求不会走到数据层，所以一个主库两个从库的连接数比例大概是：

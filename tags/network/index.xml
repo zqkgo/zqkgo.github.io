@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>network on Z.Q.K 张乾坤</title>
-    <link>https://example.com/tags/network/</link>
+    <link>https://zqkgo.github.io/tags/network/</link>
     <description>Recent content in network on Z.Q.K 张乾坤</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Jun 2019 21:56:26 +0800</lastBuildDate><atom:link href="https://example.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jun 2019 21:56:26 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>数据类型在网络传输中的表现</title>
-      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
+      <link>https://zqkgo.github.io/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
       <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
       
-      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
+      <guid>https://zqkgo.github.io/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
       <description>使用弱类型语言（PHP、Python等）开发接口的时候，有时会不考虑数据类型的问题，因为语言的解释器会自动进行类型转换。当一种强类型语言根据文档调用弱类型语言开发的接口，此时弱类型语言的开发者如果没去仔细关注返回的数据类型，结果可能给接口调用方造成不便。
 下面的例程使用PHP开发
 &amp;lt;?php header(&amp;#34;Content-type:application/json&amp;#34;); $arr = [ &amp;#34;hello&amp;#34; =&amp;gt; &amp;#34;world&amp;#34;, &amp;#34;value&amp;#34; =&amp;gt; &amp;#34;100&amp;#34;, &amp;#34;aaaa&amp;#34; =&amp;gt; 100, &amp;#34;chinese&amp;#34; =&amp;gt; &amp;#34;中文字符&amp;#34; ]; echo json_encode($arr); 抓取http报文后可以看到字符串被转换成二进制后的表示如下
@@ -25,10 +25,10 @@
     
     <item>
       <title>代理小故障排查</title>
-      <link>https://example.com/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
+      <link>https://zqkgo.github.io/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
       <pubDate>Sat, 08 Jun 2019 21:55:46 +0800</pubDate>
       
-      <guid>https://example.com/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
+      <guid>https://zqkgo.github.io/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
       <description>昨天下班前按照这里描述装了Fiddler，手机wifi设置代理通过PC上的Fiddler作为代理服务器向外网发送http(s)请求 。
 早上来到，关掉Fiddler，发现所有请求都被代理到127.0.0.1:8888
 $ curl http://www.baidu.com curl: (7) Failed to connect to 127.0.0.1 port 8888: Connection refused 并没有手动更改过网络代理，而登录进来就自动设置了代理，所以需要查看下登录login shells时执行的文件
