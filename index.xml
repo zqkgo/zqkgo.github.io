@@ -6,7 +6,63 @@
         <description>Recent content on Z.Q.K 张乾坤</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 15 Oct 2020 16:18:14 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 30 Nov 2020 14:20:43 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Anki新卡片顺序</title>
+        <link>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
+        <pubDate>Mon, 30 Nov 2020 14:20:43 +0800</pubDate>
+        
+        <guid>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
+        <description>&lt;pre&gt;&lt;code&gt;Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;新卡片顺序什么时候决定的&#34;&gt;新卡片顺序什么时候决定的？&lt;/h2&gt;
+&lt;p&gt;新增卡片时决定的。&lt;/p&gt;
+&lt;h2 id=&#34;新卡片顺序如何决定的&#34;&gt;新卡片顺序如何决定的？&lt;/h2&gt;
+&lt;p&gt;新增&lt;code&gt;Note&lt;/code&gt;的逻辑：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;找到&lt;code&gt;Note&lt;/code&gt;对应的&lt;code&gt;Model&lt;/code&gt;（即&lt;code&gt;Note Type&lt;/code&gt;）的模板&lt;code&gt;Templates&lt;/code&gt;，每个&lt;code&gt;Model&lt;/code&gt;可能有多个&lt;code&gt;Templates&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;获取全局计数器&lt;code&gt;nextPos&lt;/code&gt;加1后的值
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nextPos&lt;/code&gt;是属于&lt;code&gt;Collection&lt;/code&gt;的全局配置，保存在&lt;code&gt;config&lt;/code&gt;表中&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nextPos&lt;/code&gt;每次新增卡片会递增1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;遍历每个&lt;code&gt;Template&lt;/code&gt;，根据&lt;code&gt;Note&lt;/code&gt;、&lt;code&gt;Template&lt;/code&gt;、&lt;code&gt;Deck&lt;/code&gt;等信息生成&lt;code&gt;Card&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Card.due&lt;/code&gt;属性保存新卡片的到期时间，但对于不同类型的卡，该属性的值不同，参考&lt;a class=&#34;link&#34; href=&#34;https://docs.ankiweb.net/#/browsing?id=card-list&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;文档说明&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增卡片时为&lt;code&gt;Card.due&lt;/code&gt;赋值
+&lt;ul&gt;
+&lt;li&gt;如果&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_DUE&lt;/code&gt;，则使用全局计数器&lt;code&gt;nextPos&lt;/code&gt;的值
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;有两种可能的值，&lt;code&gt;NEW_CARDS_DUE&lt;/code&gt;和&lt;code&gt;NEW_CARDS_RANDOM&lt;/code&gt;，分别对应&lt;code&gt;Deck&lt;/code&gt;配置中&lt;code&gt;Show new cards in order added&lt;/code&gt;和&lt;code&gt;Show new cards in random order&lt;/code&gt;两个配置项，如下图所示：
+&lt;img src=&#34;https://zqkgo.github.io/images/deck_config_new_order.png&#34; alt=&#34;&#34;  /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_RANDOM&lt;/code&gt;则为&lt;code&gt;Card.due&lt;/code&gt;属性计算一个随机值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;新卡片的顺序值如何查看&#34;&gt;新卡片的顺序值如何查看？&lt;/h2&gt;
+&lt;p&gt;Browser中的&lt;code&gt;Due&lt;/code&gt;字段。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_DUE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;新增4张卡片，如下图所示：
+&lt;img src=&#34;https://zqkgo.github.io/images/demo_deck_config_new_order.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_RANDOM&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;新增4张卡片，如下图所示：
+&lt;img src=&#34;https://zqkgo.github.io/images/demo_deck_config_new_random.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>记一次redis攻击排查</title>
         <link>https://zqkgo.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</link>
         <pubDate>Thu, 15 Oct 2020 16:18:14 +0800</pubDate>

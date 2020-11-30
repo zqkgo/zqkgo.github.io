@@ -6,7 +6,21 @@
     <description>Recent content in Posts on Z.Q.K 张乾坤</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Oct 2020 16:18:14 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Nov 2020 14:20:43 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anki新卡片顺序</title>
+      <link>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 14:20:43 +0800</pubDate>
+      
+      <guid>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
+      <description>Anki版本信息 ----------- Tag：2.1.26 Commit ID: 70784154 新卡片顺序什么时候决定的？ 新增卡片时决定的。
+新卡片顺序如何决定的？ 新增Note的逻辑：
+ 找到Note对应的Model（即Note Type）的模板Templates，每个Model可能有多个Templates 获取全局计数器nextPos加1后的值  nextPos是属于Collection的全局配置，保存在config表中 nextPos每次新增卡片会递增1   遍历每个Template，根据Note、Template、Deck等信息生成Card  Card.due属性保存新卡片的到期时间，但对于不同类型的卡，该属性的值不同，参考文档说明 新增卡片时为Card.due赋值  如果Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_DUE，则使用全局计数器nextPos的值  conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]有两种可能的值，NEW_CARDS_DUE和NEW_CARDS_RANDOM，分别对应Deck配置中Show new cards in order added和Show new cards in random order两个配置项，如下图所示：    如果Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_RANDOM则为Card.due属性计算一个随机值      新卡片的顺序值如何查看？ Browser中的Due字段。
+  Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_DUE
+新增4张卡片，如下图所示：   Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_RANDOM
+新增4张卡片，如下图所示：   </description>
+    </item>
+    
     <item>
       <title>记一次redis攻击排查</title>
       <link>https://zqkgo.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</link>
