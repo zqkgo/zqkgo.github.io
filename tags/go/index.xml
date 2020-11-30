@@ -6,17 +6,7 @@
     <description>Recent content in go on Z.Q.K 张乾坤</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Nov 2020 11:47:32 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>使用Context控制多个goroutine</title>
-      <link>https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/</link>
-      <pubDate>Thu, 19 Nov 2020 11:47:32 +0800</pubDate>
-      
-      <guid>https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/</guid>
-      <description>Play
-package main import ( &amp;#34;context&amp;#34; &amp;#34;time&amp;#34; ) type Foo struct { ctx context.Context cancel context.CancelFunc ch chan int } func (f *Foo) r1() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r1 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r1() routine exit&amp;#34;) return } } } func (f *Foo) r2() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r2 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r2() routine exit&amp;#34;) return } } } func (f *Foo) r3() { for { select { case i := &amp;lt;-f.</description>
-    </item>
-    
+    <lastBuildDate>Sat, 02 Nov 2019 14:03:25 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go中复制map可能遇到坑</title>
       <link>https://zqkgo.github.io/p/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
