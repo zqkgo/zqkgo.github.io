@@ -1,44 +1,20 @@
 <!DOCTYPE html>
 <html lang="en-us"><head>
     <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='两种情况 先看两种依赖关系，如下：
- 同一module下的不同package依赖 不同module下的不同package依赖  第一种情况，假设module名称是go_play，package分别是foo、bar、biz则依赖关系简单表示为：
-第二种情况，假设两个module分别是go_play和go_play_another，新增的package是baz，则依赖关系简单表示为：
-解决方案 情况一 第一种情况，目录结构如下：
-go_play ├── bar │ └── bar.go ├── biz │ └── biz.go ├── foo │ └── foo.go ├── go.mod ├── play.go └── play_test.go 初始化module的方法是：
-go mod init go_play 按照图中的依赖关系，可以用module_name/package_name的方式import同一module下的其他package，例如在bar.go中可以是：
-package bar import ( &amp;quot;fmt&amp;quot; _ &amp;quot;go_play/biz&amp;quot; ) func init() { fmt.Println(&amp;quot;bar.....&amp;quot;) } 此时，如果biz中有init函数则执行之。
-情况二 第二种情况，新增module，其目录结构：
-go_play_another ├── baz │ ├── baz.go │ └── baz_test.go └── go.mod 可以用同样的方法（module_name/package_name）import其他module下的package，但需要在go.mod中声明依赖：
-module go_play_another go 1.'><title>Go Module本地依赖的两种玩法</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Play
+package main import ( &amp;#34;context&amp;#34; &amp;#34;time&amp;#34; ) type Foo struct { ctx context.Context cancel context.CancelFunc ch chan int } func (f *Foo) r1() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r1 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r1() routine exit&amp;#34;) return } } } func (f *Foo) r2() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r2 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r2() routine exit&amp;#34;) return } } } func (f *Foo) r3() { for { select { case i := &amp;lt;-f.'><title>使用Context控制多个goroutine</title>
     
-    <link rel='canonical' href='https://zqkgo.github.io/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/'>
+    <link rel='canonical' href='https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Go Module本地依赖的两种玩法'>
-<meta property='og:description' content='两种情况 先看两种依赖关系，如下：
- 同一module下的不同package依赖 不同module下的不同package依赖  第一种情况，假设module名称是go_play，package分别是foo、bar、biz则依赖关系简单表示为：
-第二种情况，假设两个module分别是go_play和go_play_another，新增的package是baz，则依赖关系简单表示为：
-解决方案 情况一 第一种情况，目录结构如下：
-go_play ├── bar │ └── bar.go ├── biz │ └── biz.go ├── foo │ └── foo.go ├── go.mod ├── play.go └── play_test.go 初始化module的方法是：
-go mod init go_play 按照图中的依赖关系，可以用module_name/package_name的方式import同一module下的其他package，例如在bar.go中可以是：
-package bar import ( &amp;quot;fmt&amp;quot; _ &amp;quot;go_play/biz&amp;quot; ) func init() { fmt.Println(&amp;quot;bar.....&amp;quot;) } 此时，如果biz中有init函数则执行之。
-情况二 第二种情况，新增module，其目录结构：
-go_play_another ├── baz │ ├── baz.go │ └── baz_test.go └── go.mod 可以用同样的方法（module_name/package_name）import其他module下的package，但需要在go.mod中声明依赖：
-module go_play_another go 1.'>
-<meta property='og:url' content='https://zqkgo.github.io/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='使用Context控制多个goroutine'>
+<meta property='og:description' content='Play
+package main import ( &amp;#34;context&amp;#34; &amp;#34;time&amp;#34; ) type Foo struct { ctx context.Context cancel context.CancelFunc ch chan int } func (f *Foo) r1() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r1 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r1() routine exit&amp;#34;) return } } } func (f *Foo) r2() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r2 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r2() routine exit&amp;#34;) return } } } func (f *Foo) r3() { for { select { case i := &amp;lt;-f.'>
+<meta property='og:url' content='https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/'>
 <meta property='og:site_name' content='Z.Q.K 张乾坤'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='go' /><meta property='article:published_time' content='2019-06-23T11:34:55&#43;08:00'/><meta property='article:modified_time' content='2019-06-23T11:34:55&#43;08:00'/>
-<meta name="twitter:title" content="Go Module本地依赖的两种玩法">
-<meta name="twitter:description" content="两种情况 先看两种依赖关系，如下：
- 同一module下的不同package依赖 不同module下的不同package依赖  第一种情况，假设module名称是go_play，package分别是foo、bar、biz则依赖关系简单表示为：
-第二种情况，假设两个module分别是go_play和go_play_another，新增的package是baz，则依赖关系简单表示为：
-解决方案 情况一 第一种情况，目录结构如下：
-go_play ├── bar │ └── bar.go ├── biz │ └── biz.go ├── foo │ └── foo.go ├── go.mod ├── play.go └── play_test.go 初始化module的方法是：
-go mod init go_play 按照图中的依赖关系，可以用module_name/package_name的方式import同一module下的其他package，例如在bar.go中可以是：
-package bar import ( &amp;quot;fmt&amp;quot; _ &amp;quot;go_play/biz&amp;quot; ) func init() { fmt.Println(&amp;quot;bar.....&amp;quot;) } 此时，如果biz中有init函数则执行之。
-情况二 第二种情况，新增module，其目录结构：
-go_play_another ├── baz │ ├── baz.go │ └── baz_test.go └── go.mod 可以用同样的方法（module_name/package_name）import其他module下的package，但需要在go.mod中声明依赖：
-module go_play_another go 1."></head><body class="">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='go' /><meta property='article:published_time' content='2020-11-19T11:47:32&#43;08:00'/><meta property='article:modified_time' content='2020-11-19T11:47:32&#43;08:00'/>
+<meta name="twitter:title" content="使用Context控制多个goroutine">
+<meta name="twitter:description" content="Play
+package main import ( &amp;#34;context&amp;#34; &amp;#34;time&amp;#34; ) type Foo struct { ctx context.Context cancel context.CancelFunc ch chan int } func (f *Foo) r1() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r1 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r1() routine exit&amp;#34;) return } } } func (f *Foo) r2() { for { select { case i := &amp;lt;-f.ch: println(&amp;#34;r2 print: &amp;#34;, i) case &amp;lt;-f.ctx.Done(): println(&amp;#34;Foo.r2() routine exit&amp;#34;) return } } } func (f *Foo) r3() { for { select { case i := &amp;lt;-f."></head><body class="">
         <div class="container flex on-phone--column align-items--flex-start extended article-page with-toolbar">
             <aside class="sidebar left-sidebar sticky">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
@@ -174,7 +150,7 @@ module go_play_another go 1."></head><body class="">
     
 
     <h2 class="article-title">
-        <a href="https://zqkgo.github.io/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/">Go Module本地依赖的两种玩法</a>
+        <a href="https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/">使用Context控制多个goroutine</a>
     </h2>
 
     <footer class="article-time">
@@ -186,65 +162,81 @@ module go_play_another go 1."></head><body class="">
 
 
 
-        <time class="article-time--published">Jun 23, 2019</time>
+        <time class="article-time--published">Nov 19, 2020</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <h2 id="两种情况">两种情况</h2>
-<p>先看两种依赖关系，如下：</p>
-<ol>
-<li>同一<code>module</code>下的不同<code>package</code>依赖</li>
-<li>不同<code>module</code>下的不同<code>package</code>依赖</li>
-</ol>
-<p>第一种情况，假设<code>module</code>名称是<code>go_play</code>，<code>package</code>分别是<code>foo</code>、<code>bar</code>、<code>biz</code>则依赖关系简单表示为：</p>
-<p><img src="/images/local_same_module.png" alt=""  /></p>
-<p>第二种情况，假设两个<code>module</code>分别是<code>go_play</code>和<code>go_play_another</code>，新增的<code>package</code>是<code>baz</code>，则依赖关系简单表示为：</p>
-<p><img src="/images/local_diff_module.png" alt=""  /></p>
-<h2 id="解决方案">解决方案</h2>
-<h3 id="情况一">情况一</h3>
-<p>第一种情况，目录结构如下：</p>
-<pre><code>go_play
-├── bar
-│   └── bar.go
-├── biz
-│   └── biz.go
-├── foo
-│   └── foo.go
-├── go.mod
-├── play.go
-└── play_test.go
-</code></pre><p>初始化<code>module</code>的方法是：</p>
-<pre><code>go mod init go_play
-</code></pre><p>按照图中的依赖关系，可以用<code>module_name/package_name</code>的方式<code>import</code>同一<code>module</code>下的其他<code>package</code>，例如在<code>bar.go</code>中可以是：</p>
-<pre><code>package bar
+    <p><a class="link" href="https://play.golang.org/p/RauyvzGUMHZ"  target="_blank" rel="noopener"
+    >Play</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
-import (
-	&quot;fmt&quot;
-	_ &quot;go_play/biz&quot;
-)
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;context&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
 
-func init() {
-	fmt.Println(&quot;bar.....&quot;)
-}
-</code></pre><p>此时，如果<code>biz</code>中有<code>init</code>函数则执行之。</p>
-<h3 id="情况二">情况二</h3>
-<p>第二种情况，新增<code>module</code>，其目录结构：</p>
-<pre><code>go_play_another
-├── baz
-│   ├── baz.go
-│   └── baz_test.go
-└── go.mod
-</code></pre><p>可以用同样的方法（<code>module_name/package_name</code>）<code>import</code>其他<code>module</code>下的<code>package</code>，但需要在<code>go.mod</code>中声明依赖：</p>
-<pre><code>module go_play_another
+<span class="kd">type</span> <span class="nx">Foo</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ctx</span>    <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+	<span class="nx">cancel</span> <span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span>
+	<span class="nx">ch</span>     <span class="kd">chan</span> <span class="kt">int</span>
+<span class="p">}</span>
 
-go 1.12
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Foo</span><span class="p">)</span> <span class="nf">r1</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">i</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">f</span><span class="p">.</span><span class="nx">ch</span><span class="p">:</span>
+			<span class="nb">println</span><span class="p">(</span><span class="s">&#34;r1 print: &#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">f</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="nb">println</span><span class="p">(</span><span class="s">&#34;Foo.r1() routine exit&#34;</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
-require go_play v0.0.0
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Foo</span><span class="p">)</span> <span class="nf">r2</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">i</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">f</span><span class="p">.</span><span class="nx">ch</span><span class="p">:</span>
+			<span class="nb">println</span><span class="p">(</span><span class="s">&#34;r2 print: &#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">f</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="nb">println</span><span class="p">(</span><span class="s">&#34;Foo.r2() routine exit&#34;</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
-replace go_play =&gt; ../go_play
-</code></pre><p>这里的关键是<code>replace</code>后的内容，将一个共享的<code>module</code>替换成本地<code>module</code>所在的目录。</p>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Foo</span><span class="p">)</span> <span class="nf">r3</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">i</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">f</span><span class="p">.</span><span class="nx">ch</span><span class="p">:</span>
+			<span class="nb">println</span><span class="p">(</span><span class="s">&#34;r3 print: &#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">f</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+			<span class="nb">println</span><span class="p">(</span><span class="s">&#34;Foo.r3() routine exit&#34;</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">1</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+	<span class="nx">f</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Foo</span><span class="p">{</span>
+		<span class="nx">ch</span><span class="p">:</span>     <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">),</span>
+		<span class="nx">ctx</span><span class="p">:</span>    <span class="nx">ctx</span><span class="p">,</span>
+		<span class="nx">cancel</span><span class="p">:</span> <span class="nx">cancel</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="k">go</span> <span class="nx">f</span><span class="p">.</span><span class="nf">r1</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nx">f</span><span class="p">.</span><span class="nf">r2</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nx">f</span><span class="p">.</span><span class="nf">r3</span><span class="p">()</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">f</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">i</span>
+		<span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">go</span> <span class="nx">f</span><span class="p">.</span><span class="nf">cancel</span><span class="p">()</span>
+	<span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nb">println</span><span class="p">(</span><span class="s">&#34;main routine exit&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 </section>
 
 
@@ -285,24 +277,24 @@ replace go_play =&gt; ../go_play
                 
                     
 <article class="">
-    <a href="https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">使用Context控制多个goroutine</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="">
     <a href="https://zqkgo.github.io/p/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">Go中复制map可能遇到坑</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="https://zqkgo.github.io/p/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Module本地依赖的两种玩法</h2>
         </div>
     </a>
 </article>
