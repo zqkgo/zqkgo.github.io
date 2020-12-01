@@ -6,7 +6,155 @@
         <description>Recent content on Z.Q.K 张乾坤</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 30 Nov 2020 16:59:49 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 01 Dec 2020 05:32:02 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Anki编辑器如何将输入同步到对象</title>
+        <link>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
+        <pubDate>Tue, 01 Dec 2020 05:32:02 +0800</pubDate>
+        
+        <guid>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
+        <description>&lt;pre&gt;&lt;code&gt;Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;设置&lt;code&gt;Editor&lt;/code&gt;的&lt;code&gt;webview&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;Editor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Editor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setupWeb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EditorWebView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AnkiWebView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AnkiWebView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;QWebEngineView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AnkiWebView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setPage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_page&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;webview&lt;/code&gt;需要一个页面：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_page&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AnkiWebPage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_onBridgeCmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过&lt;a class=&#34;link&#34; href=&#34;https://doc.qt.io/qt-5/qwebchannel.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;QWebChannel&lt;/a&gt;实现web页面中的&lt;code&gt;JS&lt;/code&gt;和&lt;code&gt;Python&lt;/code&gt;之间的通讯：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;AnkiWebPage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;QWebEnginePage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AnkiWebPage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_setupBridge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_setupBridge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Bridge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;QObject&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;nd&#34;&gt;@pyqtSlot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+            &lt;span class=&#34;c1&#34;&gt;# 被JS代码调用的方法&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dumps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;onCmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_bridge&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Bridge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_bridge&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;onCmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_onCmd&lt;/span&gt;
+
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_channel&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;QWebChannel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_channel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registerObject&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;py&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_bridge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setWebChannel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_channel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;js&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;QFile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;:/qtwebchannel/qwebchannel.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;assert&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;js&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;open&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;QIODevice&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ReadOnly&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;js&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;js&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;readAll&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;QWebEngineScript&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setSourceCode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;js&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;        var pycmd;
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;        new QWebChannel(qt.webChannelTransport, function(channel) {
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;            // 向python发送消息
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;            pycmd = function (arg, cb) {
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                var resultCB = function (res) {
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                    // pass result back to user-provided callback
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                    if (cb) {
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                        cb(JSON.parse(res));
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                    }
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                }
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                // 调用名称为&amp;#34;py&amp;#34;的对象的cmd方法
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                channel.objects.py.cmd(arg, resultCB);
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                return false;                   
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;            }
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;            pycmd(&amp;#34;domDone&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;        });
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setWorldId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;QWebEngineScript&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MainWorld&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setInjectionPoint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;QWebEngineScript&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DocumentReady&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setRunsOnSubFrames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;profile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scripts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;insert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当字段内容更新时，&lt;code&gt;JS&lt;/code&gt;需要通知&lt;code&gt;Python&lt;/code&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;editor.js
+---------
+function setFields(fields) {
+    let txt = &amp;quot;&amp;quot;;
+    for (let i = 0; i &amp;lt; fields.length; i++) {
+        const n = fields[i][0];
+        let f = fields[i][1];
+        if (!f) {
+            f = &amp;quot;&amp;lt;br&amp;gt;&amp;quot;;
+        }
+        txt += `
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td class=fname id=&amp;quot;name${i}&amp;quot;&amp;gt;${n}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td width=100%&amp;gt;
+                &amp;lt;div id=f${i}
+                     onkeydown=&#39;onKey(window.event);&#39;
+                     oninput=&#39;onInput();&#39;
+                     onmouseup=&#39;onKey(window.event);&#39;
+                     &amp;lt;!----&amp;gt;
+                     onfocus=&#39;onFocus(this);&#39;
+                     onblur=&#39;onBlur();&#39;
+                     class=&#39;field clearfix&#39;
+                     ondragover=&#39;onDragOver(this);&#39;
+                     onpaste=&#39;onPaste(this);&#39;
+                     oncopy=&#39;onCutOrCopy(this);&#39;
+                     oncut=&#39;onCutOrCopy(this);&#39;
+                     contentEditable=true
+                     class=field
+                &amp;gt;${f}&amp;lt;/div&amp;gt;
+            &amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;`;
+    }
+    $(&amp;quot;#fields&amp;quot;).html(`
+    &amp;lt;table cellpadding=0 width=100% style=&#39;table-layout: fixed;&#39;&amp;gt;
+${txt}
+    &amp;lt;/table&amp;gt;`);
+    maybeDisableButtons();
+}
+
+function onBlur() {
+    if (!currentField) {
+        return;
+    }
+    // 当前输入框内容变化，或光标失焦，发送事件到Anki
+    if (document.activeElement === currentField) {
+        // other widget or window focused; current field unchanged
+        saveField(&amp;quot;key&amp;quot;);
+    }
+    else {
+        saveField(&amp;quot;blur&amp;quot;);
+        currentField = null;
+        disableButtons();
+    }
+}
+
+// 关键函数
+function saveField(type) {
+    clearChangeTimer();
+    if (!currentField) {
+        // no field has been focused yet
+        return;
+    }
+    // type is either &#39;blur&#39; or &#39;key&#39;
+    pycmd(type +
+        &amp;quot;:&amp;quot; +
+        currentFieldOrdinal() +
+        &amp;quot;:&amp;quot; +
+        currentNoteId +
+        &amp;quot;:&amp;quot; +
+        currentField.innerHTML);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此时&lt;code&gt;JS&lt;/code&gt;可通过&lt;code&gt;pycmd()&lt;/code&gt;函数向&lt;code&gt;Python&lt;/code&gt;发送事件，事件处理路径：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Bridge.cmd()
+  -&amp;gt; AnkiWebPage._onCmd()
+    -&amp;gt; AnkiWebView._onBridgeCmd()
+      -&amp;gt; 处理domDone事件
+      -&amp;gt; Editor.onBridgeCmd()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当输入框更新时，&lt;code&gt;Editor.onBridgeCmd()&lt;/code&gt;会收到来自&lt;code&gt;JS&lt;/code&gt;的事件&lt;code&gt;cmd&lt;/code&gt;，其格式类似于：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;key:0:1606804714569:太阳距地距离？
+key:1:1606804714569:1.496*10^8千米
+blur:1:1606804714569:1.496*10^8千米
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;Anki&lt;/code&gt;按照约定的格式进行解析，保存到&lt;code&gt;Editor.note&lt;/code&gt;对象。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>使用Context实现超时监控</title>
         <link>https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/</link>
         <pubDate>Mon, 30 Nov 2020 16:59:49 +0800</pubDate>

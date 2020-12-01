@@ -6,7 +6,19 @@
     <description>Recent content in anki on Z.Q.K 张乾坤</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Nov 2020 14:20:43 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/categories/anki/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Dec 2020 05:32:02 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/categories/anki/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anki编辑器如何将输入同步到对象</title>
+      <link>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Tue, 01 Dec 2020 05:32:02 +0800</pubDate>
+      
+      <guid>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
+      <description>Anki版本信息 ----------- Tag：2.1.26 Commit ID: 70784154 设置Editor的webview：
+Editor.__init__() -&amp;gt; Editor.setupWeb() -&amp;gt; EditorWebView(AnkiWebView).__init__() -&amp;gt; AnkiWebView(QWebEngineView).__init__() -&amp;gt; AnkiWebView.setPage(self._page) webview需要一个页面：
+self._page = AnkiWebPage(self._onBridgeCmd) 通过QWebChannel实现web页面中的JS和Python之间的通讯：
+AnkiWebPage(QWebEnginePage).__init__() -&amp;gt; AnkiWebPage._setupBridge() def _setupBridge(self): class Bridge(QObject): @pyqtSlot(str, result=str) def cmd(self, str): # 被JS代码调用的方法 return json.dumps(self.onCmd(str)) self._bridge = Bridge() self._bridge.onCmd = self._onCmd self._channel = QWebChannel(self) self._channel.registerObject(&amp;#34;py&amp;#34;, self._bridge) self.setWebChannel(self._channel) js = QFile(&amp;#34;:/qtwebchannel/qwebchannel.js&amp;#34;) assert js.open(QIODevice.ReadOnly) js = bytes(js.readAll()).decode(&amp;#34;utf-8&amp;#34;) script = QWebEngineScript() script.setSourceCode( js + &amp;#34;&amp;#34;&amp;#34; var pycmd; new QWebChannel(qt.webChannelTransport, function(channel) { // 向python发送消息 pycmd = function (arg, cb) { var resultCB = function (res) { // pass result back to user-provided callback if (cb) { cb(JSON.</description>
+    </item>
+    
     <item>
       <title>Anki新卡片顺序</title>
       <link>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
