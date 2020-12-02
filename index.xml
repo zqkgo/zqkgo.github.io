@@ -6,7 +6,37 @@
         <description>Recent content on Z.Q.K 张乾坤</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 01 Dec 2020 05:32:02 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 02 Dec 2020 17:55:36 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>I&#39;m The Lead Programmer!</title>
+        <link>https://zqkgo.github.io/p/im-the-lead-programmer/</link>
+        <pubDate>Wed, 02 Dec 2020 17:55:36 +0800</pubDate>
+        
+        <guid>https://zqkgo.github.io/p/im-the-lead-programmer/</guid>
+        <description>&lt;p&gt;&lt;img src=&#34;https://zqkgo.github.io/images/lead.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Anki中一张卡片的间隔变化情况</title>
+        <link>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</link>
+        <pubDate>Wed, 02 Dec 2020 13:56:11 +0800</pubDate>
+        
+        <guid>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</guid>
+        <description>&lt;p&gt;新卡片生成后，关闭新增卡片窗口&lt;code&gt;AddCards&lt;/code&gt;，触发调度器重置&lt;code&gt;Scheduler.reset()&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;reset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_updateCutoff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetLrn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetRev&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetNew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_haveQueues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;新卡片队列&lt;code&gt;Scheduler._newQueue&lt;/code&gt;被清空，并且更新显示新卡片的&lt;code&gt;频率系数&lt;/code&gt;（名字自取）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_resetNew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetNewCount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_newDids&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;col&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()[:]&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_newQueue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_updateNewCardRatio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
         <title>Anki编辑器如何将输入同步到对象</title>
         <link>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
         <pubDate>Tue, 01 Dec 2020 05:32:02 +0800</pubDate>
