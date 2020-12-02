@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us"><head>
     <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='假设需要从注册中心获取某个服务的多个节点，当超过某个时间则返回获取失败的错误信息，例：
-// ... ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second) defer cancel() done := make(chan struct{}) go func() { rs, err = watcher.Next() if err != nil { log.Error(&amp;#34;failed to watch service: %s, err: %v&amp;#34;, conf.Conf.CometServiceName, err) close(done) } log.Debug(&amp;#34;service registry result: %&#43;v, len(rs.Service.Nodes): %d&amp;#34;, rs, len(rs.Service.Nodes)) if len(rs.Service.Nodes) != 0 { close(done) } }() select { case &amp;lt;-done: case &amp;lt;-ctx.Done(): return fmt.Errorf(&amp;#34;failed to fetch nodes due to timeout&amp;#34;) } // ... '><title>使用Context实现超时监控</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='   版本号 v1.0.0     状态 DRAFT   上线时间 待定   模块负责人 xxx   当前开发者 xxx   QA 待定    排期    任务 计划时间 实际时间 日期 状态 备注     - - - - - -    功能简介 接口列表 设计思路 逻辑结构 Redis数据结构    # Instance Structure Key Field Value/Score 说明     1          MySQL数据结构 消息通道数据格式 涉及站点 涉及服务 尚未完整交付项 近期相关线上问题与优化措施 '><title>一个技术方案模板</title>
     
-    <link rel='canonical' href='https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/'>
+    <link rel='canonical' href='https://zqkgo.github.io/p/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='使用Context实现超时监控'>
-<meta property='og:description' content='假设需要从注册中心获取某个服务的多个节点，当超过某个时间则返回获取失败的错误信息，例：
-// ... ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second) defer cancel() done := make(chan struct{}) go func() { rs, err = watcher.Next() if err != nil { log.Error(&amp;#34;failed to watch service: %s, err: %v&amp;#34;, conf.Conf.CometServiceName, err) close(done) } log.Debug(&amp;#34;service registry result: %&#43;v, len(rs.Service.Nodes): %d&amp;#34;, rs, len(rs.Service.Nodes)) if len(rs.Service.Nodes) != 0 { close(done) } }() select { case &amp;lt;-done: case &amp;lt;-ctx.Done(): return fmt.Errorf(&amp;#34;failed to fetch nodes due to timeout&amp;#34;) } // ... '>
-<meta property='og:url' content='https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='一个技术方案模板'>
+<meta property='og:description' content='   版本号 v1.0.0     状态 DRAFT   上线时间 待定   模块负责人 xxx   当前开发者 xxx   QA 待定    排期    任务 计划时间 实际时间 日期 状态 备注     - - - - - -    功能简介 接口列表 设计思路 逻辑结构 Redis数据结构    # Instance Structure Key Field Value/Score 说明     1          MySQL数据结构 消息通道数据格式 涉及站点 涉及服务 尚未完整交付项 近期相关线上问题与优化措施 '>
+<meta property='og:url' content='https://zqkgo.github.io/p/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/'>
 <meta property='og:site_name' content='Z.Q.K 张乾坤'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='golang' /><meta property='article:tag' content='context' /><meta property='article:published_time' content='2020-11-30T16:59:49&#43;08:00'/><meta property='article:modified_time' content='2020-11-30T16:59:49&#43;08:00'/>
-<meta name="twitter:title" content="使用Context实现超时监控">
-<meta name="twitter:description" content="假设需要从注册中心获取某个服务的多个节点，当超过某个时间则返回获取失败的错误信息，例：
-// ... ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second) defer cancel() done := make(chan struct{}) go func() { rs, err = watcher.Next() if err != nil { log.Error(&amp;#34;failed to watch service: %s, err: %v&amp;#34;, conf.Conf.CometServiceName, err) close(done) } log.Debug(&amp;#34;service registry result: %&#43;v, len(rs.Service.Nodes): %d&amp;#34;, rs, len(rs.Service.Nodes)) if len(rs.Service.Nodes) != 0 { close(done) } }() select { case &amp;lt;-done: case &amp;lt;-ctx.Done(): return fmt.Errorf(&amp;#34;failed to fetch nodes due to timeout&amp;#34;) } // ... "></head><body class="">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='common' /><meta property='article:published_time' content='2020-12-02T18:03:10&#43;08:00'/><meta property='article:modified_time' content='2020-12-02T18:03:10&#43;08:00'/>
+<meta name="twitter:title" content="一个技术方案模板">
+<meta name="twitter:description" content="   版本号 v1.0.0     状态 DRAFT   上线时间 待定   模块负责人 xxx   当前开发者 xxx   QA 待定    排期    任务 计划时间 实际时间 日期 状态 备注     - - - - - -    功能简介 接口列表 设计思路 逻辑结构 Redis数据结构    # Instance Structure Key Field Value/Score 说明     1          MySQL数据结构 消息通道数据格式 涉及站点 涉及服务 尚未完整交付项 近期相关线上问题与优化措施 "></head><body class="">
         <div class="container flex on-phone--column align-items--flex-start extended article-page with-toolbar">
             <aside class="sidebar left-sidebar sticky">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
@@ -150,7 +147,7 @@
     
 
     <h2 class="article-title">
-        <a href="https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/">使用Context实现超时监控</a>
+        <a href="https://zqkgo.github.io/p/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/">一个技术方案模板</a>
     </h2>
 
     <footer class="article-time">
@@ -162,34 +159,100 @@
 
 
 
-        <time class="article-time--published">Nov 30, 2020</time>
+        <time class="article-time--published">Dec 02, 2020</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <p>假设需要从注册中心获取某个服务的多个节点，当超过某个时间则返回获取失败的错误信息，例：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ...
-</span><span class="c1"></span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">10</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-<span class="k">defer</span> <span class="nf">cancel</span><span class="p">()</span>
-<span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
-<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">rs</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">watcher</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;failed to watch service: %s, err: %v&#34;</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">Conf</span><span class="p">.</span><span class="nx">CometServiceName</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-        <span class="nb">close</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Debug</span><span class="p">(</span><span class="s">&#34;service registry result: %+v, len(rs.Service.Nodes): %d&#34;</span><span class="p">,</span> <span class="nx">rs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">rs</span><span class="p">.</span><span class="nx">Service</span><span class="p">.</span><span class="nx">Nodes</span><span class="p">))</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">rs</span><span class="p">.</span><span class="nx">Service</span><span class="p">.</span><span class="nx">Nodes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="nb">close</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}()</span>
-<span class="k">select</span> <span class="p">{</span>
-<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">done</span><span class="p">:</span>
-<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
-    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;failed to fetch nodes due to timeout&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="c1">// ...
-</span></code></pre></div>
+    <table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+<th>v1.0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">状态</td>
+<td><strong>DRAFT</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">上线时间</td>
+<td>待定</td>
+</tr>
+<tr>
+<td style="text-align:left">模块负责人</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td style="text-align:left">当前开发者</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td style="text-align:left">QA</td>
+<td>待定</td>
+</tr>
+</tbody>
+</table>
+<h2 id="排期">排期</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">任务</th>
+<th style="text-align:left">计划时间</th>
+<th style="text-align:left">实际时间</th>
+<th style="text-align:left">日期</th>
+<th style="text-align:left">状态</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="功能简介">功能简介</h2>
+<h2 id="接口列表"><strong>接口列表</strong></h2>
+<h2 id="设计思路"><strong>设计思路</strong></h2>
+<h2 id="逻辑结构"><strong>逻辑结构</strong></h2>
+<h2 id="redis数据结构"><strong>Redis数据结构</strong></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">#</th>
+<th style="text-align:left">Instance</th>
+<th style="text-align:left">Structure</th>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Field</th>
+<th style="text-align:left">Value/Score</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="mysql数据结构"><strong>MySQL数据结构</strong></h2>
+<h2 id="消息通道数据格式"><strong>消息通道数据格式</strong></h2>
+<h2 id="涉及站点"><strong>涉及站点</strong></h2>
+<h2 id="涉及服务"><strong>涉及服务</strong></h2>
+<h2 id="尚未完整交付项"><strong>尚未完整交付项</strong></h2>
+<h2 id="近期相关线上问题与优化措施"><strong>近期相关线上问题与优化措施</strong></h2>
+
 </section>
 
 
@@ -198,11 +261,7 @@
     <section class="article-tags">
         
             
-                <a href="https://zqkgo.github.io/tags/golang/">Golang</a>
-            
-        
-            
-                <a href="https://zqkgo.github.io/tags/context/">Context</a>
+                <a href="https://zqkgo.github.io/tags/common/">Common</a>
             
         
     </section>
@@ -234,36 +293,36 @@
                 
                     
 <article class="">
-    <a href="https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">使用Context控制多个goroutine</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="">
-    <a href="https://zqkgo.github.io/p/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">一个技术方案模板</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="">
     <a href="https://zqkgo.github.io/p/im-the-lead-programmer/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">I&#39;m The Lead Programmer!</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用Context实现超时监控</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="https://zqkgo.github.io/p/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用Context控制多个goroutine</h2>
         </div>
     </a>
 </article>

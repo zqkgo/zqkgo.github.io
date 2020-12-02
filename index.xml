@@ -6,7 +6,103 @@
         <description>Recent content on Z.Q.K 张乾坤</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 02 Dec 2020 17:55:36 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 02 Dec 2020 18:03:10 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>一个技术方案模板</title>
+        <link>https://zqkgo.github.io/p/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/</link>
+        <pubDate>Wed, 02 Dec 2020 18:03:10 +0800</pubDate>
+        
+        <guid>https://zqkgo.github.io/p/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/</guid>
+        <description>&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;版本号&lt;/th&gt;
+&lt;th&gt;v1.0.0&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;状态&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DRAFT&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;上线时间&lt;/td&gt;
+&lt;td&gt;待定&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;模块负责人&lt;/td&gt;
+&lt;td&gt;xxx&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;当前开发者&lt;/td&gt;
+&lt;td&gt;xxx&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;QA&lt;/td&gt;
+&lt;td&gt;待定&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;排期&#34;&gt;排期&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;任务&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;计划时间&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;实际时间&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;日期&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;状态&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;备注&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;功能简介&#34;&gt;功能简介&lt;/h2&gt;
+&lt;h2 id=&#34;接口列表&#34;&gt;&lt;strong&gt;接口列表&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;设计思路&#34;&gt;&lt;strong&gt;设计思路&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;逻辑结构&#34;&gt;&lt;strong&gt;逻辑结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;redis数据结构&#34;&gt;&lt;strong&gt;Redis数据结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;#&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Instance&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Structure&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Key&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Field&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Value/Score&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;mysql数据结构&#34;&gt;&lt;strong&gt;MySQL数据结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;消息通道数据格式&#34;&gt;&lt;strong&gt;消息通道数据格式&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;涉及站点&#34;&gt;&lt;strong&gt;涉及站点&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;涉及服务&#34;&gt;&lt;strong&gt;涉及服务&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;尚未完整交付项&#34;&gt;&lt;strong&gt;尚未完整交付项&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;近期相关线上问题与优化措施&#34;&gt;&lt;strong&gt;近期相关线上问题与优化措施&lt;/strong&gt;&lt;/h2&gt;
+</description>
+        </item>
+        <item>
         <title>I&#39;m The Lead Programmer!</title>
         <link>https://zqkgo.github.io/p/im-the-lead-programmer/</link>
         <pubDate>Wed, 02 Dec 2020 17:55:36 +0800</pubDate>
