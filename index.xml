@@ -112,11 +112,11 @@
 </description>
         </item>
         <item>
-        <title>Anki中一张卡片的间隔变化情况</title>
-        <link>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</link>
+        <title>Anki中一张卡片的复习间隔如何变化</title>
+        <link>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E5%A4%8D%E4%B9%A0%E9%97%B4%E9%9A%94%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96/</link>
         <pubDate>Wed, 02 Dec 2020 13:56:11 +0800</pubDate>
         
-        <guid>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</guid>
+        <guid>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E5%A4%8D%E4%B9%A0%E9%97%B4%E9%9A%94%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96/</guid>
         <description>&lt;p&gt;新卡片生成后，关闭新增卡片窗口&lt;code&gt;AddCards&lt;/code&gt;，触发调度器重置&lt;code&gt;Scheduler.reset()&lt;/code&gt;：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;reset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_updateCutoff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
@@ -124,13 +124,32 @@
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetRev&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetNew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_haveQueues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;新卡片队列&lt;code&gt;Scheduler._newQueue&lt;/code&gt;被清空，并且更新显示新卡片的&lt;code&gt;频率系数&lt;/code&gt;（名字自取）：&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;新卡片队列&lt;code&gt;Scheduler._newQueue&lt;/code&gt;被清空，并且更新显示新卡片的&lt;a class=&#34;link&#34; href=&#34;&#34; &gt;频率系数&lt;/a&gt;：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_resetNew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_resetNewCount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_newDids&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;col&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()[:]&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_newQueue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
     &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_updateNewCardRatio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当没有到期的&lt;em&gt;学习中卡片&lt;/em&gt;时，调度器尝试获取&lt;em&gt;新卡片&lt;/em&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_getNewCard&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Optional&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Card&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_fillNew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;col&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getCard&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_newQueue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;新卡片&lt;/em&gt;的显示顺序参考&lt;a class=&#34;link&#34; href=&#34;https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/&#34; &gt;Anki新卡片顺序&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;新卡片&lt;/em&gt;和&lt;em&gt;学习中卡片&lt;/em&gt;有三个回答按钮：Again、Good、Easy，无论回答哪个都会先变成&lt;em&gt;学习中卡片&lt;/em&gt;，然后按照回答的难易程度对之处理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;回答Again，等待第一个间隔（step）的时间点到达。&lt;/li&gt;
+&lt;li&gt;回答Good
+&lt;ul&gt;
+&lt;li&gt;如果没有剩余的间隔，则直接变成&lt;em&gt;复习卡片&lt;/em&gt;，默认间隔是1天，取决于&lt;strong&gt;Graduating interval&lt;/strong&gt;配置项。&lt;/li&gt;
+&lt;li&gt;如果有剩余间隔，更新卡片的剩余间隔&lt;code&gt;card.left&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;回答Easy，直接变成&lt;em&gt;复习卡片&lt;/em&gt;，默认间隔是4天，取决于&lt;strong&gt;Easy interval&lt;/strong&gt;配置项。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&amp;lt;未完待续&amp;gt;&lt;/strong&gt;&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Anki编辑器如何将输入同步到对象</title>

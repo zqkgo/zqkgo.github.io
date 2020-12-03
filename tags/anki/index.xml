@@ -8,14 +8,17 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 02 Dec 2020 13:56:11 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/anki/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Anki中一张卡片的间隔变化情况</title>
-      <link>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</link>
+      <title>Anki中一张卡片的复习间隔如何变化</title>
+      <link>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E5%A4%8D%E4%B9%A0%E9%97%B4%E9%9A%94%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96/</link>
       <pubDate>Wed, 02 Dec 2020 13:56:11 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</guid>
+      <guid>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E5%A4%8D%E4%B9%A0%E9%97%B4%E9%9A%94%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96/</guid>
       <description>新卡片生成后，关闭新增卡片窗口AddCards，触发调度器重置Scheduler.reset()：
-def reset(self) -&amp;gt; None: self._updateCutoff() self._resetLrn() self._resetRev() self._resetNew() self._haveQueues = True 新卡片队列Scheduler._newQueue被清空，并且更新显示新卡片的频率系数（名字自取）：
-def _resetNew(self) -&amp;gt; None: self._resetNewCount() self._newDids = self.col.decks.active()[:] self._newQueue: List[int] = [] self._updateNewCardRatio() </description>
+def reset(self) -&amp;gt; None: self._updateCutoff() self._resetLrn() self._resetRev() self._resetNew() self._haveQueues = True 新卡片队列Scheduler._newQueue被清空，并且更新显示新卡片的频率系数：
+def _resetNew(self) -&amp;gt; None: self._resetNewCount() self._newDids = self.col.decks.active()[:] self._newQueue: List[int] = [] self._updateNewCardRatio() 当没有到期的学习中卡片时，调度器尝试获取新卡片：
+def _getNewCard(self) -&amp;gt; Optional[Card]: if self._fillNew(): self.newCount -= 1 return self.col.getCard(self._newQueue.pop()) return None 新卡片的显示顺序参考Anki新卡片顺序。
+新卡片和学习中卡片有三个回答按钮：Again、Good、Easy，无论回答哪个都会先变成学习中卡片，然后按照回答的难易程度对之处理：
+ 回答Again，等待第一个间隔（step）的时间点到达。 回答Good  如果没有剩余的间隔，则直接变成复习卡片，默认间隔是1天，取决于Graduating interval配置项。 如果有剩余间隔，更新卡片的剩余间隔card.left。   回答Easy，直接变成复习卡片，默认间隔是4天，取决于Easy interval配置项。  &amp;lt;未完待续&amp;gt;</description>
     </item>
     
     <item>
