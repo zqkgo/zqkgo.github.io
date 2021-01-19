@@ -61,7 +61,7 @@
     self<span style="color:#f92672">.</span>_resetRev()
     self<span style="color:#f92672">.</span>_resetNew()
     self<span style="color:#f92672">.</span>_haveQueues <span style="color:#f92672">=</span> True
-</code></pre></div><p>新卡片队列<code>Scheduler._newQueue</code>被清空，并且更新显示新卡片的<a href="">频率系数</a>：</p>
+</code></pre></div><p>新卡片队列<code>Scheduler._newQueue</code>被清空，并且更新显示新卡片的频率系数：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_resetNew</span>(self) <span style="color:#f92672">-&gt;</span> None:
     self<span style="color:#f92672">.</span>_resetNewCount()
     self<span style="color:#f92672">.</span>_newDids <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>col<span style="color:#f92672">.</span>decks<span style="color:#f92672">.</span>active()[:]
