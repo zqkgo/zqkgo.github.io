@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>growth on Z.Q.K 张乾坤</title>
-    <link>https://zqkgo.github.io/categories/growth/</link>
-    <description>Recent content in growth on Z.Q.K 张乾坤</description>
+    <title>growth on 张乾坤&#39;s BLOG</title>
+    <link>/categories/growth/</link>
+    <description>Recent content in growth on 张乾坤&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://zqkgo.github.io/categories/growth/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="/categories/growth/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

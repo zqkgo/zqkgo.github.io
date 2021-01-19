@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Z.Q.K 张乾坤</title>
-    <link>https://zqkgo.github.io/tags/</link>
-    <description>Recent content in Tags on Z.Q.K 张乾坤</description>
+    <title>Tags on 张乾坤&#39;s BLOG</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on 张乾坤&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 18:03:10 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Dec 2020 18:03:10 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>common</title>
-      <link>https://zqkgo.github.io/tags/common/</link>
+      <link>/tags/common/</link>
       <pubDate>Wed, 02 Dec 2020 18:03:10 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/common/</guid>
+      <guid>/tags/common/</guid>
       <description></description>
     </item>
     
     <item>
       <title>anki</title>
-      <link>https://zqkgo.github.io/tags/anki/</link>
+      <link>/tags/anki/</link>
       <pubDate>Wed, 02 Dec 2020 13:56:11 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/anki/</guid>
+      <guid>/tags/anki/</guid>
       <description></description>
     </item>
     
     <item>
       <title>context</title>
-      <link>https://zqkgo.github.io/tags/context/</link>
+      <link>/tags/context/</link>
       <pubDate>Mon, 30 Nov 2020 16:59:49 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/context/</guid>
+      <guid>/tags/context/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang</title>
-      <link>https://zqkgo.github.io/tags/golang/</link>
+      <link>/tags/golang/</link>
       <pubDate>Mon, 30 Nov 2020 16:59:49 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/golang/</guid>
+      <guid>/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>go</title>
-      <link>https://zqkgo.github.io/tags/go/</link>
+      <link>/tags/go/</link>
       <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/go/</guid>
+      <guid>/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hugo</title>
-      <link>https://zqkgo.github.io/tags/hugo/</link>
+      <link>/tags/hugo/</link>
       <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/hugo/</guid>
+      <guid>/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cache</title>
-      <link>https://zqkgo.github.io/tags/cache/</link>
+      <link>/tags/cache/</link>
       <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/cache/</guid>
+      <guid>/tags/cache/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mysql</title>
-      <link>https://zqkgo.github.io/tags/mysql/</link>
+      <link>/tags/mysql/</link>
       <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/mysql/</guid>
+      <guid>/tags/mysql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>network</title>
-      <link>https://zqkgo.github.io/tags/network/</link>
+      <link>/tags/network/</link>
       <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/network/</guid>
+      <guid>/tags/network/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PHP</title>
-      <link>https://zqkgo.github.io/tags/php/</link>
+      <link>/tags/php/</link>
       <pubDate>Sat, 08 Jun 2019 21:54:53 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/php/</guid>
+      <guid>/tags/php/</guid>
       <description></description>
     </item>
     
     <item>
       <title>c语言</title>
-      <link>https://zqkgo.github.io/tags/c%E8%AF%AD%E8%A8%80/</link>
+      <link>/tags/c%E8%AF%AD%E8%A8%80/</link>
       <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/tags/c%E8%AF%AD%E8%A8%80/</guid>
+      <guid>/tags/c%E8%AF%AD%E8%A8%80/</guid>
       <description></description>
     </item>
     

@@ -1,50 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>anki on Z.Q.K 张乾坤</title>
-    <link>https://zqkgo.github.io/tags/anki/</link>
-    <description>Recent content in anki on Z.Q.K 张乾坤</description>
+    <title>anki on 张乾坤&#39;s BLOG</title>
+    <link>/tags/anki/</link>
+    <description>Recent content in anki on 张乾坤&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 13:56:11 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/anki/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Dec 2020 13:56:11 +0800</lastBuildDate><atom:link href="/tags/anki/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Anki中一张卡片的复习间隔如何变化</title>
-      <link>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E5%A4%8D%E4%B9%A0%E9%97%B4%E9%9A%94%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96/</link>
+      <link>/post/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</link>
       <pubDate>Wed, 02 Dec 2020 13:56:11 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E5%A4%8D%E4%B9%A0%E9%97%B4%E9%9A%94%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96/</guid>
-      <description>新卡片生成后，关闭新增卡片窗口AddCards，触发调度器重置Scheduler.reset()：
-def reset(self) -&amp;gt; None: self._updateCutoff() self._resetLrn() self._resetRev() self._resetNew() self._haveQueues = True 新卡片队列Scheduler._newQueue被清空，并且更新显示新卡片的频率系数：
-def _resetNew(self) -&amp;gt; None: self._resetNewCount() self._newDids = self.col.decks.active()[:] self._newQueue: List[int] = [] self._updateNewCardRatio() 当没有到期的学习中卡片时，调度器尝试获取新卡片：
-def _getNewCard(self) -&amp;gt; Optional[Card]: if self._fillNew(): self.newCount -= 1 return self.col.getCard(self._newQueue.pop()) return None 新卡片的显示顺序参考Anki新卡片顺序。
-新卡片和学习中卡片有三个回答按钮：Again、Good、Easy，无论回答哪个都会先变成学习中卡片，然后按照回答的难易程度对之处理：
- 回答Again，等待第一个间隔（step）的时间点到达。 回答Good  如果没有剩余的间隔，则直接变成复习卡片，默认间隔是1天，取决于Graduating interval配置项。 如果有剩余间隔，更新卡片的剩余间隔card.left。   回答Easy，直接变成复习卡片，默认间隔是4天，取决于Easy interval配置项。  &amp;lt;未完待续&amp;gt;</description>
+      <guid>/post/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</guid>
+      <description>&lt;p&gt;新卡片生成后，关闭新增卡片窗口&lt;code&gt;AddCards&lt;/code&gt;，触发调度器重置&lt;code&gt;Scheduler.reset()&lt;/code&gt;：&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Anki编辑器如何将输入同步到对象</title>
-      <link>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
+      <link>/post/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Tue, 01 Dec 2020 05:32:02 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
-      <description>Anki版本信息 ----------- Tag：2.1.26 Commit ID: 70784154 设置Editor的webview：
-Editor.__init__() -&amp;gt; Editor.setupWeb() -&amp;gt; EditorWebView(AnkiWebView).__init__() -&amp;gt; AnkiWebView(QWebEngineView).__init__() -&amp;gt; AnkiWebView.setPage(self._page) webview需要一个页面：
-self._page = AnkiWebPage(self._onBridgeCmd) 通过QWebChannel实现web页面中的JS和Python之间的通讯：
-AnkiWebPage(QWebEnginePage).__init__() -&amp;gt; AnkiWebPage._setupBridge() def _setupBridge(self): class Bridge(QObject): @pyqtSlot(str, result=str) def cmd(self, str): # 被JS代码调用的方法 return json.dumps(self.onCmd(str)) self._bridge = Bridge() self._bridge.onCmd = self._onCmd self._channel = QWebChannel(self) self._channel.registerObject(&amp;#34;py&amp;#34;, self._bridge) self.setWebChannel(self._channel) js = QFile(&amp;#34;:/qtwebchannel/qwebchannel.js&amp;#34;) assert js.open(QIODevice.ReadOnly) js = bytes(js.readAll()).decode(&amp;#34;utf-8&amp;#34;) script = QWebEngineScript() script.setSourceCode( js + &amp;#34;&amp;#34;&amp;#34; var pycmd; new QWebChannel(qt.webChannelTransport, function(channel) { // 向python发送消息 pycmd = function (arg, cb) { var resultCB = function (res) { // pass result back to user-provided callback if (cb) { cb(JSON.</description>
+      <guid>/post/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
+      <description></description>
     </item>
     
     <item>
       <title>Anki新卡片顺序</title>
-      <link>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
+      <link>/post/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
       <pubDate>Mon, 30 Nov 2020 14:20:43 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
-      <description>Anki版本信息 ----------- Tag：2.1.26 Commit ID: 70784154 新卡片顺序什么时候决定的？ 新增卡片时决定的。
-新卡片顺序如何决定的？ 新增Note的逻辑：
- 找到Note对应的Model（即Note Type）的模板Templates，每个Model可能有多个Templates 获取全局计数器nextPos加1后的值  nextPos是属于Collection的全局配置，保存在config表中 nextPos每次新增卡片会递增1   遍历每个Template，根据Note、Template、Deck等信息生成Card  Card.due属性保存新卡片的到期时间，但对于不同类型的卡，该属性的值不同，参考文档说明 新增卡片时为Card.due赋值  如果Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_DUE，则使用全局计数器nextPos的值  conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]有两种可能的值，NEW_CARDS_DUE和NEW_CARDS_RANDOM，分别对应Deck配置中Show new cards in order added和Show new cards in random order两个配置项，如下图所示：    如果Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_RANDOM则为Card.due属性计算一个随机值      新卡片的顺序值如何查看？ Browser中的Due字段。
-  Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_DUE
-新增4张卡片，如下图所示：   Deck配置项conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]为NEW_CARDS_RANDOM
-新增4张卡片，如下图所示：   </description>
+      <guid>/post/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
+      <description></description>
     </item>
     
   </channel>

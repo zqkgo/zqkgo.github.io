@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>network on Z.Q.K 张乾坤</title>
-    <link>https://zqkgo.github.io/tags/network/</link>
-    <description>Recent content in network on Z.Q.K 张乾坤</description>
+    <title>network on 张乾坤&#39;s BLOG</title>
+    <link>/tags/network/</link>
+    <description>Recent content in network on 张乾坤&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Jun 2019 21:56:26 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jun 2019 21:56:26 +0800</lastBuildDate><atom:link href="/tags/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>数据类型在网络传输中的表现</title>
-      <link>https://zqkgo.github.io/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
+      <link>/post/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
       <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
-      <description>使用弱类型语言（PHP、Python等）开发接口的时候，有时会不考虑数据类型的问题，因为语言的解释器会自动进行类型转换。当一种强类型语言根据文档调用弱类型语言开发的接口，此时弱类型语言的开发者如果没去仔细关注返回的数据类型，结果可能给接口调用方造成不便。
-下面的例程使用PHP开发
-&amp;lt;?php header(&amp;#34;Content-type:application/json&amp;#34;); $arr = [ &amp;#34;hello&amp;#34; =&amp;gt; &amp;#34;world&amp;#34;, &amp;#34;value&amp;#34; =&amp;gt; &amp;#34;100&amp;#34;, &amp;#34;aaaa&amp;#34; =&amp;gt; 100, &amp;#34;chinese&amp;#34; =&amp;gt; &amp;#34;中文字符&amp;#34; ]; echo json_encode($arr); 抓取http报文后可以看到字符串被转换成二进制后的表示如下
-{% asset_img wireshark.png %}
-整型100和字符串&amp;quot;100&amp;quot;的二进制表示的区别在于字符串&amp;quot;100&amp;quot;比整型100多出了两个双引号(&amp;quot;&amp;quot;)
-整型100 =&amp;gt; 00110001 00110000 00110000 字符串&amp;#34;100&amp;#34; =&amp;gt; 00100010 00110001 00110000 00110000 00100010 双引号(&amp;quot;)、1和0的ascii码的二进制表示形式是
-&amp;#34; =&amp;gt; 00100010 1 =&amp;gt; 00110001 0 =&amp;gt; 00110000 所以整型100和字符串&amp;quot;100&amp;quot;在网络传输过程中本质上都是字符串，需要通过ascii转换成对应的二进制。注意，这里中文字符串被转换成了unicode，然后对unicode中的每个字符又对应到ascii转换成相应的二进制，例如：
-中 -&amp;gt; \u4e2d -&amp;gt; 01011100 01110101 00110100 01100101 00110010 01100100 符 -&amp;gt; \u7b26 -&amp;gt; 01011100 01110101 00110111 01100010 00110010 00110110 虽然本质上都是字符串，但http报文被解析之后在应用层的表现形式会是各种数据类型，进而在内存中占用不同的空间。</description>
+      <guid>/post/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
+      <description></description>
     </item>
     
     <item>
       <title>代理小故障排查</title>
-      <link>https://zqkgo.github.io/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
+      <link>/post/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
       <pubDate>Sat, 08 Jun 2019 21:55:46 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
-      <description>昨天下班前按照这里描述装了Fiddler，手机wifi设置代理通过PC上的Fiddler作为代理服务器向外网发送http(s)请求 。
-早上来到，关掉Fiddler，发现所有请求都被代理到127.0.0.1:8888
-$ curl http://www.baidu.com curl: (7) Failed to connect to 127.0.0.1 port 8888: Connection refused 并没有手动更改过网络代理，而登录进来就自动设置了代理，所以需要查看下登录login shells时执行的文件
-cat ~/.profile ... # if running bash if [ -n &amp;#34;$BASH_VERSION&amp;#34; ]; then # include .bashrc if it exists  if [ -f &amp;#34;$HOME/.bashrc&amp;#34; ]; then . &amp;#34;$HOME/.bashrc&amp;#34; fi fi ... $ cat ~/.bashrc ... export http_proxy=&amp;#39;127.0.0.1:8888&amp;#39; export https_proxy=&amp;#39;127.0.0.1:8888&amp;#39; export ftp_proxy=&amp;#39;&amp;#39; export socks_proxy=&amp;#39;&amp;#39; $ ll ~/.bashrc -rw-r--r-- 1 zhangqiankun root 4099 1月 29 17:38 /home/zhangqiankun/.</description>
+      <guid>/post/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
+      <description></description>
     </item>
     
   </channel>

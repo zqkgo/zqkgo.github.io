@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>mysql on Z.Q.K 张乾坤</title>
-    <link>https://zqkgo.github.io/tags/mysql/</link>
-    <description>Recent content in mysql on Z.Q.K 张乾坤</description>
+    <title>mysql on 张乾坤&#39;s BLOG</title>
+    <link>/tags/mysql/</link>
+    <description>Recent content in mysql on 张乾坤&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jun 2019 21:45:40 +0800</lastBuildDate><atom:link href="https://zqkgo.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jun 2019 21:45:40 +0800</lastBuildDate><atom:link href="/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>索引与缓存的坑</title>
-      <link>https://zqkgo.github.io/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+      <link>/post/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
       
-      <guid>https://zqkgo.github.io/p/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
-      <description>以为是一次小改动，欢喜自测上线，没多久500扑面而来。上机器，看日志，数据库连接报错。本地客户端连连看，返回如下：
-ERROR 1203 (42000): User xxx already has more than &amp;#39;max_user_connections&amp;#39; active connections 当前用户的活跃连接超过了max_user_connections的设置，根据文档描述，该设置控制单个MySQL用户能够达到的并发连接数。超过此设置，MySQL连接失败，所有经过数据层的接口都会报500。
-正常情况，这个项目典型的读多写少，读请求占97%以上，缓存早已稳稳加上，绝大多数读请求不会走到数据层，所以一个主库两个从库的连接数比例大概是：
-S:M:S = 1:2:1 在QPS为300到1000的区间时，主库连接数维持在55左右，而两个从库的连接数均维持在20左右，可见大多数请求已被缓存拦下。但是在出现上面的报错时，主库连接数依然维持在55左右，而两个从库连接数则均达到1200左右，基本所有的压力都集中在了从库，典型的缓存雪崩现象。为什么雪崩？别人家是缓存集中过期，而我们家业务代码修改了缓存key，导致缓存在“逻辑”上全部过期，雪崩。
-如果只是数据层的机器出现访问压力，可能还扛得住。但读请求基本全在操作一张表，一千万左右记录，三列上建了唯一索引，例如
-A+B+C 以前的查询条件：
-SELECT * FROM t_name WHERE A=a AND B=b AND C=c; 命中索引，但现在应业务要求要去掉A=a，于是：
-SELECT * FROM t_name WHERE B=b AND C=c; 不符合最左前缀策略，索引未命中，所有查询全表扫描，大量查询时间在60秒到140秒之间。
-四台机器的php-fpm进程数分别为500、500、900、450，而两个从库连接数2400左右，和所有机器进程数相近。可见，这种并发下所有机器的php-fpm进程都在工作，每台机器都达到了pm.max_children的设置。
-怎么办？先回滚。
-问题出现的逻辑：
-缓存key被修改 -&amp;gt; 读库 -&amp;gt; 索引没命中 -&amp;gt; 数据库连接数过多 -&amp;gt; 数据库连接失败 -&amp;gt; 500 这种并发，即使雪崩，只要索引命中，读出的数据入缓存，等旧缓存失效，一切照旧。
-调整索引列顺序：
-B+C+A explain看看：
-+----+-------------+---------+------+----------------+----------------+---------+-------------+------+-----------------------+ | id | select_type | table | type | possible_keys | key | key_len | ref | rows | Extra | +----+-------------+---------+------+----------------+----------------+---------+-------------+------+-----------------------+ | 1 | SIMPLE | xxxxxxx | ref | unq_xxx_xxx_xx | unq_xxx_xxx_xx | 304 | const,const | 1 | Using index condition | +----+-------------+---------+------+----------------+----------------+---------+-------------+------+-----------------------+ 1 row in set (0.</description>
+      <guid>/post/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+      <description></description>
     </item>
     
   </channel>
