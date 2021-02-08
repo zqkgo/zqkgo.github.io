@@ -26,11 +26,11 @@
     </item>
     
     <item>
-      <title>看看slice底层struct的数据结构</title>
-      <link>/post/%E7%9C%8B%E7%9C%8Bslice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</link>
+      <title>slice底层struct的数据结构</title>
+      <link>/post/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</link>
       <pubDate>Thu, 13 Jun 2019 17:51:40 +0800</pubDate>
       
-      <guid>/post/%E7%9C%8B%E7%9C%8Bslice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</guid>
+      <guid>/post/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</guid>
       <description>通过slice成员的地址观察其底层struct的数据结构</description>
     </item>
     
