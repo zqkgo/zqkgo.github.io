@@ -4,7 +4,27 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-12-02T18:03:10+08:00</lastmod>
+    <lastmod>2021-03-16T15:52:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/learning-strategy/</loc>
+    <lastmod>2021-03-16T15:52:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-03-16T15:52:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-03-16T15:52:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</loc>
+    <lastmod>2021-03-16T15:52:39+08:00</lastmod>
   </url>
   
   <url>
@@ -14,11 +34,6 @@
   
   <url>
     <loc>/categories/cs/</loc>
-    <lastmod>2020-12-02T18:03:10+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
     <lastmod>2020-12-02T18:03:10+08:00</lastmod>
   </url>
   
@@ -33,17 +48,7 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-12-02T18:03:10+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/anki/</loc>
-    <lastmod>2020-12-02T13:56:11+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/anki/</loc>
     <lastmod>2020-12-02T13:56:11+08:00</lastmod>
   </url>
   
