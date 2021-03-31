@@ -7,8 +7,25 @@
     <description>Recent content in cs on 张乾坤&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Oct 2020 16:18:14 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 31 Mar 2021 17:31:11 +0800</lastBuildDate>
     <atom:link href="https://zqkgo.github.io/categories/cs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何计算TCP的payload数据大小</title>
+      <link>https://zqkgo.github.io/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
+      <pubDate>Wed, 31 Mar 2021 17:31:11 +0800</pubDate>
+      <guid>https://zqkgo.github.io/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</guid>
+      <description>&lt;p&gt;TCP/IP协议簇每一层协议的PDU有不同的叫法，应用层例如HTTP的PDU叫message、传输层例如TCP的PDU叫segment、网络层例如IP的PDU叫datagram、链路层的PDU叫frame。其中，segment的header结构，从&lt;a href=&#34;https://en.wikipedia.org/wiki/Transmission_Control_Protocol#TCP_segment_structure&#34;&gt;wikipedia&lt;/a&gt;截图，如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zqkgo.github.io/images/tcp_segment_header.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;从上图可以看出，header中没有标识TCP的payload数据大小的字段，只有一个用来存储header大小的&lt;code&gt;Data offset&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;再来看下IPv4的header结构，从&lt;a href=&#34;https://en.wikipedia.org/wiki/IPv4&#34;&gt;wikipedia&lt;/a&gt;截图，如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zqkgo.github.io/images/ipv4_header.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其中&lt;code&gt;IHL&lt;/code&gt;字段的全称是Internet Header Length，存储的是IPv4的header大小，其单位与TCP header的&lt;code&gt;Data offset&lt;/code&gt;相同，都是32位的word即4个字节。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zqkgo.github.io/images/tcpip_simple_layer.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;根据上面各层协议封装关系的简略图可知，只要知道IPv4 datagram的大小，减去两个header，便能得出TCP的payload数据大小。&lt;/p&gt;
+&lt;p&gt;IPv4 datagram的总字节数保存在&lt;code&gt;Total Length&lt;/code&gt;字段中，所以可得最后的计算公式：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;TCP payload = IP header Total Length - (IP header IHL + TCP header Data offset)*4
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     <item>
       <title>彻底搞懂Anki卡片的Due字段</title>
       <link>https://zqkgo.github.io/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</link>
