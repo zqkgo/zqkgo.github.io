@@ -13,33 +13,33 @@
 
 
 
-  <meta itemprop="name" content="张乾坤🔥">
+  <meta itemprop="name" content="张乾坤👀">
 <meta itemprop="description" content="">
 
 
 
 
-  <meta property="og:title" content="张乾坤🔥" />
+  <meta property="og:title" content="张乾坤👀" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zqkgo.github.io/" />
-<meta property="og:updated_time" content="2021-03-31T17:31:11+08:00" />
+<meta property="og:updated_time" content="2021-05-17T08:38:16+08:00" />
 
 
 
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="张乾坤🔥"/>
+<meta name="twitter:title" content="张乾坤👀"/>
 <meta name="twitter:description" content=""/>
 
 
 
 <meta name="generator" content="Hugo 0.79.1" />
-  <title>张乾坤🔥</title>
+  <title>张乾坤👀</title>
   <link rel="canonical" href="/">
 
 
-  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="张乾坤🔥">
+  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="张乾坤👀">
 
   
 
@@ -87,27 +87,6 @@
     
     
     
-    
-    
-  
-    
-    
-    
-      
-      
-    
-    
-    
-  
-    
-    
-    
-    
-    
-  
-    
-    
-    
       
       
     
@@ -135,8 +114,29 @@
     
     
     
+    
+    
+  
+    
+    
+    
       
       
+    
+    
+    
+  
+    
+    
+    
+      
+      
+    
+    
+    
+  
+    
+    
     
     
     
@@ -157,23 +157,23 @@
   <div class="u-wrapper">
     <ul class="Banner">
       <li class="Banner-item Banner-item--title">
-        <a class="Banner-link u-clickable" href="/">张乾坤🔥</a>
+        <a class="Banner-link u-clickable" href="/">张乾坤👀</a>
       </li>
       
         <li class="Banner-item">
-          <a class="Banner-link u-clickable" href="/about/">About</a>
+          <a class="Banner-link u-clickable" href="/about/">🤓About</a>
         </li>
       
         <li class="Banner-item">
-          <a class="Banner-link u-clickable" href="/posts/">Blog</a>
+          <a class="Banner-link u-clickable" href="/posts/">✍️Blog</a>
         </li>
       
         <li class="Banner-item">
-          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+          <a class="Banner-link u-clickable" href="/tags/">🏷️Tags</a>
         </li>
       
         <li class="Banner-item">
-          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+          <a class="Banner-link u-clickable" href="/categories/">🔱Categories</a>
         </li>
       
     </ul>
@@ -186,6 +186,223 @@
 
   
 
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/" rel="bookmark">Go主线程m0</a>
+  </h2>
+  
+    <time datetime="2021-05-17T08:38:16&#43;08:00">17 May, 2021</time>
+  
+</header>
+      
+        <ul>
+<li>Q：Go进程启动时的主线程是？
+<ul>
+<li>A：runtime.m0</li>
+</ul>
+</li>
+<li>Q：Go进程启动的第一个线程是？
+<ul>
+<li>A：runtime.m0</li>
+</ul>
+</li>
+<li>Q：runtime.m0是什么？
+<ul>
+<li>A：Go进程启动时的主线程</li>
+</ul>
+</li>
+<li>Q：m0与Go进程的数量关系？
+<ul>
+<li>A：一个Go进程对应一个m0</li>
+</ul>
+</li>
+<li>Q：runtime.m0与runtime.g0的赋值和初始化在哪里执行？
+<ul>
+<li>A：runtime.rt0_go()汇编函数</li>
+</ul>
+</li>
+</ul>
+
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/" rel="bookmark">延迟关联</a>
+  </h2>
+  
+    <time datetime="2021-05-17T08:16:19&#43;08:00">17 May, 2021</time>
+  
+</header>
+      
+        <p><em>SQL优化</em></p>
+<p>延迟关联</p>
+<ul>
+<li>Q：延迟关联的思路有几步？
+<ul>
+<li>A：两步</li>
+</ul>
+</li>
+<li>Q：延迟关联的思路有哪两步？
+<ul>
+<li>A：先利用二级索引找到所有满足条件的主键索引、使用主键列关联原表从主键索引中找到查询所需的列</li>
+</ul>
+</li>
+<li>Q：- 上面说的是？
+<ul>
+<li>A：延迟关联的两步思路</li>
+</ul>
+</li>
+<li>Q：延迟关联使用了哪两种覆盖索引？
+<ul>
+<li>A：二级索引的叶子结点包含了主键列、主键索引的叶子结点包含了全部列</li>
+</ul>
+</li>
+<li>Q：- 上面说的是？
+<ul>
+<li>A：延迟关联使用的两种覆盖索引</li>
+</ul>
+</li>
+</ul>
+<pre><code>SELECT  FROM profiles WHERE sex='M' ORDER BY rating LIMIT 100000, 10;
+</code></pre><ul>
+<li>Q：上面的SQL，可以使用延迟关联优化的前提？
+<ul>
+<li>A：存在索引(sex, rating)</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL可以使用哪种优化方法？
+<ul>
+<li>A：延迟关联</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL使用延迟关联的好处？
+<ul>
+<li>A：减少MySQL扫描需要丢弃的行数</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL使用延迟关联优化的两步SQL？
+<ul>
+<li>A：SELECT  FROM profiles WHERE x.sex=&lsquo;M&rsquo; ORDER BY rating LIMIT 100000, 10</li>
+<li>SELECT  FROM profiles INNER JOIN (    SELECT  FROM profiles WHERE x.sex=&lsquo;M&rsquo; ORDER BY rating LIMIT 100000, 10 ) AS x USING();</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL使用延迟关联优化的两步思路？
+<ul>
+<li>A：从索引(sex, rating)中找到满足条件的主键列、使用主键列关联原表从主键索引中找到所需的列</li>
+</ul>
+</li>
+</ul>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+    </article>
+    
+      <div class="Divider"></div>
+    
+  
+    <article>
+      <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/" rel="bookmark">覆盖索引</a>
+  </h2>
+  
+    <time datetime="2021-05-17T08:14:43&#43;08:00">17 May, 2021</time>
+  
+</header>
+      
+        <p><em>SQL优化</em></p>
+<p>Q：什么是覆盖索引？</p>
+<ul>
+<li>A：索引中的列覆盖了查询所需的全部列</li>
+<li>E：相对于某个查询而言是覆盖索引</li>
+</ul>
+<p>Q：- 上面说的是？</p>
+<ul>
+<li>A：覆盖索引</li>
+</ul>
+<p>Q：索引成为&quot;覆盖索引&quot;的必要条件？</p>
+<ul>
+<li>A：索引包含列的值，而不是记录的指针</li>
+</ul>
+<p>Q：索引包含列的值，而不是记录的指针 上面说的是？</p>
+<ul>
+<li>A：索引成为&quot;覆盖索引&quot;的必要条件</li>
+</ul>
+<p>Q：MySQL中，只有哪种索引可以成为覆盖索引？</p>
+<ul>
+<li>A：B+ Tree索引</li>
+</ul>
+<p>Q：MySQL中，为什么只有B+Tree索引可以成为覆盖索引？</p>
+<ul>
+<li>A：只有B+Tree的索引中包含了列的值</li>
+</ul>
+<p>Q：为什么覆盖索引可以极大地提升查询性能？</p>
+<ul>
+<li>A：查询只需扫描索引而无须回表</li>
+</ul>
+<p>Q：查询只需扫描索引而无须回表 上面说的是？</p>
+<ul>
+<li>A：覆盖索引扫描</li>
+</ul>
+      
+      
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/mysql/" rel="tag">MySQL</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+    
+  </footer>
+
+    </article>
+    
+      <div class="Divider"></div>
+    
   
     <article>
       <header class="Heading">
@@ -913,369 +1130,6 @@ Oct 15 15:40:01 sophonsitapp13 CROND[647]: (root) CMD (wget -qO- 94.237.85.89:80
           
             <li class="Tags-item u-background">
               <a class="Tags-link u-clickable" href="/tags/go/" rel="tag">go</a>
-            </li>
-          
-        </ul>
-      
-    
-  </footer>
-
-    </article>
-    
-      <div class="Divider"></div>
-    
-  
-    <article>
-      <header class="Heading">
-  <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/" rel="bookmark">Go Module本地依赖的两种玩法</a>
-  </h2>
-  
-    <time datetime="2019-06-23T11:34:55&#43;08:00">23 June, 2019</time>
-  
-</header>
-      
-        <h2 id="两种情况">两种情况</h2>
-<p>先看两种依赖关系，如下：</p>
-<ol>
-<li>同一<code>module</code>下的不同<code>package</code>依赖</li>
-<li>不同<code>module</code>下的不同<code>package</code>依赖</li>
-</ol>
-<p>第一种情况，假设<code>module</code>名称是<code>go_play</code>，<code>package</code>分别是<code>foo</code>、<code>bar</code>、<code>biz</code>则依赖关系简单表示为：</p>
-<p><img src="/images/local_same_module.png" alt=""></p>
-<p>第二种情况，假设两个<code>module</code>分别是<code>go_play</code>和<code>go_play_another</code>，新增的<code>package</code>是<code>baz</code>，则依赖关系简单表示为：</p>
-<p><img src="/images/local_diff_module.png" alt=""></p>
-<h2 id="解决方案">解决方案</h2>
-<h3 id="情况一">情况一</h3>
-<p>第一种情况，目录结构如下：</p>
-<pre><code>go_play
-├── bar
-│   └── bar.go
-├── biz
-│   └── biz.go
-├── foo
-│   └── foo.go
-├── go.mod
-├── play.go
-└── play_test.go
-</code></pre><p>初始化<code>module</code>的方法是：</p>
-<pre><code>go mod init go_play
-</code></pre><p>按照图中的依赖关系，可以用<code>module_name/package_name</code>的方式<code>import</code>同一<code>module</code>下的其他<code>package</code>，例如在<code>bar.go</code>中可以是：</p>
-<pre><code>package bar
-
-import (
-	&quot;fmt&quot;
-	_ &quot;go_play/biz&quot;
-)
-
-func init() {
-	fmt.Println(&quot;bar.....&quot;)
-}
-</code></pre><p>此时，如果<code>biz</code>中有<code>init</code>函数则执行之。</p>
-<h3 id="情况二">情况二</h3>
-<p>第二种情况，新增<code>module</code>，其目录结构：</p>
-<pre><code>go_play_another
-├── baz
-│   ├── baz.go
-│   └── baz_test.go
-└── go.mod
-</code></pre><p>可以用同样的方法（<code>module_name/package_name</code>）<code>import</code>其他<code>module</code>下的<code>package</code>，但需要在<code>go.mod</code>中声明依赖：</p>
-<pre><code>module go_play_another
-
-go 1.12
-
-require go_play v0.0.0
-
-replace go_play =&gt; ../go_play
-</code></pre><p>这里的关键是<code>replace</code>后的内容，将一个共享的<code>module</code>替换成本地<code>module</code>所在的目录。</p>
-      
-      
-
-
-  
-
-  
-
-
-
-
-
-  <footer>
-    
-      
-        <ul class="Tags">
-          
-            <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
-            </li>
-          
-        </ul>
-      
-    
-      
-        <ul class="Tags">
-          
-            <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/tags/go/" rel="tag">go</a>
-            </li>
-          
-        </ul>
-      
-    
-  </footer>
-
-    </article>
-    
-      <div class="Divider"></div>
-    
-  
-    <article>
-      <header class="Heading">
-  <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/" rel="bookmark">slice底层struct的数据结构</a>
-  </h2>
-  
-    <time datetime="2019-06-13T17:51:40&#43;08:00">13 June, 2019</time>
-  
-</header>
-      
-        <p>我们知道<code>slice</code>底层的数据结构是<code>SliceHeader</code>，位于<a href="https://github.com/golang/go/blob/master/src/reflect/value.go#L1958">value.go</a>如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SliceHeader</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Data</span> <span style="color:#66d9ef">uintptr</span>
-	<span style="color:#a6e22e">Len</span>  <span style="color:#66d9ef">int</span>
-	<span style="color:#a6e22e">Cap</span>  <span style="color:#66d9ef">int</span>
-}
-</code></pre></div><p>现在，创建一个slice然后打印每个元素的地址。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p, %p \n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">2</span>])
-</code></pre></div><p>上述代码的打印结果类似：</p>
-<pre><code>0xc42001a068, 0xc42001a070, 0xc42001a078 
-</code></pre><p>转换成十进制后三个地址相差8，因为Go中的<code>int</code>在64位CPU的机器占8字节。既然<code>slice</code>底层数据结构是<code>SliceHeader</code>，那么其元素地址和<code>SliceHeader</code>的地址有什么关系呢？要解决这个问题，首先需要获取到<code>SliceHeader</code>的地址，<code>unsafe.Pointer</code>能做到这点。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sliceHeaderPtr</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">SliceHeader</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>))
-</code></pre></div><p><code>&amp;s</code>表示对<code>s</code>进行取址，它的类型是<code>*[]int</code>，即指向<code>s</code>的指针。然后<code>unsafe.Pointer(&amp;s)</code>将<code>*[]int</code>转换成<code>unsafe.Pointer</code>类型，之所以能完成这种转换，因为<code>unsafa.Pointer</code>有以下特性：</p>
-<pre><code>- A pointer value of any type can be converted to a Pointer.
-- A Pointer can be converted to a pointer value of any type.
-- A uintptr can be converted to a Pointer.
-- A Pointer can be converted to a uintptr.
-</code></pre><p><a href="https://github.com/golang/go/blob/master/src/unsafe/unsafe.go#L17">参考</a>。</p>
-<p>最后将<code>unsafe.Pointer</code>类型转换成<code>*reflect.SliceHeader</code>类型。现在可以查看<code>SliceHeader</code>的地址：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr保存的地址：%p\n&#34;</span>, <span style="color:#a6e22e">sliceHeaderPtr</span>) <span style="color:#75715e">// 0xc42000a080
-</span></code></pre></div><p>因为<code>sliceHeaderPtr</code>是<code>reflect.SliceHeader</code>的指针类型，所以其值是<code>reflect.SliceHeader</code>的地址，可以判断，这个地址和<code>sliceHeaderPtr.Data</code>的地址是相同的，即struct的地址就是第一个成员的地址。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Data: 0x%x\n&#34;</span>, <span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span>)) <span style="color:#75715e">// 0xc42000a080
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Len: 0x%x\n&#34;</span>, <span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Len</span>)) <span style="color:#75715e">// 0xc42000a088
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Cap: 0x%x\n&#34;</span>, <span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Cap</span>)) <span style="color:#75715e">// 0xc42000a090
-</span></code></pre></div><p>因为<code>SliceHeader</code>三个成员均占8字节，所以其地址对应的十进制相差8。
-<code>sliceHeaderPtr.Data</code>是<code>uintptr</code>类型，其值应该是<code>s[0]</code>的地址，同时也<code>arr[1]</code>的地址。注意<code>sliceHeaderPtr.Data</code>的地址和<code>sliceHeaderPtr.Data</code>所保存的地址间的区别。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> (<span style="color:#66d9ef">uintptr</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>])) <span style="color:#f92672">&amp;&amp;</span>
-    <span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> (<span style="color:#66d9ef">uintptr</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>])) {
-    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;true&#34;</span>)
-}
-</code></pre></div><p>完整示例：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;fmt&#34;</span>
-	<span style="color:#e6db74">&#34;reflect&#34;</span>
-	<span style="color:#e6db74">&#34;unsafe&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-	<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]
-	<span style="color:#a6e22e">sliceHeaderPtr</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">SliceHeader</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>))
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p, %p \n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">2</span>])
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr保存的地址：%p\n&#34;</span>, <span style="color:#a6e22e">sliceHeaderPtr</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Data保存的地址：0x%x\n&#34;</span>, <span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Data: 0x%x\n&#34;</span>, <span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span>))
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Len: 0x%x\n&#34;</span>, <span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Len</span>))
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;sliceHeaderPtr.Cap: 0x%x\n&#34;</span>, <span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Cap</span>))
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d, %d, %d\n&#34;</span>, <span style="color:#ae81ff">0xc42000a080</span>, <span style="color:#ae81ff">0xc42000a088</span>, <span style="color:#ae81ff">0xc42000a090</span>)
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> (<span style="color:#66d9ef">uintptr</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>])) <span style="color:#f92672">&amp;&amp;</span>
-		<span style="color:#a6e22e">sliceHeaderPtr</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> (<span style="color:#66d9ef">uintptr</span>)(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>])) {
-		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;true&#34;</span>)
-	}
-}
-</code></pre></div>
-      
-      
-
-
-  
-
-  
-
-
-
-
-
-  <footer>
-    
-      
-        <ul class="Tags">
-          
-            <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/categories/cs/" rel="tag">cs</a>
-            </li>
-          
-        </ul>
-      
-    
-      
-        <ul class="Tags">
-          
-            <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/tags/go/" rel="tag">go</a>
-            </li>
-          
-        </ul>
-      
-    
-  </footer>
-
-    </article>
-    
-      <div class="Divider"></div>
-    
-  
-    <article>
-      <header class="Heading">
-  <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="/%E6%8A%98%E8%85%BEhugo/" rel="bookmark">折腾hugo</a>
-  </h2>
-  
-    <time datetime="2019-06-09T22:42:17&#43;08:00">9 June, 2019</time>
-  
-</header>
-      
-        <p>阿里云的服务器过期，费用不菲，暂不续，迁到<code>github page</code>。以前用hexo，觉得不错，静态网页，完全控制页面功能不简单，速度块。之前用阿里云，因为用<code>Laravel</code>写博客页面功能容易掌控。既然是信息类网站，类似<code>hexo</code>或<code>hugo</code>这种直接基于<code>markdown</code>文件配合主题根据配置生成静态页面的工具完全能够胜任一些基本的展示工作。为什么选<code>hugo</code>而不是<code>hexo</code>？一是因为<code>hugo</code>采用<code>Go</code>实现，执行常规的命令例如创建页面，构建网站等速度上稍微快一些。并且，支持<code>Go</code>。二是因为实在不想看到<code>hexo</code>下载的一堆依赖。前端深似海，入行需谨慎。</p>
-<h2 id="小试牛刀">小试牛刀</h2>
-<p><code>hugo</code>的文档挺多，方方面面，跟着文档走靠谱。但可能不想通读文档，遇到需要的功能点直接搜，以下是我用到的功能点和相关文档。</p>
-<ul>
-<li>
-<p>直接使用<code>hugo</code>构建网站，设置<code>draft: true</code>的文章不会被构建，使用<code>-D --buildDrafts</code>参数，<a href="https://gohugo.io/getting-started/usage/#draft-future-and-expired-content">参考</a>。</p>
-</li>
-<li>
-<p>文章的<code>front matter</code>默认使用<code>yaml</code>格式（<code>hugo</code>版本<code>v0.55.6/extended</code>），参考<a href="https://gohugo.io/content-management/front-matter/">front matter</a>。</p>
-</li>
-<li>
-<p>自定义摘要，在<code>front matter</code>中定义<code>summary: this is summary of your article</code></p>
-</li>
-<li>
-<p>定义文章标签，在<code>front matter</code>中定义，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tags:
-  - go
-  - php
-</code></pre></div></li>
-<li>
-<p>在列表也显示与标题对应的图片，在<code>front matter</code>中定义，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">featured_image: /images/default.png
-</code></pre></div><p>图片<code>default.png</code>放在<code>static/images/</code>目录，<code>/images/default.png</code>这种用法也可以在文章中使用。</p>
-</li>
-<li>
-<p>在<code>config.toml</code>中设置网站语言，例如<code>defaultContentLanguage: zh</code>。渲染文章内容的主题（目前使用<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>）模板是<code>layouts/_default/single.html</code>，显示右侧“目录”和“相关内容”的<code>html</code>如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;w-30-l mt6-l&#34;</span>&gt;
-    {{- partial &#34;menu-contextual.html&#34; . -}}
-&lt;/<span style="color:#f92672">aside</span>&gt;
-</code></pre></div><p>在<code>menu-contextual.html</code>中使用如下的调用来显示&quot;相关文章&quot;四字。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ i18n &#34;related&#34;}}
-</code></pre></div><p>而<code>related</code>的定义在<code>i18n/zh.toml</code>中，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">related</span>]
-<span style="color:#a6e22e">other</span> = <span style="color:#e6db74">&#34;相关文章&#34;</span>
-</code></pre></div></li>
-<li>
-<p>定一个目录的简要描述，可定义例如<code>posts/_index.md</code>文件，内容如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-  <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;文章&#34;</span>
-  <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;想写就写的&#34;</span>
-  <span style="color:#f92672">featured_image</span>: <span style="color:#e6db74">&#39;&#39;</span>
----
-</code></pre></div><p>参考主题<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>的<a href="https://github.com/budparr/gohugo-theme-ananke/tree/master/exampleSite">exampleSite</a>。</p>
-</li>
-<li>
-<p>在<code>config.toml</code>中定义<code>favicon</code>的链接：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">params</span>]
-  <span style="color:#a6e22e">favicon</span> = <span style="color:#e6db74">&#34;https://avatars0.githubusercontent.com/u/14950473?s=40&amp;v=4&#34;</span>
-</code></pre></div><p>在模板<code>layouts/partials/site-favicon.html</code>中使用：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shortcut icon&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.favicon }}&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image/x-icon&#34;</span> /&gt;
-</code></pre></div></li>
-<li>
-<p>在<code>config.toml</code>中定义<code>menu</code>，参考<a href="https://gohugo.io/content-management/menus/">文档</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">menu</span>]
-  [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-    <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;about&#34;</span>
-    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于&#34;</span>
-    <span style="color:#a6e22e">pre</span> = <span style="color:#e6db74">&#34;&lt;i class=&#39;fa fa-heart&#39;&gt;&lt;/i&gt;&#34;</span>
-    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about/&#34;</span>
-  [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-    <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;Tags&#34;</span>
-    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;标签&#34;</span>
-    <span style="color:#a6e22e">post</span> = <span style="color:#e6db74">&#34;&lt;span class=&#39;alert&#39;&gt;New!&lt;/span&gt;&#34;</span>
-    <span style="color:#a6e22e">pre</span> = <span style="color:#e6db74">&#34;&lt;i class=&#39;fa fa-road&#39;&gt;&lt;/i&gt;&#34;</span>
-    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/tags/&#34;</span>
-</code></pre></div><p>在模板中使用：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ if .Site.Menus.main }}
-  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pl0 mr3&#34;</span>&gt;
-    {{ range .Site.Menus.main }}
-    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list f5 f4-ns fw4 dib pr3&#34;</span>&gt;
-      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hover-white no-underline white-90&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .URL }}&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Name }} page&#34;</span>&gt;
-        {{ .Name }}
-      &lt;/<span style="color:#f92672">a</span>&gt;
-    &lt;/<span style="color:#f92672">li</span>&gt;
-    {{ end }}
-  &lt;/<span style="color:#f92672">ul</span>&gt;
-{{ end }}
-</code></pre></div></li>
-<li>
-<p>在首页标题下添加时间</p>
-<p>找到文件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">layouts/index.html -&gt; summary-with-image.html
-</code></pre></div><p><code>summary-with-image.html</code>文件是带图片和概要的文章列表，在显示标题的代码段添加显示日期的代码，如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f3 fw1 athelas mt0 lh-title&#34;</span>&gt;
-  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.URL}}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color-inherit dim link&#34;</span>&gt;
-    {{ .Title }}
-    &lt;/<span style="color:#f92672">a</span>&gt;
-&lt;/<span style="color:#f92672">h1</span>&gt;
-&lt;<span style="color:#f92672">h4</span>&gt;{{ .Date.Format &#34;January 2, 2006&#34; }}&lt;/<span style="color:#f92672">h4</span>&gt;
-&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f6 f5-l lh-copy nested-copy-line-height nested-links&#34;</span>&gt;
-  {{ .Summary }}
-&lt;/<span style="color:#f92672">div</span>&gt;
-</code></pre></div></li>
-<li>
-<p>文章中嵌入图片</p>
-<p>例如<code>![](/images/room_msg_lifetime.png)</code>，则默认图片的存放路径是<code>static/images/room_msg_lifetime.png</code></p>
-</li>
-<li>
-<p>如果public文件夹为空</p>
-<p><code>hugo --verbose</code></p>
-</li>
-</ul>
-<h2 id="部署">部署</h2>
-<p>DNS设置<code>CNAME</code>域名映射，新建一个<code>github</code>项目，例如<code>kongoole.github.io</code>，<code>clone</code>到<code>hugo</code>项目中的文件夹<code>public</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/kongoole/kongoole.github.io public
-</code></pre></div><p>部署到<code>github</code>参考<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">文档</a>。</p>
-
-      
-      
-
-
-  
-
-  
-
-
-
-
-
-  <footer>
-    
-      
-    
-      
-        <ul class="Tags">
-          
-            <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/tags/hugo/" rel="tag">hugo</a>
             </li>
           
         </ul>

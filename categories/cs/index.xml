@@ -2,13 +2,151 @@
 <?xml-stylesheet type="text/xsl" href="https://zqkgo.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>cs on 张乾坤🔥</title>
+    <title>cs on 张乾坤👀</title>
     <link>https://zqkgo.github.io/categories/cs/</link>
-    <description>Recent content in cs on 张乾坤🔥</description>
+    <description>Recent content in cs on 张乾坤👀</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 31 Mar 2021 17:31:11 +0800</lastBuildDate>
     <atom:link href="https://zqkgo.github.io/categories/cs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go主线程m0</title>
+      <link>https://zqkgo.github.io/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</link>
+      <pubDate>Mon, 17 May 2021 08:38:16 +0800</pubDate>
+      <guid>https://zqkgo.github.io/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Q：Go进程启动时的主线程是？
+&lt;ul&gt;
+&lt;li&gt;A：runtime.m0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：Go进程启动的第一个线程是？
+&lt;ul&gt;
+&lt;li&gt;A：runtime.m0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：runtime.m0是什么？
+&lt;ul&gt;
+&lt;li&gt;A：Go进程启动时的主线程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：m0与Go进程的数量关系？
+&lt;ul&gt;
+&lt;li&gt;A：一个Go进程对应一个m0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：runtime.m0与runtime.g0的赋值和初始化在哪里执行？
+&lt;ul&gt;
+&lt;li&gt;A：runtime.rt0_go()汇编函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    <item>
+      <title>延迟关联</title>
+      <link>https://zqkgo.github.io/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</link>
+      <pubDate>Mon, 17 May 2021 08:16:19 +0800</pubDate>
+      <guid>https://zqkgo.github.io/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</guid>
+      <description>&lt;p&gt;&lt;em&gt;SQL优化&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;延迟关联&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Q：延迟关联的思路有几步？
+&lt;ul&gt;
+&lt;li&gt;A：两步&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：延迟关联的思路有哪两步？
+&lt;ul&gt;
+&lt;li&gt;A：先利用二级索引找到所有满足条件的主键索引、使用主键列关联原表从主键索引中找到查询所需的列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：- 上面说的是？
+&lt;ul&gt;
+&lt;li&gt;A：延迟关联的两步思路&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：延迟关联使用了哪两种覆盖索引？
+&lt;ul&gt;
+&lt;li&gt;A：二级索引的叶子结点包含了主键列、主键索引的叶子结点包含了全部列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：- 上面说的是？
+&lt;ul&gt;
+&lt;li&gt;A：延迟关联使用的两种覆盖索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;SELECT  FROM profiles WHERE sex=&#39;M&#39; ORDER BY rating LIMIT 100000, 10;
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Q：上面的SQL，可以使用延迟关联优化的前提？
+&lt;ul&gt;
+&lt;li&gt;A：存在索引(sex, rating)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：若存在索引(sex, rating)，上面的SQL可以使用哪种优化方法？
+&lt;ul&gt;
+&lt;li&gt;A：延迟关联&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：若存在索引(sex, rating)，上面的SQL使用延迟关联的好处？
+&lt;ul&gt;
+&lt;li&gt;A：减少MySQL扫描需要丢弃的行数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：若存在索引(sex, rating)，上面的SQL使用延迟关联优化的两步SQL？
+&lt;ul&gt;
+&lt;li&gt;A：SELECT  FROM profiles WHERE x.sex=&amp;lsquo;M&amp;rsquo; ORDER BY rating LIMIT 100000, 10&lt;/li&gt;
+&lt;li&gt;SELECT  FROM profiles INNER JOIN (    SELECT  FROM profiles WHERE x.sex=&amp;lsquo;M&amp;rsquo; ORDER BY rating LIMIT 100000, 10 ) AS x USING();&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Q：若存在索引(sex, rating)，上面的SQL使用延迟关联优化的两步思路？
+&lt;ul&gt;
+&lt;li&gt;A：从索引(sex, rating)中找到满足条件的主键列、使用主键列关联原表从主键索引中找到所需的列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>覆盖索引</title>
+      <link>https://zqkgo.github.io/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Mon, 17 May 2021 08:14:43 +0800</pubDate>
+      <guid>https://zqkgo.github.io/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</guid>
+      <description>&lt;p&gt;&lt;em&gt;SQL优化&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Q：什么是覆盖索引？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：索引中的列覆盖了查询所需的全部列&lt;/li&gt;
+&lt;li&gt;E：相对于某个查询而言是覆盖索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：- 上面说的是？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：覆盖索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：索引成为&amp;quot;覆盖索引&amp;quot;的必要条件？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：索引包含列的值，而不是记录的指针&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：索引包含列的值，而不是记录的指针 上面说的是？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：索引成为&amp;quot;覆盖索引&amp;quot;的必要条件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：MySQL中，只有哪种索引可以成为覆盖索引？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：B+ Tree索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：MySQL中，为什么只有B+Tree索引可以成为覆盖索引？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：只有B+Tree的索引中包含了列的值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：为什么覆盖索引可以极大地提升查询性能？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：查询只需扫描索引而无须回表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：查询只需扫描索引而无须回表 上面说的是？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A：覆盖索引扫描&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     <item>
       <title>如何计算TCP的payload数据大小</title>
       <link>https://zqkgo.github.io/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
