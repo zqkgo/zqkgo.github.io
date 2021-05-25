@@ -2,13 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="https://zqkgo.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>anki on 张乾坤👀</title>
-    <link>https://zqkgo.github.io/tags/anki/</link>
-    <description>Recent content in anki on 张乾坤👀</description>
+    <title>Database on 张乾坤👀</title>
+    <link>https://zqkgo.github.io/categories/database/</link>
+    <description>Recent content in Database on 张乾坤👀</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 13:56:11 +0800</lastBuildDate>
-    <atom:link href="https://zqkgo.github.io/tags/anki/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 May 2021 15:58:54 +0800</lastBuildDate>
+    <atom:link href="https://zqkgo.github.io/categories/database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>聚簇索引和非聚簇索引</title>
       <link>https://zqkgo.github.io/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</link>

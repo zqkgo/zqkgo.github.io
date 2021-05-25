@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <meta name="description" content=" Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引   Q：InnoDB的主键索引是哪种类型？  A：聚簇索引   Q：InnoDB的二级索引是哪种类型？  A：非聚簇索引   Q：MyISAM索引是哪种类型？  A：非聚簇索引   Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针   Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？  A：聚簇索引、非聚簇索引   Q：聚簇索引与非聚簇索引的核心区别？  A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。   Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？  A：聚簇索引的key唯一，非聚簇索引的key可以重复   聚簇索引  Q：一张表可以有几个聚簇索引？  A：只能有一个   Q：为什么一张表只能有一个聚簇索引？  A：行记录在磁盘上的存储顺序与索引顺序相同 E：What do Clustered and Non clustered index actually mean?   Q：InnoDB的聚簇索引和表的关系？  A：聚簇索引就是表   Q：聚簇索引如何排列记录？  A：按主键顺序   Q：聚簇索引按什么顺序排列记录？  A：主键   Q：InnoDB引擎默认如何聚集数据？  A：使用主键聚集数据   Q：InnoDB引擎如何聚集数据？  A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键   Q：…… 上面说的是？  A：InnoDB聚集数据的方式   Q：最应当避免使用哪种列作为聚簇索引？  A：不连续且值的分布范围非常大的列   Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？  A：插入随机，数据没有任何聚集特性   Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？  A：避免使用不连续且值的分布范围非常大的列作为聚簇索引     非聚簇索引  Q：InnoDB二级索引的访问需要遍历几次索引树？  A：两次   Q：InnoDB二级索引的访问需要哪两次遍历索引树？  A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行      ">
+  
+
+
+
+  <meta itemprop="name" content="聚簇索引和非聚簇索引">
+<meta itemprop="description" content=" Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引   Q：InnoDB的主键索引是哪种类型？  A：聚簇索引   Q：InnoDB的二级索引是哪种类型？  A：非聚簇索引   Q：MyISAM索引是哪种类型？  A：非聚簇索引   Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针   Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？  A：聚簇索引、非聚簇索引   Q：聚簇索引与非聚簇索引的核心区别？  A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。   Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？  A：聚簇索引的key唯一，非聚簇索引的key可以重复   聚簇索引  Q：一张表可以有几个聚簇索引？  A：只能有一个   Q：为什么一张表只能有一个聚簇索引？  A：行记录在磁盘上的存储顺序与索引顺序相同 E：What do Clustered and Non clustered index actually mean?   Q：InnoDB的聚簇索引和表的关系？  A：聚簇索引就是表   Q：聚簇索引如何排列记录？  A：按主键顺序   Q：聚簇索引按什么顺序排列记录？  A：主键   Q：InnoDB引擎默认如何聚集数据？  A：使用主键聚集数据   Q：InnoDB引擎如何聚集数据？  A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键   Q：…… 上面说的是？  A：InnoDB聚集数据的方式   Q：最应当避免使用哪种列作为聚簇索引？  A：不连续且值的分布范围非常大的列   Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？  A：插入随机，数据没有任何聚集特性   Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？  A：避免使用不连续且值的分布范围非常大的列作为聚簇索引     非聚簇索引  Q：InnoDB二级索引的访问需要遍历几次索引树？  A：两次   Q：InnoDB二级索引的访问需要哪两次遍历索引树？  A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行      ">
+<meta itemprop="datePublished" content="2021-05-25T15:58:54+08:00" />
+<meta itemprop="dateModified" content="2021-05-25T15:58:54+08:00" />
+<meta itemprop="wordCount" content="55">
+
+
+
+<meta itemprop="keywords" content="mysql," />
+
+
+
+
+  <meta property="og:title" content="聚簇索引和非聚簇索引" />
+<meta property="og:description" content=" Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引   Q：InnoDB的主键索引是哪种类型？  A：聚簇索引   Q：InnoDB的二级索引是哪种类型？  A：非聚簇索引   Q：MyISAM索引是哪种类型？  A：非聚簇索引   Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针   Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？  A：聚簇索引、非聚簇索引   Q：聚簇索引与非聚簇索引的核心区别？  A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。   Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？  A：聚簇索引的key唯一，非聚簇索引的key可以重复   聚簇索引  Q：一张表可以有几个聚簇索引？  A：只能有一个   Q：为什么一张表只能有一个聚簇索引？  A：行记录在磁盘上的存储顺序与索引顺序相同 E：What do Clustered and Non clustered index actually mean?   Q：InnoDB的聚簇索引和表的关系？  A：聚簇索引就是表   Q：聚簇索引如何排列记录？  A：按主键顺序   Q：聚簇索引按什么顺序排列记录？  A：主键   Q：InnoDB引擎默认如何聚集数据？  A：使用主键聚集数据   Q：InnoDB引擎如何聚集数据？  A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键   Q：…… 上面说的是？  A：InnoDB聚集数据的方式   Q：最应当避免使用哪种列作为聚簇索引？  A：不连续且值的分布范围非常大的列   Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？  A：插入随机，数据没有任何聚集特性   Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？  A：避免使用不连续且值的分布范围非常大的列作为聚簇索引     非聚簇索引  Q：InnoDB二级索引的访问需要遍历几次索引树？  A：两次   Q：InnoDB二级索引的访问需要哪两次遍历索引树？  A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行      " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zqkgo.github.io/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" />
+<meta property="article:published_time" content="2021-05-25T15:58:54+08:00" />
+<meta property="article:modified_time" content="2021-05-25T15:58:54+08:00" />
+
+
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="聚簇索引和非聚簇索引"/>
+<meta name="twitter:description" content=" Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引   Q：InnoDB的主键索引是哪种类型？  A：聚簇索引   Q：InnoDB的二级索引是哪种类型？  A：非聚簇索引   Q：MyISAM索引是哪种类型？  A：非聚簇索引   Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针   Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？  A：聚簇索引、非聚簇索引   Q：聚簇索引与非聚簇索引的核心区别？  A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。   Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？  A：聚簇索引的key唯一，非聚簇索引的key可以重复   聚簇索引  Q：一张表可以有几个聚簇索引？  A：只能有一个   Q：为什么一张表只能有一个聚簇索引？  A：行记录在磁盘上的存储顺序与索引顺序相同 E：What do Clustered and Non clustered index actually mean?   Q：InnoDB的聚簇索引和表的关系？  A：聚簇索引就是表   Q：聚簇索引如何排列记录？  A：按主键顺序   Q：聚簇索引按什么顺序排列记录？  A：主键   Q：InnoDB引擎默认如何聚集数据？  A：使用主键聚集数据   Q：InnoDB引擎如何聚集数据？  A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键   Q：…… 上面说的是？  A：InnoDB聚集数据的方式   Q：最应当避免使用哪种列作为聚簇索引？  A：不连续且值的分布范围非常大的列   Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？  A：插入随机，数据没有任何聚集特性   Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？  A：避免使用不连续且值的分布范围非常大的列作为聚簇索引     非聚簇索引  Q：InnoDB二级索引的访问需要遍历几次索引树？  A：两次   Q：InnoDB二级索引的访问需要哪两次遍历索引树？  A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行      "/>
+
+
+
+<meta name="generator" content="Hugo 0.79.1" />
+  <title>聚簇索引和非聚簇索引 | 张乾坤👀</title>
+  <link rel="canonical" href="/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/">
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  <link rel="stylesheet" href="/css/base.min.b7794e36de540988c929f5b91c2250c0ee81952f43bd68f7e234d8e7e128b3ca.css" integrity="sha256-t3lONt5UCYjJKfW5HCJQwO6BlS9DvWj34jTY5&#43;Eos8o=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="/">张乾坤👀</a>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">🤓About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">✍️Blog</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">🏷️Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">🔱Categories</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  <article>
+    <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" rel="bookmark">聚簇索引和非聚簇索引</a>
+  </h2>
+  
+    <time datetime="2021-05-25T15:58:54&#43;08:00">25 May, 2021</time>
+  
+</header>
+    <ul>
+<li>Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？
+<ul>
+<li>A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引</li>
+</ul>
+</li>
+<li>Q：InnoDB的主键索引是哪种类型？
+<ul>
+<li>A：聚簇索引</li>
+</ul>
+</li>
+<li>Q：InnoDB的二级索引是哪种类型？
+<ul>
+<li>A：非聚簇索引</li>
+</ul>
+</li>
+<li>Q：MyISAM索引是哪种类型？
+<ul>
+<li>A：非聚簇索引</li>
+</ul>
+</li>
+<li>Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？
+<ul>
+<li>A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针</li>
+</ul>
+</li>
+<li>Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？
+<ul>
+<li>A：聚簇索引、非聚簇索引</li>
+</ul>
+</li>
+<li>Q：聚簇索引与非聚簇索引的核心区别？
+<ul>
+<li>A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。</li>
+</ul>
+</li>
+<li>Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？
+<ul>
+<li>A：聚簇索引的key唯一，非聚簇索引的key可以重复</li>
+</ul>
+</li>
+<li>聚簇索引
+<ul>
+<li>Q：一张表可以有几个聚簇索引？
+<ul>
+<li>A：只能有一个</li>
+</ul>
+</li>
+<li>Q：为什么一张表只能有一个聚簇索引？
+<ul>
+<li>A：行记录在磁盘上的存储顺序与索引顺序相同</li>
+<li><a href="https://stackoverflow.com/questions/1251636/what-do-clustered-and-non-clustered-index-actually-mean">E：What do Clustered and Non clustered index actually mean?</a></li>
+</ul>
+</li>
+<li>Q：InnoDB的聚簇索引和表的关系？
+<ul>
+<li>A：聚簇索引就是表</li>
+</ul>
+</li>
+<li>Q：聚簇索引如何排列记录？
+<ul>
+<li>A：按主键顺序</li>
+</ul>
+</li>
+<li>Q：聚簇索引按什么顺序排列记录？
+<ul>
+<li>A：主键</li>
+</ul>
+</li>
+<li>Q：InnoDB引擎默认如何聚集数据？
+<ul>
+<li>A：使用主键聚集数据</li>
+</ul>
+</li>
+<li>Q：InnoDB引擎如何聚集数据？
+<ul>
+<li>A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键</li>
+</ul>
+</li>
+<li>Q：…… 上面说的是？
+<ul>
+<li>A：InnoDB聚集数据的方式</li>
+</ul>
+</li>
+<li>Q：最应当避免使用哪种列作为聚簇索引？
+<ul>
+<li>A：不连续且值的分布范围非常大的列</li>
+</ul>
+</li>
+<li>Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？
+<ul>
+<li>A：插入随机，数据没有任何聚集特性</li>
+</ul>
+</li>
+<li>Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？
+<ul>
+<li>A：避免使用不连续且值的分布范围非常大的列作为聚簇索引</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非聚簇索引
+<ul>
+<li>Q：InnoDB二级索引的访问需要遍历几次索引树？
+<ul>
+<li>A：两次</li>
+</ul>
+</li>
+<li>Q：InnoDB二级索引的访问需要哪两次遍历索引树？
+<ul>
+<li>A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/database/" rel="tag">Database</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/mysql/" rel="tag">mysql</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    
+  
+
+  </article>
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        By 张乾坤
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
