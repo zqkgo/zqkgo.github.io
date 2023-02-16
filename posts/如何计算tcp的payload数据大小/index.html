@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>如何计算TCP的payload数据大小 - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="如何计算TCP的payload数据大小" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/" />
+<meta property="article:published_time" content="2021-03-31T17:31:11+08:00" />
+<meta property="article:modified_time" content="2021-03-31T17:31:11+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何计算TCP的payload数据大小"/>
+<meta name="twitter:description" content=""/>
+<script src="https://example.comjs/feather.min.js"></script>
+	
+	
+        <link href="https://example.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://example.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://example.com">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">如何计算TCP的payload数据大小</h1>
+			<div class="meta">Posted on Mar 31, 2021</div>
+		</div>
+		
+
+		<section class="body">
+			<p>TCP/IP协议簇每一层协议的PDU有不同的叫法，应用层例如HTTP的PDU叫message、传输层例如TCP的PDU叫segment、网络层例如IP的PDU叫datagram、链路层的PDU叫frame。其中，segment的header结构，从<a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#TCP_segment_structure">wikipedia</a>截图，如下：</p>
+<p><img src="/images/tcp_segment_header.png" alt=""></p>
+<p>从上图可以看出，header中没有标识TCP的payload数据大小的字段，只有一个用来存储header大小的<code>Data offset</code>。</p>
+<p>再来看下IPv4的header结构，从<a href="https://en.wikipedia.org/wiki/IPv4">wikipedia</a>截图，如下：</p>
+<p><img src="/images/ipv4_header.png" alt=""></p>
+<p>其中<code>IHL</code>字段的全称是Internet Header Length，存储的是IPv4的header大小，其单位与TCP header的<code>Data offset</code>相同，都是32位的word即4个字节。</p>
+<p><img src="/images/tcpip_simple_layer.png" alt=""></p>
+<p>根据上面各层协议封装关系的简略图可知，只要知道IPv4 datagram的大小，减去两个header，便能得出TCP的payload数据大小。</p>
+<p>IPv4 datagram的总字节数保存在<code>Total Length</code>字段中，所以可得最后的计算公式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">TCP payload = IP header Total Length - (IP header IHL + TCP header Data offset)*4
+</code></pre></div>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/tcp">TCP</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

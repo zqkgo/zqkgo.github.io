@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>延迟关联 - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="SQL优化" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="延迟关联" />
+<meta property="og:description" content="SQL优化" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/" />
+<meta property="article:published_time" content="2021-05-17T08:16:19+08:00" />
+<meta property="article:modified_time" content="2021-05-17T08:16:19+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="延迟关联"/>
+<meta name="twitter:description" content="SQL优化"/>
+<script src="https://example.comjs/feather.min.js"></script>
+	
+	
+        <link href="https://example.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://example.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://example.com">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">延迟关联</h1>
+			<div class="meta">Posted on May 17, 2021</div>
+		</div>
+		
+
+		<section class="body">
+			<p><em>SQL优化</em></p>
+<p>延迟关联</p>
+<ul>
+<li>Q：延迟关联的思路有几步？
+<ul>
+<li>A：两步</li>
+</ul>
+</li>
+<li>Q：延迟关联的思路有哪两步？
+<ul>
+<li>A：先利用二级索引找到所有满足条件的主键索引、使用主键列关联原表从主键索引中找到查询所需的列</li>
+</ul>
+</li>
+<li>Q：- 上面说的是？
+<ul>
+<li>A：延迟关联的两步思路</li>
+</ul>
+</li>
+<li>Q：延迟关联使用了哪两种覆盖索引？
+<ul>
+<li>A：二级索引的叶子结点包含了主键列、主键索引的叶子结点包含了全部列</li>
+</ul>
+</li>
+<li>Q：- 上面说的是？
+<ul>
+<li>A：延迟关联使用的两种覆盖索引</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">SELECT  FROM profiles WHERE sex=&#39;M&#39; ORDER BY rating LIMIT 100000, 10;
+</code></pre></div><ul>
+<li>Q：上面的SQL，可以使用延迟关联优化的前提？
+<ul>
+<li>A：存在索引(sex, rating)</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL可以使用哪种优化方法？
+<ul>
+<li>A：延迟关联</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL使用延迟关联的好处？
+<ul>
+<li>A：减少MySQL扫描需要丢弃的行数</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL使用延迟关联优化的两步SQL？
+<ul>
+<li>A：SELECT  FROM profiles WHERE x.sex=&lsquo;M&rsquo; ORDER BY rating LIMIT 100000, 10</li>
+<li>SELECT  FROM profiles INNER JOIN (    SELECT  FROM profiles WHERE x.sex=&lsquo;M&rsquo; ORDER BY rating LIMIT 100000, 10 ) AS x USING();</li>
+</ul>
+</li>
+<li>Q：若存在索引(sex, rating)，上面的SQL使用延迟关联优化的两步思路？
+<ul>
+<li>A：从索引(sex, rating)中找到满足条件的主键列、使用主键列关联原表从主键索引中找到所需的列</li>
+</ul>
+</li>
+</ul>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/mysql">mysql</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

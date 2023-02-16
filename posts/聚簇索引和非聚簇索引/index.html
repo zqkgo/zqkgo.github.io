@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>聚簇索引和非聚簇索引 - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content=" " />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="聚簇索引和非聚簇索引" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" />
+<meta property="article:published_time" content="2021-05-25T15:58:54+08:00" />
+<meta property="article:modified_time" content="2021-05-25T15:58:54+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="聚簇索引和非聚簇索引"/>
+<meta name="twitter:description" content=" "/>
+<script src="https://example.comjs/feather.min.js"></script>
+	
+	
+        <link href="https://example.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://example.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://example.com">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">聚簇索引和非聚簇索引</h1>
+			<div class="meta">Posted on May 25, 2021</div>
+		</div>
+		
+
+		<section class="body">
+			<ul>
+<li>Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？
+<ul>
+<li>A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引</li>
+</ul>
+</li>
+<li>Q：InnoDB的主键索引是哪种类型？
+<ul>
+<li>A：聚簇索引</li>
+</ul>
+</li>
+<li>Q：InnoDB的二级索引是哪种类型？
+<ul>
+<li>A：非聚簇索引</li>
+</ul>
+</li>
+<li>Q：MyISAM索引是哪种类型？
+<ul>
+<li>A：非聚簇索引</li>
+</ul>
+</li>
+<li>Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？
+<ul>
+<li>A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针</li>
+</ul>
+</li>
+<li>Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？
+<ul>
+<li>A：聚簇索引、非聚簇索引</li>
+</ul>
+</li>
+<li>Q：聚簇索引与非聚簇索引的核心区别？
+<ul>
+<li>A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。</li>
+</ul>
+</li>
+<li>Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？
+<ul>
+<li>A：聚簇索引的key唯一，非聚簇索引的key可以重复</li>
+</ul>
+</li>
+<li>聚簇索引
+<ul>
+<li>Q：一张表可以有几个聚簇索引？
+<ul>
+<li>A：只能有一个</li>
+</ul>
+</li>
+<li>Q：为什么一张表只能有一个聚簇索引？
+<ul>
+<li>A：行记录在磁盘上的存储顺序与索引顺序相同</li>
+<li><a href="https://stackoverflow.com/questions/1251636/what-do-clustered-and-non-clustered-index-actually-mean">E：What do Clustered and Non clustered index actually mean?</a></li>
+</ul>
+</li>
+<li>Q：InnoDB的聚簇索引和表的关系？
+<ul>
+<li>A：聚簇索引就是表</li>
+</ul>
+</li>
+<li>Q：聚簇索引如何排列记录？
+<ul>
+<li>A：按主键顺序</li>
+</ul>
+</li>
+<li>Q：聚簇索引按什么顺序排列记录？
+<ul>
+<li>A：主键</li>
+</ul>
+</li>
+<li>Q：InnoDB引擎默认如何聚集数据？
+<ul>
+<li>A：使用主键聚集数据</li>
+</ul>
+</li>
+<li>Q：InnoDB引擎如何聚集数据？
+<ul>
+<li>A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键</li>
+</ul>
+</li>
+<li>Q：…… 上面说的是？
+<ul>
+<li>A：InnoDB聚集数据的方式</li>
+</ul>
+</li>
+<li>Q：最应当避免使用哪种列作为聚簇索引？
+<ul>
+<li>A：不连续且值的分布范围非常大的列</li>
+</ul>
+</li>
+<li>Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？
+<ul>
+<li>A：插入随机，数据没有任何聚集特性</li>
+</ul>
+</li>
+<li>Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？
+<ul>
+<li>A：避免使用不连续且值的分布范围非常大的列作为聚簇索引</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非聚簇索引
+<ul>
+<li>Q：InnoDB二级索引的访问需要遍历几次索引树？
+<ul>
+<li>A：两次</li>
+</ul>
+</li>
+<li>Q：InnoDB二级索引的访问需要哪两次遍历索引树？
+<ul>
+<li>A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/mysql">mysql</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

