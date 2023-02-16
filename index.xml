@@ -112,7 +112,10 @@ Connection请求头，HTTP/1.1的默认值为keep-alive。</description>
       <pubDate>Mon, 17 May 2021 08:38:16 +0800</pubDate>
       
       <guid>https://www.qiankun.info/posts/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</guid>
-      <description> Q：Go进程启动时的主线程是？  A：runtime.m0   Q：Go进程启动的第一个线程是？  A：runtime.m0   Q：runtime.m0是什么？  A：Go进程启动时的主线程   Q：m0与Go进程的数量关系？  A：一个Go进程对应一个m0   Q：runtime.m0与runtime.g0的赋值和初始化在哪里执行？  A：runtime.rt0_go()汇编函数    </description>
+      <description>Go进程启动时的主线程是runtime.m0。
+Go进程启动的第一个线程是runtime.m0。
+一个Go进程对应一个m0。
+runtime.m0与runtime.g0的赋值和初始化在runtime.rt0_go()汇编函数执行。</description>
     </item>
     
     <item>

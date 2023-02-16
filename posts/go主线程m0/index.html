@@ -56,33 +56,10 @@
 		
 
 		<section class="body">
-			<ul>
-<li>Q：Go进程启动时的主线程是？
-<ul>
-<li>A：runtime.m0</li>
-</ul>
-</li>
-<li>Q：Go进程启动的第一个线程是？
-<ul>
-<li>A：runtime.m0</li>
-</ul>
-</li>
-<li>Q：runtime.m0是什么？
-<ul>
-<li>A：Go进程启动时的主线程</li>
-</ul>
-</li>
-<li>Q：m0与Go进程的数量关系？
-<ul>
-<li>A：一个Go进程对应一个m0</li>
-</ul>
-</li>
-<li>Q：runtime.m0与runtime.g0的赋值和初始化在哪里执行？
-<ul>
-<li>A：runtime.rt0_go()汇编函数</li>
-</ul>
-</li>
-</ul>
+			<p>Go进程启动时的主线程是runtime.m0。</p>
+<p>Go进程启动的第一个线程是runtime.m0。</p>
+<p>一个Go进程对应一个m0。</p>
+<p>runtime.m0与runtime.g0的赋值和初始化在runtime.rt0_go()汇编函数执行。</p>
 
 		</section>
 
