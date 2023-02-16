@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Z.Q.K</title>
-    <link>https://example.com/</link>
+    <link>https://qiankun.info/</link>
     <description>Recent content on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 张乾坤</copyright>
-    <lastBuildDate>Thu, 16 Feb 2023 13:06:19 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Feb 2023 13:06:19 +0800</lastBuildDate><atom:link href="https://qiankun.info/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>我读Go HTTP标准库的一些总结</title>
-      <link>https://example.com/posts/%E6%88%91%E8%AF%BBhttp%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</link>
+      <link>https://qiankun.info/posts/%E6%88%91%E8%AF%BBhttp%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</link>
       <pubDate>Thu, 16 Feb 2023 13:06:19 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E6%88%91%E8%AF%BBhttp%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://qiankun.info/posts/%E6%88%91%E8%AF%BBhttp%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</guid>
       <description>Client发送请求只需要三个参数：Request、RoundTripper、超时时间。
 Client发送请求，最核心的部分就是靠RoundTripper做一次RoundTrip。
 RoundTripper只负责发送请求和接受响应，而cookies和重定向相关的处理由Client负责。
@@ -33,10 +33,10 @@ Connection请求头，HTTP/1.1的默认值为keep-alive。</description>
     
     <item>
       <title>Anki卡片的本质</title>
-      <link>https://example.com/posts/anki%E5%8D%A1%E7%89%87%E7%9A%84%E6%9C%AC%E8%B4%A8/</link>
+      <link>https://qiankun.info/posts/anki%E5%8D%A1%E7%89%87%E7%9A%84%E6%9C%AC%E8%B4%A8/</link>
       <pubDate>Sun, 05 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/anki%E5%8D%A1%E7%89%87%E7%9A%84%E6%9C%AC%E8%B4%A8/</guid>
+      <guid>https://qiankun.info/posts/anki%E5%8D%A1%E7%89%87%E7%9A%84%E6%9C%AC%E8%B4%A8/</guid>
       <description>我们对于卡片的操作，大体可以分为两种：
  生成卡片 回忆卡片  生成卡片，指的是输入字段内容后生成一张或多张新卡片。
 根据Anki学习中卡片间隔的处理方式，学习也是回忆的过程，所以学习和复习卡片可以统称回忆卡片。
@@ -49,10 +49,10 @@ Connection请求头，HTTP/1.1的默认值为keep-alive。</description>
     
     <item>
       <title>Anki使用的6个文件或文件夹</title>
-      <link>https://example.com/posts/anki%E4%BD%BF%E7%94%A8%E7%9A%846%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9/</link>
+      <link>https://qiankun.info/posts/anki%E4%BD%BF%E7%94%A8%E7%9A%846%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9/</link>
       <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/anki%E4%BD%BF%E7%94%A8%E7%9A%846%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9/</guid>
+      <guid>https://qiankun.info/posts/anki%E4%BD%BF%E7%94%A8%E7%9A%846%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9/</guid>
       <description>Anki的每个collection会使用到6个文件或文件夹
  collection.anki2 deleted.txt collection.media collection.media.db2 media.trash backups  collection.anki2
  一个sqlite数据库文件 所有配置、卡片等信息都保存在这个文件 有很多张表，包括但不限于：  deck - deck表 col - collection表 config - collection配置表 deck_config - deck配置表 cards - 卡片表 notetypes - note类型表 可以使用DB Browser for SQLite打开    deleted.txt
@@ -62,10 +62,10 @@ Connection请求头，HTTP/1.1的默认值为keep-alive。</description>
     
     <item>
       <title>一张Anki卡片的N种状态</title>
-      <link>https://example.com/posts/%E4%B8%80%E5%BC%A0anki%E5%8D%A1%E7%89%87%E7%9A%84n%E7%A7%8D%E7%8A%B6%E6%80%81/</link>
+      <link>https://qiankun.info/posts/%E4%B8%80%E5%BC%A0anki%E5%8D%A1%E7%89%87%E7%9A%84n%E7%A7%8D%E7%8A%B6%E6%80%81/</link>
       <pubDate>Sun, 22 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/%E4%B8%80%E5%BC%A0anki%E5%8D%A1%E7%89%87%E7%9A%84n%E7%A7%8D%E7%8A%B6%E6%80%81/</guid>
+      <guid>https://qiankun.info/posts/%E4%B8%80%E5%BC%A0anki%E5%8D%A1%E7%89%87%E7%9A%84n%E7%A7%8D%E7%8A%B6%E6%80%81/</guid>
       <description>整体上，一张Anki卡片有“正常”和“筛选”两种状态。
   如果卡片经过筛选条件，被放入了筛选Deck，则处于“筛选”状态，否则都处于“正常”状态。
   “正常”状态   &amp;ldquo;正常&amp;quot;状态下的卡片，又可以分为以下4个子状态，每个子状态对应了卡片生命周期的不同阶段：
@@ -74,10 +74,10 @@ Connection请求头，HTTP/1.1的默认值为keep-alive。</description>
     
     <item>
       <title>为什么处理Anki卡片要尽可能快</title>
-      <link>https://example.com/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86anki%E5%8D%A1%E7%89%87%E8%A6%81%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%BF%AB/</link>
+      <link>https://qiankun.info/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86anki%E5%8D%A1%E7%89%87%E8%A6%81%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%BF%AB/</link>
       <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86anki%E5%8D%A1%E7%89%87%E8%A6%81%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%BF%AB/</guid>
+      <guid>https://qiankun.info/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86anki%E5%8D%A1%E7%89%87%E8%A6%81%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%BF%AB/</guid>
       <description>何为快速处理Anki卡片
  指的是看到问题之后要在最短的时间内想出答案 根据文档提示，加上个人经验，看到问题到想出答案的时间控制在10秒内为佳 较长的概念、音频、图片cloze等，处理时间或许不可避免的较长，也应尽量压缩  快速处理卡片对学习者的要求
  集中注意力 主动快速地思考问题的含义 主动快速地检索回忆  快速处理卡片的好处
@@ -88,190 +88,190 @@ Connection请求头，HTTP/1.1的默认值为keep-alive。</description>
     
     <item>
       <title>聚簇索引和非聚簇索引</title>
-      <link>https://example.com/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</link>
+      <link>https://qiankun.info/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</link>
       <pubDate>Tue, 25 May 2021 15:58:54 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</guid>
+      <guid>https://qiankun.info/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</guid>
       <description> Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引   Q：InnoDB的主键索引是哪种类型？  A：聚簇索引   Q：InnoDB的二级索引是哪种类型？  A：非聚簇索引   Q：MyISAM索引是哪种类型？  A：非聚簇索引   Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针   Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？  A：聚簇索引、非聚簇索引   Q：聚簇索引与非聚簇索引的核心区别？  A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。   Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？  A：聚簇索引的key唯一，非聚簇索引的key可以重复   聚簇索引  Q：一张表可以有几个聚簇索引？  A：只能有一个   Q：为什么一张表只能有一个聚簇索引？  A：行记录在磁盘上的存储顺序与索引顺序相同 E：What do Clustered and Non clustered index actually mean?   Q：InnoDB的聚簇索引和表的关系？  A：聚簇索引就是表   Q：聚簇索引如何排列记录？  A：按主键顺序   Q：聚簇索引按什么顺序排列记录？  A：主键   Q：InnoDB引擎默认如何聚集数据？  A：使用主键聚集数据   Q：InnoDB引擎如何聚集数据？  A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键   Q：…… 上面说的是？  A：InnoDB聚集数据的方式   Q：最应当避免使用哪种列作为聚簇索引？  A：不连续且值的分布范围非常大的列   Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？  A：插入随机，数据没有任何聚集特性   Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？  A：避免使用不连续且值的分布范围非常大的列作为聚簇索引     非聚簇索引  Q：InnoDB二级索引的访问需要遍历几次索引树？  A：两次   Q：InnoDB二级索引的访问需要哪两次遍历索引树？  A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行      </description>
     </item>
     
     <item>
       <title>Go主线程m0</title>
-      <link>https://example.com/posts/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</link>
+      <link>https://qiankun.info/posts/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</link>
       <pubDate>Mon, 17 May 2021 08:38:16 +0800</pubDate>
       
-      <guid>https://example.com/posts/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</guid>
+      <guid>https://qiankun.info/posts/go%E4%B8%BB%E7%BA%BF%E7%A8%8Bm0/</guid>
       <description> Q：Go进程启动时的主线程是？  A：runtime.m0   Q：Go进程启动的第一个线程是？  A：runtime.m0   Q：runtime.m0是什么？  A：Go进程启动时的主线程   Q：m0与Go进程的数量关系？  A：一个Go进程对应一个m0   Q：runtime.m0与runtime.g0的赋值和初始化在哪里执行？  A：runtime.rt0_go()汇编函数    </description>
     </item>
     
     <item>
       <title>延迟关联</title>
-      <link>https://example.com/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</link>
+      <link>https://qiankun.info/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</link>
       <pubDate>Mon, 17 May 2021 08:16:19 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</guid>
+      <guid>https://qiankun.info/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</guid>
       <description>&lt;p&gt;&lt;em&gt;SQL优化&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>覆盖索引</title>
-      <link>https://example.com/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</link>
+      <link>https://qiankun.info/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</link>
       <pubDate>Mon, 17 May 2021 08:14:43 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</guid>
+      <guid>https://qiankun.info/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</guid>
       <description>&lt;p&gt;&lt;em&gt;SQL优化&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>如何计算TCP的payload数据大小</title>
-      <link>https://example.com/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
+      <link>https://qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
       <pubDate>Wed, 31 Mar 2021 17:31:11 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</guid>
+      <guid>https://qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>彻底搞懂Anki卡片的Due字段</title>
-      <link>https://example.com/posts/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</link>
+      <link>https://qiankun.info/posts/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</link>
       <pubDate>Tue, 16 Mar 2021 15:52:39 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</guid>
+      <guid>https://qiankun.info/posts/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82anki%E5%8D%A1%E7%89%87%E7%9A%84due%E5%AD%97%E6%AE%B5/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Anki编辑器如何将输入同步到对象</title>
-      <link>https://example.com/posts/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
+      <link>https://qiankun.info/posts/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Tue, 01 Dec 2020 05:32:02 +0800</pubDate>
       
-      <guid>https://example.com/posts/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
+      <guid>https://qiankun.info/posts/anki%E7%BC%96%E8%BE%91%E5%99%A8%E5%A6%82%E4%BD%95%E5%B0%86%E8%BE%93%E5%85%A5%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AF%B9%E8%B1%A1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Anki新卡片顺序</title>
-      <link>https://example.com/posts/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
+      <link>https://qiankun.info/posts/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</link>
       <pubDate>Mon, 30 Nov 2020 14:20:43 +0800</pubDate>
       
-      <guid>https://example.com/posts/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
+      <guid>https://qiankun.info/posts/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>记一次redis攻击排查</title>
-      <link>https://example.com/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</link>
+      <link>https://qiankun.info/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</link>
       <pubDate>Thu, 15 Oct 2020 16:18:14 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</guid>
+      <guid>https://qiankun.info/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Go中复制map可能遇到坑</title>
-      <link>https://example.com/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
+      <link>https://qiankun.info/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
       <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
       
-      <guid>https://example.com/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</guid>
+      <guid>https://qiankun.info/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Go Module本地依赖的两种玩法</title>
-      <link>https://example.com/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</link>
+      <link>https://qiankun.info/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</link>
       <pubDate>Sun, 23 Jun 2019 11:34:55 +0800</pubDate>
       
-      <guid>https://example.com/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</guid>
+      <guid>https://qiankun.info/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</guid>
       <description></description>
     </item>
     
     <item>
       <title>slice底层struct的数据结构</title>
-      <link>https://example.com/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</link>
+      <link>https://qiankun.info/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</link>
       <pubDate>Thu, 13 Jun 2019 17:51:40 +0800</pubDate>
       
-      <guid>https://example.com/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</guid>
+      <guid>https://qiankun.info/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</guid>
       <description>通过slice成员的地址观察其底层struct的数据结构</description>
     </item>
     
     <item>
       <title>折腾hugo</title>
-      <link>https://example.com/posts/%E6%8A%98%E8%85%BEhugo/</link>
+      <link>https://qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/</link>
       <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E6%8A%98%E8%85%BEhugo/</guid>
+      <guid>https://qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/</guid>
       <description>hugo折腾过程的一些记录</description>
     </item>
     
     <item>
       <title>索引与缓存的坑</title>
-      <link>https://example.com/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+      <link>https://qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+      <guid>https://qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
       <description></description>
     </item>
     
     <item>
       <title>数据类型在网络传输中的表现</title>
-      <link>https://example.com/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
+      <link>https://qiankun.info/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
       <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
+      <guid>https://qiankun.info/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
       <description></description>
     </item>
     
     <item>
       <title>代理小故障排查</title>
-      <link>https://example.com/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
+      <link>https://qiankun.info/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
       <pubDate>Sat, 08 Jun 2019 21:55:46 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
+      <guid>https://qiankun.info/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
       <description></description>
     </item>
     
     <item>
       <title>位运算在PHP错误级别中的运用</title>
-      <link>https://example.com/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</link>
+      <link>https://qiankun.info/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</link>
       <pubDate>Sat, 08 Jun 2019 21:54:53 +0800</pubDate>
       
-      <guid>https://example.com/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</guid>
+      <guid>https://qiankun.info/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</guid>
       <description>&lt;p&gt;首先，我们要解决的第一个问题是&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C语言中的数组和指针</title>
-      <link>https://example.com/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
+      <link>https://qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
       <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
       
-      <guid>https://example.com/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+      <guid>https://qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
       <description>&lt;p&gt;先看段代码&lt;/p&gt;</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://example.com/archives/</link>
+      <link>https://qiankun.info/archives/</link>
       <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/archives/</guid>
+      <guid>https://qiankun.info/archives/</guid>
       <description></description>
     </item>
     
     <item>
       <title>My First Post</title>
-      <link>https://example.com/posts/firstpost/</link>
+      <link>https://qiankun.info/posts/firstpost/</link>
       <pubDate>Tue, 26 Mar 2019 08:47:11 +0100</pubDate>
       
-      <guid>https://example.com/posts/firstpost/</guid>
+      <guid>https://qiankun.info/posts/firstpost/</guid>
       <description>Your markdown here.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://example.com/about/</link>
+      <link>https://qiankun.info/about/</link>
       <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/about/</guid>
+      <guid>https://qiankun.info/about/</guid>
       <description>我  工作在魔都  目前就职于七牛云，负责CDN相关的开发 曾供职爱奇艺、苏宁等 常用的编程语言是Go，偶尔也用PHP、Python、Rust 正在努力成长为一名后端架构师   居住在美丽昆山  意义  记录想法 构建网络 总结分享 激发灵感 理清思路  </description>
     </item>
     
