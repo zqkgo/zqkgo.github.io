@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Anki新卡片顺序 - 张乾坤👀</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="Anki新卡片顺序" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zqkgo.github.io/anki%E6%96%B0%E5%8D%A1%E7%89%87%E9%A1%BA%E5%BA%8F/" />
+<meta property="article:published_time" content="2020-11-30T14:20:43+08:00" />
+<meta property="article:modified_time" content="2020-11-30T14:20:43+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Anki新卡片顺序"/>
+<meta name="twitter:description" content=""/>
+
+	
+        <link href="https://zqkgo.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://zqkgo.github.io/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://zqkgo.github.io/">张乾坤👀</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Anki新卡片顺序</h1>
+			<div class="meta">Posted on Nov 30, 2020</div>
+		</div>
+		
+
+		<section class="body">
+			<pre><code>Anki版本信息
+-----------
+Tag：2.1.26
+Commit ID: 70784154
+</code></pre><h2 id="新卡片顺序什么时候决定的">新卡片顺序什么时候决定的？</h2>
+<p>新增卡片时决定的。</p>
+<h2 id="新卡片顺序如何决定的">新卡片顺序如何决定的？</h2>
+<p>新增<code>Note</code>的逻辑：</p>
+<ul>
+<li>找到<code>Note</code>对应的<code>Model</code>（即<code>Note Type</code>）的模板<code>Templates</code>，每个<code>Model</code>可能有多个<code>Templates</code></li>
+<li>获取全局计数器<code>nextPos</code>加1后的值
+<ul>
+<li><code>nextPos</code>是属于<code>Collection</code>的全局配置，保存在<code>config</code>表中</li>
+<li><code>nextPos</code>每次新增卡片会递增1</li>
+</ul>
+</li>
+<li>遍历每个<code>Template</code>，根据<code>Note</code>、<code>Template</code>、<code>Deck</code>等信息生成<code>Card</code>
+<ul>
+<li><code>Card.due</code>属性保存新卡片的到期时间，但对于不同类型的卡，该属性的值不同，参考<a href="https://docs.ankiweb.net/#/browsing?id=card-list">文档说明</a></li>
+<li>新增卡片时为<code>Card.due</code>赋值
+<ul>
+<li>如果<code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_DUE</code>，则使用全局计数器<code>nextPos</code>的值
+<ul>
+<li><code>conf[&quot;new&quot;][&quot;order&quot;]</code>有两种可能的值，<code>NEW_CARDS_DUE</code>和<code>NEW_CARDS_RANDOM</code>，分别对应<code>Deck</code>配置中<code>Show new cards in order added</code>和<code>Show new cards in random order</code>两个配置项，如下图所示：
+<img src="/images/deck_config_new_order.png" alt=""></li>
+</ul>
+</li>
+<li>如果<code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_RANDOM</code>则为<code>Card.due</code>属性计算一个随机值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="新卡片的顺序值如何查看">新卡片的顺序值如何查看？</h2>
+<p>Browser中的<code>Due</code>字段。</p>
+<ul>
+<li>
+<p><code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_DUE</code></p>
+<p>新增4张卡片，如下图所示：
+<img src="/images/demo_deck_config_new_order.png" alt=""></p>
+</li>
+<li>
+<p><code>Deck</code>配置项<code>conf[&quot;new&quot;][&quot;order&quot;]</code>为<code>NEW_CARDS_RANDOM</code></p>
+<p>新增4张卡片，如下图所示：
+<img src="/images/demo_deck_config_new_random.png" alt=""></p>
+</li>
+</ul>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/anki">anki</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2023  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

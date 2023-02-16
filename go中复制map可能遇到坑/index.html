@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Go中复制map可能遇到坑 - 张乾坤👀</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="Go中复制map可能遇到坑" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zqkgo.github.io/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/" />
+<meta property="article:published_time" content="2019-11-02T14:03:25+08:00" />
+<meta property="article:modified_time" content="2019-11-02T14:03:25+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go中复制map可能遇到坑"/>
+<meta name="twitter:description" content=""/>
+
+	
+        <link href="https://zqkgo.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://zqkgo.github.io/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://zqkgo.github.io/">张乾坤👀</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Go中复制map可能遇到坑</h1>
+			<div class="meta">Posted on Nov 2, 2019</div>
+		</div>
+		
+
+		<section class="body">
+			<p>昨天下午遇到一个问题。服务A与服务B批量建立tcp连接，并定时发送rpc请求（rpc.Ping()）检查连接的健康状态。A服务在kibana出现报错：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">use of closed network connection
+</code></pre></div><p>第一反应是B服务重启导致连接断开，正好落在A服务检查出错与重连的时间窗口。运维同学帮拉日志，发现错误：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;fatal error: concurrent map iteration and map write\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.771394863Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;[11/01/19 10:52:52] [DEBG] RouterRPC Put Request =\u003e \u0026{6076362058 1 200178629686 2fadfb7c24bb440cb9dfcb74f515baef server:1:currt:1572229900380812731:498081}\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stdout&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.771452423Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773643972Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;goroutine 62906840 [running]:\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773666216Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;runtime.throw(0x932fd7, 0x26)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773672033Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/app/go1.9/go/src/runtime/panic.go:605 +0x95 fp=0xc4202019a8 sp=0xc420201988 pc=0x42d1a5\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773676889Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;runtime.mapiternext(0xc420201ac8)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773682159Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/app/go1.9/go/src/runtime/hashmap.go:778 +0x6f1 fp=0xc420201a40 sp=0xc4202019a8 pc=0x40b7c1\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773686889Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;main.(*RouterRPC).AllRoomCount(0xc4201988c0, 0xc420b08630, 0xc420192158, 0x0, 0x0)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773694133Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/path/to/project/rpc.go:185 +0x161 fp=0xc420201b38 sp=0xc420201a40 pc=0x809421\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773704869Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;runtime.call64(0xc420187f20, 0xc420192078, 0xc420358b10, 0x1800000028)\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,<span style="color:#e6db74">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2019-11-01T02:52:52.773713993Z&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log&#34;</span>:<span style="color:#e6db74">&#34;\u0009/app/go1.9/go/src/runtime/asm_amd64.s:510 +0x3b fp=0xc420201b88 sp=0xc420201b38 pc=0x45b86b\n&#34;</span>,<span style="color:#e6db74">&#34;stream&#34;</span>:<span style="color:#e6db74">&#34;stderr&#34;</span>,
+...
+</code></pre></div><p>显示是并发读写map出错，看下这行代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">rc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Demo</span>(<span style="color:#ae81ff">111</span>,<span style="color:#e6db74">&#34;foo&#34;</span>)
+<span style="color:#75715e">// /path/to/project/rpc.go:185
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">rid</span>, <span style="color:#a6e22e">count</span> = <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">rc</span> {
+    <span style="color:#a6e22e">rep</span>.<span style="color:#a6e22e">Counter</span>[<span style="color:#a6e22e">rid</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">count</span>
+}
+</code></pre></div><p><code>rc</code>的类型是<code>map[string]int32</code>，对它访问没加锁因为预期没有并发写，看下来源：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">B</span>) <span style="color:#a6e22e">Demo</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">int32</span>, <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rc</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>) {
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RLock</span>()
+	<span style="color:#a6e22e">rc</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>, len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>))
+	<span style="color:#a6e22e">rc</span> = <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">s</span>][<span style="color:#a6e22e">a</span>]
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RUnlock</span>()
+	<span style="color:#66d9ef">return</span>
+}
+</code></pre></div><p><code>b.rc</code>是一个会被并发读写的<code>map</code>，所以对它的读操作需加锁。问题出在赋值语句：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">rc</span> = <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">s</span>][<span style="color:#a6e22e">a</span>]
+</code></pre></div><p><code>map</code>的本质是<code>*hmap</code>，即<code>hmap</code>类型的指针，所以变量<code>rc</code>和<code>b.rc[s][a]</code>中保存的是同一个指向底层<code>hmap</code>的地址。<code>Demo()</code>方法返回后，外面对该地址的读操作并没加锁，从而导致报错。这里代码的本意是复制<code>map</code>，只是用了错误的方法。正确的做法是循环遍历<code>map</code>的每个元素逐个赋值到新的<code>map</code>。例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">B</span>) <span style="color:#a6e22e">Demo</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">int32</span>, <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rc</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>) {
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RLock</span>()
+	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">server</span>][<span style="color:#a6e22e">appId</span>]
+	<span style="color:#a6e22e">rc</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int32</span>, len(<span style="color:#a6e22e">rc</span>))
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">rid</span>, <span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> &gt; <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">rc</span>[<span style="color:#a6e22e">rid</span>] = <span style="color:#a6e22e">count</span>
+		}
+	}
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">bLock</span>.<span style="color:#a6e22e">RUnlock</span>()
+	<span style="color:#66d9ef">return</span>
+}
+</code></pre></div><p>微服务框架<code>go-micro</code>中的对头信息的<a href="https://github.com/micro/go-micro/blob/92b7d2db3bc9612a7f0feafbb7b801d180b5c3b3/metadata/metadata.go#L16">复制过程</a>可以作为参考。</p>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/go">go</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2023  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>
