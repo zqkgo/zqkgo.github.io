@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>c语言 on Z.Q.K</title>
-    <link>https://qiankun.info/tags/c%E8%AF%AD%E8%A8%80/</link>
+    <link>https://www.qiankun.info/tags/c%E8%AF%AD%E8%A8%80/</link>
     <description>Recent content in c语言 on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 张乾坤</copyright>
-    <lastBuildDate>Sat, 08 Jun 2019 21:54:28 +0800</lastBuildDate><atom:link href="https://qiankun.info/tags/c%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jun 2019 21:54:28 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/c%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C语言中的数组和指针</title>
-      <link>https://qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
+      <link>https://www.qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
       <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
       
-      <guid>https://qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+      <guid>https://www.qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
       <description>&lt;p&gt;先看段代码&lt;/p&gt;</description>
     </item>
     

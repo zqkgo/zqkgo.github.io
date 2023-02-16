@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TCP on Z.Q.K</title>
-    <link>https://qiankun.info/tags/tcp/</link>
+    <link>https://www.qiankun.info/tags/tcp/</link>
     <description>Recent content in TCP on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 张乾坤</copyright>
-    <lastBuildDate>Wed, 31 Mar 2021 17:31:11 +0800</lastBuildDate><atom:link href="https://qiankun.info/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 Mar 2021 17:31:11 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何计算TCP的payload数据大小</title>
-      <link>https://qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
+      <link>https://www.qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
       <pubDate>Wed, 31 Mar 2021 17:31:11 +0800</pubDate>
       
-      <guid>https://qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</guid>
+      <guid>https://www.qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</guid>
       <description></description>
     </item>
     

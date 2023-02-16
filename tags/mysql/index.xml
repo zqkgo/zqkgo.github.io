@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>mysql on Z.Q.K</title>
-    <link>https://qiankun.info/tags/mysql/</link>
+    <link>https://www.qiankun.info/tags/mysql/</link>
     <description>Recent content in mysql on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 张乾坤</copyright>
-    <lastBuildDate>Tue, 25 May 2021 15:58:54 +0800</lastBuildDate><atom:link href="https://qiankun.info/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 May 2021 15:58:54 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>聚簇索引和非聚簇索引</title>
-      <link>https://qiankun.info/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</link>
+      <link>https://www.qiankun.info/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</link>
       <pubDate>Tue, 25 May 2021 15:58:54 +0800</pubDate>
       
-      <guid>https://qiankun.info/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</guid>
+      <guid>https://www.qiankun.info/posts/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/</guid>
       <description> Q：从类型角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB的主键索引是聚簇索引，二级索引是非聚簇索引；MyISAM索引是非聚簇索引   Q：InnoDB的主键索引是哪种类型？  A：聚簇索引   Q：InnoDB的二级索引是哪种类型？  A：非聚簇索引   Q：MyISAM索引是哪种类型？  A：非聚簇索引   Q：从存储的数据角度看，InnoDB和MyISAM存储引擎的索引的区别？  A：InnoDB主键索引叶子节点存储主键与行记录，二级索引叶子节点存储索引列与主键；MyISAM索引叶子节点存储索引列和行记录指针   Q：从索引顺序与行记录的物理存储顺序的关系角度看，索引分哪两种？  A：聚簇索引、非聚簇索引   Q：聚簇索引与非聚簇索引的核心区别？  A：聚簇索引中行记录在磁盘上的存储顺序与索引顺序相同，而非聚簇索引使用指针指向行记录。   Q：从key唯一性角度看，聚簇索引和非聚簇索引的区别？  A：聚簇索引的key唯一，非聚簇索引的key可以重复   聚簇索引  Q：一张表可以有几个聚簇索引？  A：只能有一个   Q：为什么一张表只能有一个聚簇索引？  A：行记录在磁盘上的存储顺序与索引顺序相同 E：What do Clustered and Non clustered index actually mean?   Q：InnoDB的聚簇索引和表的关系？  A：聚簇索引就是表   Q：聚簇索引如何排列记录？  A：按主键顺序   Q：聚簇索引按什么顺序排列记录？  A：主键   Q：InnoDB引擎默认如何聚集数据？  A：使用主键聚集数据   Q：InnoDB引擎如何聚集数据？  A：默认使用主键聚集数据，无主键则选择一个唯一的非空索引，无索引则隐式定义一个主键   Q：…… 上面说的是？  A：InnoDB聚集数据的方式   Q：最应当避免使用哪种列作为聚簇索引？  A：不连续且值的分布范围非常大的列   Q：为什么应该避免使用不连续且值的分布范围非常大的列作为聚簇索引？  A：插入随机，数据没有任何聚集特性   Q：插入随机，数据没有任何聚集特性。 由上可知应当避免哪种与聚簇索引有关的错误？  A：避免使用不连续且值的分布范围非常大的列作为聚簇索引     非聚簇索引  Q：InnoDB二级索引的访问需要遍历几次索引树？  A：两次   Q：InnoDB二级索引的访问需要哪两次遍历索引树？  A：到二级索引的叶子结点获得主键值、根据主键值去聚簇索引中查找对应的行      </description>
     </item>
     
     <item>
       <title>延迟关联</title>
-      <link>https://qiankun.info/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</link>
+      <link>https://www.qiankun.info/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</link>
       <pubDate>Mon, 17 May 2021 08:16:19 +0800</pubDate>
       
-      <guid>https://qiankun.info/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</guid>
+      <guid>https://www.qiankun.info/posts/%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94/</guid>
       <description>&lt;p&gt;&lt;em&gt;SQL优化&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>覆盖索引</title>
-      <link>https://qiankun.info/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</link>
+      <link>https://www.qiankun.info/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</link>
       <pubDate>Mon, 17 May 2021 08:14:43 +0800</pubDate>
       
-      <guid>https://qiankun.info/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</guid>
+      <guid>https://www.qiankun.info/posts/%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95/</guid>
       <description>&lt;p&gt;&lt;em&gt;SQL优化&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>索引与缓存的坑</title>
-      <link>https://qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+      <link>https://www.qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
       
-      <guid>https://qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+      <guid>https://www.qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
       <description></description>
     </item>
     
