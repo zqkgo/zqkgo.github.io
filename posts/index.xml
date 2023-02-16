@@ -7,13 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 张乾坤</copyright>
-    <lastBuildDate>Thu, 16 Feb 2023 13:06:19 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Feb 2023 17:42:18 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>我读Go HTTP标准库的一些总结</title>
-      <link>https://www.qiankun.info/posts/%E6%88%91%E8%AF%BBhttp%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</link>
+      <title>关于TCP的keepalive</title>
+      <link>https://www.qiankun.info/posts/%E5%85%B3%E4%BA%8Etcp%E7%9A%84keepalive/</link>
+      <pubDate>Thu, 16 Feb 2023 17:42:18 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E5%85%B3%E4%BA%8Etcp%E7%9A%84keepalive/</guid>
+      <description>总结 TCP的keepalive只能对直连两端间的连接进行保活，而不能对应用层的最终两端间的连接进行保活。
+TCP的keepalive不能穿越两端间的代理设备，而WebSocket的Ping/Pong机制可以。
+参考：  https://stackoverflow.com/questions/23238319/websockets-ping-pong-why-not-tcp-keepalive  </description>
+    </item>
+    
+    <item>
+      <title>Go HTTP标准库的一些总结</title>
+      <link>https://www.qiankun.info/posts/http%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</link>
       <pubDate>Thu, 16 Feb 2023 13:06:19 +0800</pubDate>
       
-      <guid>https://www.qiankun.info/posts/%E6%88%91%E8%AF%BBhttp%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://www.qiankun.info/posts/http%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</guid>
       <description>Client发送请求只需要三个参数：Request、RoundTripper、超时时间。
 Client发送请求，最核心的部分就是靠RoundTripper做一次RoundTrip。
 RoundTripper只负责发送请求和接受响应，而cookies和重定向相关的处理由Client负责。

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>关于TCP的keepalive - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="总结 TCP的keepalive只能对直连两端间的连接进行保活，而不能对应用层的最终两端间的连接进行保活。
+TCP的keepalive不能穿越两端间的代理设备，而WebSocket的Ping/Pong机制可以。
+参考：  https://stackoverflow.com/questions/23238319/websockets-ping-pong-why-not-tcp-keepalive  " />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="关于TCP的keepalive" />
+<meta property="og:description" content="总结 TCP的keepalive只能对直连两端间的连接进行保活，而不能对应用层的最终两端间的连接进行保活。
+TCP的keepalive不能穿越两端间的代理设备，而WebSocket的Ping/Pong机制可以。
+参考：  https://stackoverflow.com/questions/23238319/websockets-ping-pong-why-not-tcp-keepalive  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qiankun.info/posts/%E5%85%B3%E4%BA%8Etcp%E7%9A%84keepalive/" />
+<meta property="article:published_time" content="2023-02-16T17:42:18+08:00" />
+<meta property="article:modified_time" content="2023-02-16T17:42:18+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于TCP的keepalive"/>
+<meta name="twitter:description" content="总结 TCP的keepalive只能对直连两端间的连接进行保活，而不能对应用层的最终两端间的连接进行保活。
+TCP的keepalive不能穿越两端间的代理设备，而WebSocket的Ping/Pong机制可以。
+参考：  https://stackoverflow.com/questions/23238319/websockets-ping-pong-why-not-tcp-keepalive  "/>
+<script src="https://www.qiankun.infojs/feather.min.js"></script>
+	
+	
+        <link href="https://www.qiankun.info/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.qiankun.info/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://www.qiankun.info">Z.Q.K</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">关于TCP的keepalive</h1>
+			<div class="meta">Posted on Feb 16, 2023</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="总结">总结</h2>
+<p>TCP的keepalive只能对直连两端间的连接进行保活，而不能对应用层的最终两端间的连接进行保活。</p>
+<p><img src="/images/14.png" alt="tcp-keepalive-not-through-proxy"></p>
+<p>TCP的keepalive不能穿越两端间的代理设备，而WebSocket的Ping/Pong机制可以。</p>
+<h2 id="参考">参考：</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/23238319/websockets-ping-pong-why-not-tcp-keepalive">https://stackoverflow.com/questions/23238319/websockets-ping-pong-why-not-tcp-keepalive</a></li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  © 张乾坤 |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
