@@ -25,16 +25,29 @@ TCP的keepalive不能穿越两端间的代理设备，而WebSocket的Ping/Pong�
       <pubDate>Thu, 16 Feb 2023 13:06:19 +0800</pubDate>
       
       <guid>https://www.qiankun.info/posts/http%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</guid>
-      <description>Client发送请求只需要三个参数：Request、RoundTripper、超时时间。
+      <description>Server Server{}用来定义运行HTTP服务器所需的参数。
+Server.Shutdown()实现优雅地关闭服务器，而不会中断活跃的连接。
+Server.Shutdown()只会关闭处于StateIdle状态的连接。
+Server.Shutdown()先关闭所有打开的listener，再关闭所有处于StateIdle状态的连接，然后无限地等待所有连接进入StateIdle状态后将其关闭。
+连接处于StateIdle状态，表示已经处理完请求，并且处于keep-alive状态，等待新请求复用此连接。
+处于StateIdle状态的连接，可能进一步变成StateActive状态或StateClosed状态。
+连接处于StateActive状态，表示其已经从一个请求读取至少一个字节。
+一个请求进入handler之前，连接被设置为StateActive状态。
+一个请求处理完成后，连接从StateActive状态进入 StateClosed状态 或 StateHijacked状态 或StateIdle状态。
+连接处于StateClosed状态，表示已经被关闭，不会再进入其他状态。
+一个连接，最开始时处于StateNew状态，等待处理请求。
+连接被设置为 StateNew状态 时，Server将其视为活跃连接来管理。
+当连接被设置为 StateHijacked状态 或 StateClosed状态时，Server将其从管理的活跃连接中移除。
+处于 StateNew状态 的连接，可能进入 StateActive状态 或 StateClosed状态。
+Client Client发送请求只需要三个参数：Request、RoundTripper、超时时间。
 Client发送请求，最核心的部分就是靠RoundTripper做一次RoundTrip。
 RoundTripper只负责发送请求和接受响应，而cookies和重定向相关的处理由Client负责。
-Transport允许调用方注册scheme（http或https）对应的RoundTripper。
+Transport Transport允许调用方注册scheme（http或https）对应的RoundTripper。
 Transport.DisableKeepAlives若为true，则不会复用空闲的连接，即每次roundtrip都会创建新连接。
 Transport.DisableKeepAlives若为true，则不会将连接放入空闲列表。
-connectMethod 一个key 作用是为后续的HTTP请求 保持 持久的TCP连接是活跃的？？
 Transport在进行roundtrip的时候，若出错则会自动判断是否需要重试。
 Transport进行roundtrip过程中，获取连接时会使用缓存的连接或创建新连接。
-persistConn用来封装一个连接，通常是持久连接。
+persistConn persistConn用来封装一个连接，通常是持久连接。
 persistConn代替Transport进行roundtrip。
 persistConn与服务端建立连接后，启动两个goroutine，分别是是读循环和写循环。
 Connection请求头，若值为close，表示客户端期望收到响应后断开连接。
