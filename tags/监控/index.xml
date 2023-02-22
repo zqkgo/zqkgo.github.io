@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>监控 on Z.Q.K</title>
+    <link>https://www.qiankun.info/tags/%E7%9B%91%E6%8E%A7/</link>
+    <description>Recent content in 监控 on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 张乾坤</copyright>
+    <lastBuildDate>Wed, 22 Feb 2023 17:50:27 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/%E7%9B%91%E6%8E%A7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于Prometheus的一些总结</title>
+      <link>https://www.qiankun.info/posts/%E5%85%B3%E4%BA%8Eprometheus%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Wed, 22 Feb 2023 17:50:27 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E5%85%B3%E4%BA%8Eprometheus%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</guid>
+      <description>Registry实现了Registerer接口和Gatherer接口。
+Registry可用来注册Collector，收集它们的metric，将metric聚集成MetricFamily后向外暴露。
+Collector的作用是用来收集metric。
+Collector必须注册到Registry才能被收集metric。
+Pusher负责向Pushgateway推送数据。
+Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。</description>
+    </item>
+    
+  </channel>
+</rss>
