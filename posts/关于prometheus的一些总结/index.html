@@ -7,7 +7,23 @@ Registry可用来注册Collector，收集它们的metric，将metric聚集成Met
 Collector的作用是用来收集metric。
 Collector必须注册到Registry才能被收集metric。
 Pusher负责向Pushgateway推送数据。
-Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。" />
+Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。
+Desc类型中保存的是Metric的元信息。
+Collector.Describe()返回的是当前Collector所采集的所有metrics的Desc描述符。
+prometheus客户端库提供了4种核心的metric类型：Counter、Gauge、Histogram、Summary。
+Counter类型的metric具有单调递增的特点，要么增加，要么重置为0。
+Counter类型的metric可用来统计处理的请求数、完成的任务数、出现的错误数等不能减少的数据。
+Guage类型的metric用来表示一个可以增加或减少的数值。
+Guage类型的metric可以用来记录测量数字，例如温度、内存使用率、并发请求数等。
+Histogram和Summary类型的metric都会创建多个时序数据。
+Promethues可以使用PromQL查询语言实时查询和聚合时序数据。
+使用PromQL查询语言得到的结果，三种使用方式：以图表形式呈现、以列表形式呈现、以API形式输出。
+PromQL查询返回的结果只有四种：即时向量（英：Instant vector）、范围向量（英：Range Vector）、数值、字符串。
+即时向量指的是，对于一个包含多个时序的集合，其中的每个时序都只包含一个采样数据，并且所有时序使用相同的时间戳。
+范围向量指的是，对于一个包含多个时序的集合，每个时序都包含一个时间范围的数据点。
+PromQL查询返回的结果，只有即时向量才能以图表形式显示。
+offset用来指定相对于最近一次采集时间的偏移量。
+offset可以设置某个时间点的偏移量，也可以设置某个范围的偏移量。" />
 	<meta property="og:image" content=""/>
 	<meta property="og:title" content="关于Prometheus的一些总结" />
 <meta property="og:description" content="Registry实现了Registerer接口和Gatherer接口。
@@ -15,7 +31,23 @@ Registry可用来注册Collector，收集它们的metric，将metric聚集成Met
 Collector的作用是用来收集metric。
 Collector必须注册到Registry才能被收集metric。
 Pusher负责向Pushgateway推送数据。
-Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。" />
+Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。
+Desc类型中保存的是Metric的元信息。
+Collector.Describe()返回的是当前Collector所采集的所有metrics的Desc描述符。
+prometheus客户端库提供了4种核心的metric类型：Counter、Gauge、Histogram、Summary。
+Counter类型的metric具有单调递增的特点，要么增加，要么重置为0。
+Counter类型的metric可用来统计处理的请求数、完成的任务数、出现的错误数等不能减少的数据。
+Guage类型的metric用来表示一个可以增加或减少的数值。
+Guage类型的metric可以用来记录测量数字，例如温度、内存使用率、并发请求数等。
+Histogram和Summary类型的metric都会创建多个时序数据。
+Promethues可以使用PromQL查询语言实时查询和聚合时序数据。
+使用PromQL查询语言得到的结果，三种使用方式：以图表形式呈现、以列表形式呈现、以API形式输出。
+PromQL查询返回的结果只有四种：即时向量（英：Instant vector）、范围向量（英：Range Vector）、数值、字符串。
+即时向量指的是，对于一个包含多个时序的集合，其中的每个时序都只包含一个采样数据，并且所有时序使用相同的时间戳。
+范围向量指的是，对于一个包含多个时序的集合，每个时序都包含一个时间范围的数据点。
+PromQL查询返回的结果，只有即时向量才能以图表形式显示。
+offset用来指定相对于最近一次采集时间的偏移量。
+offset可以设置某个时间点的偏移量，也可以设置某个范围的偏移量。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.qiankun.info/posts/%E5%85%B3%E4%BA%8Eprometheus%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" />
 <meta property="article:published_time" content="2023-02-22T17:50:27+08:00" />
@@ -27,7 +59,23 @@ Registry可用来注册Collector，收集它们的metric，将metric聚集成Met
 Collector的作用是用来收集metric。
 Collector必须注册到Registry才能被收集metric。
 Pusher负责向Pushgateway推送数据。
-Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。"/>
+Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。
+Desc类型中保存的是Metric的元信息。
+Collector.Describe()返回的是当前Collector所采集的所有metrics的Desc描述符。
+prometheus客户端库提供了4种核心的metric类型：Counter、Gauge、Histogram、Summary。
+Counter类型的metric具有单调递增的特点，要么增加，要么重置为0。
+Counter类型的metric可用来统计处理的请求数、完成的任务数、出现的错误数等不能减少的数据。
+Guage类型的metric用来表示一个可以增加或减少的数值。
+Guage类型的metric可以用来记录测量数字，例如温度、内存使用率、并发请求数等。
+Histogram和Summary类型的metric都会创建多个时序数据。
+Promethues可以使用PromQL查询语言实时查询和聚合时序数据。
+使用PromQL查询语言得到的结果，三种使用方式：以图表形式呈现、以列表形式呈现、以API形式输出。
+PromQL查询返回的结果只有四种：即时向量（英：Instant vector）、范围向量（英：Range Vector）、数值、字符串。
+即时向量指的是，对于一个包含多个时序的集合，其中的每个时序都只包含一个采样数据，并且所有时序使用相同的时间戳。
+范围向量指的是，对于一个包含多个时序的集合，每个时序都包含一个时间范围的数据点。
+PromQL查询返回的结果，只有即时向量才能以图表形式显示。
+offset用来指定相对于最近一次采集时间的偏移量。
+offset可以设置某个时间点的偏移量，也可以设置某个范围的偏移量。"/>
 <script src="https://www.qiankun.infojs/feather.min.js"></script>
 	
 	
@@ -77,6 +125,22 @@ Gatherer负责从已注册的Collector中收集metric，并将它们组织成Met
 <p>Collector必须注册到Registry才能被收集metric。</p>
 <p>Pusher负责向Pushgateway推送数据。</p>
 <p>Gatherer负责从已注册的Collector中收集metric，并将它们组织成MetricFamily数组向外暴露。</p>
+<p>Desc类型中保存的是Metric的元信息。</p>
+<p>Collector.Describe()返回的是当前Collector所采集的所有metrics的Desc描述符。</p>
+<p>prometheus客户端库提供了4种核心的metric类型：Counter、Gauge、Histogram、Summary。</p>
+<p>Counter类型的metric具有单调递增的特点，要么增加，要么重置为0。</p>
+<p>Counter类型的metric可用来统计处理的请求数、完成的任务数、出现的错误数等不能减少的数据。</p>
+<p>Guage类型的metric用来表示一个可以增加或减少的数值。</p>
+<p>Guage类型的metric可以用来记录测量数字，例如温度、内存使用率、并发请求数等。</p>
+<p>Histogram和Summary类型的metric都会创建多个时序数据。</p>
+<p>Promethues可以使用PromQL查询语言实时查询和聚合时序数据。</p>
+<p>使用PromQL查询语言得到的结果，三种使用方式：以图表形式呈现、以列表形式呈现、以API形式输出。</p>
+<p>PromQL查询返回的结果只有四种：即时向量（英：Instant vector）、范围向量（英：Range Vector）、数值、字符串。</p>
+<p>即时向量指的是，对于一个包含多个时序的集合，其中的每个时序都只包含一个采样数据，并且所有时序使用相同的时间戳。</p>
+<p>范围向量指的是，对于一个包含多个时序的集合，每个时序都包含一个时间范围的数据点。</p>
+<p>PromQL查询返回的结果，只有即时向量才能以图表形式显示。</p>
+<p>offset用来指定相对于最近一次采集时间的偏移量。</p>
+<p>offset可以设置某个时间点的偏移量，也可以设置某个范围的偏移量。</p>
 
 		</section>
 
