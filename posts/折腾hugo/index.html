@@ -1,39 +1,34 @@
 <!DOCTYPE html>
-<html><head>
+<html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>折腾hugo - Z.Q.K</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="hugo折腾过程的一些记录" />
 	<meta property="og:image" content=""/>
-	<meta property="og:title" content="折腾hugo" />
-<meta property="og:description" content="hugo折腾过程的一些记录" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/" />
-<meta property="article:published_time" content="2019-06-09T22:42:17+08:00" />
-<meta property="article:modified_time" content="2019-06-09T22:42:17+08:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="折腾hugo"/>
-<meta name="twitter:description" content="hugo折腾过程的一些记录"/>
-<script src="https://www.qiankun.infojs/feather.min.js"></script>
-	
-	
+	<meta property="og:url" content="https://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/">
+  <meta property="og:site_name" content="Z.Q.K">
+  <meta property="og:title" content="折腾hugo">
+  <meta property="og:description" content="hugo折腾过程的一些记录">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-06-09T22:42:17+08:00">
+    <meta property="article:modified_time" content="2019-06-09T22:42:17+08:00">
+    <meta property="article:tag" content="Hugo">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="折腾hugo">
+  <meta name="twitter:description" content="hugo折腾过程的一些记录">
+
         <link href="https://www.qiankun.info/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://www.qiankun.info/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
-
-	
-	
-
-	
-	
-	
-	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.qiankun.info/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" />
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://www.qiankun.info">Z.Q.K</a>
+		<a href="https://www.qiankun.info/">Z.Q.K</a>
 	</div>
 	<nav>
 		
@@ -48,15 +43,17 @@
 </header>
 
 <main>
-	<article>
-		<div class="title">
-			<h1 class="title">折腾hugo</h1>
-			<div class="meta">Posted on Jun 9, 2019</div>
-		</div>
-		
-
-		<section class="body">
-			<p>阿里云的服务器过期，费用不菲，暂不续，迁到<code>github page</code>。以前用hexo，觉得不错，静态网页，完全控制页面功能不简单，速度块。之前用阿里云，因为用<code>Laravel</code>写博客页面功能容易掌控。既然是信息类网站，类似<code>hexo</code>或<code>hugo</code>这种直接基于<code>markdown</code>文件配合主题根据配置生成静态页面的工具完全能够胜任一些基本的展示工作。为什么选<code>hugo</code>而不是<code>hexo</code>？一是因为<code>hugo</code>采用<code>Go</code>实现，执行常规的命令例如创建页面，构建网站等速度上稍微快一些。并且，支持<code>Go</code>。二是因为实在不想看到<code>hexo</code>下载的一堆依赖。前端深似海，入行需谨慎。</p>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">折腾hugo</h1>
+          <div class="meta">Posted on Jun 9, 2019</div>
+        </div>
+        
+        <section class="body">
+          <p>阿里云的服务器过期，费用不菲，暂不续，迁到<code>github page</code>。以前用hexo，觉得不错，静态网页，完全控制页面功能不简单，速度块。之前用阿里云，因为用<code>Laravel</code>写博客页面功能容易掌控。既然是信息类网站，类似<code>hexo</code>或<code>hugo</code>这种直接基于<code>markdown</code>文件配合主题根据配置生成静态页面的工具完全能够胜任一些基本的展示工作。为什么选<code>hugo</code>而不是<code>hexo</code>？一是因为<code>hugo</code>采用<code>Go</code>实现，执行常规的命令例如创建页面，构建网站等速度上稍微快一些。并且，支持<code>Go</code>。二是因为实在不想看到<code>hexo</code>下载的一堆依赖。前端深似海，入行需谨慎。</p>
 <h2 id="小试牛刀">小试牛刀</h2>
 <p><code>hugo</code>的文档挺多，方方面面，跟着文档走靠谱。但可能不想通读文档，遇到需要的功能点直接搜，以下是我用到的功能点和相关文档。</p>
 <ul>
@@ -71,84 +68,84 @@
 </li>
 <li>
 <p>定义文章标签，在<code>front matter</code>中定义，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tags:
-  - go
-  - php
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tags:
+</span></span><span style="display:flex;"><span>  - go
+</span></span><span style="display:flex;"><span>  - php
+</span></span></code></pre></div></li>
 <li>
 <p>在列表也显示与标题对应的图片，在<code>front matter</code>中定义，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">featured_image: /images/default.png
-</code></pre></div><p>图片<code>default.png</code>放在<code>static/images/</code>目录，<code>/images/default.png</code>这种用法也可以在文章中使用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>featured_image: /images/default.png
+</span></span></code></pre></div><p>图片<code>default.png</code>放在<code>static/images/</code>目录，<code>/images/default.png</code>这种用法也可以在文章中使用。</p>
 </li>
 <li>
 <p>在<code>config.toml</code>中设置网站语言，例如<code>defaultContentLanguage: zh</code>。渲染文章内容的主题（目前使用<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>）模板是<code>layouts/_default/single.html</code>，显示右侧“目录”和“相关内容”的<code>html</code>如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;w-30-l mt6-l&#34;</span>&gt;
-    {{- partial &#34;menu-contextual.html&#34; . -}}
-&lt;/<span style="color:#f92672">aside</span>&gt;
-</code></pre></div><p>在<code>menu-contextual.html</code>中使用如下的调用来显示&quot;相关文章&quot;四字。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ i18n &#34;related&#34;}}
-</code></pre></div><p>而<code>related</code>的定义在<code>i18n/zh.toml</code>中，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">related</span>]
-<span style="color:#a6e22e">other</span> = <span style="color:#e6db74">&#34;相关文章&#34;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">aside</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;w-30-l mt6-l&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{- partial &#34;menu-contextual.html&#34; . -}}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">aside</span>&gt;
+</span></span></code></pre></div><p>在<code>menu-contextual.html</code>中使用如下的调用来显示&quot;相关文章&quot;四字。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ i18n &#34;related&#34;}}
+</span></span></code></pre></div><p>而<code>related</code>的定义在<code>i18n/zh.toml</code>中，例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">related</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">other</span> = <span style="color:#e6db74">&#34;相关文章&#34;</span>
+</span></span></code></pre></div></li>
 <li>
 <p>定一个目录的简要描述，可定义例如<code>posts/_index.md</code>文件，内容如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-  <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;文章&#34;</span>
-  <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;想写就写的&#34;</span>
-  <span style="color:#f92672">featured_image</span>: <span style="color:#e6db74">&#39;&#39;</span>
----
-</code></pre></div><p>参考主题<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>的<a href="https://github.com/budparr/gohugo-theme-ananke/tree/master/exampleSite">exampleSite</a>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;文章&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;想写就写的&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">featured_image</span>: <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div><p>参考主题<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>的<a href="https://github.com/budparr/gohugo-theme-ananke/tree/master/exampleSite">exampleSite</a>。</p>
 </li>
 <li>
 <p>在<code>config.toml</code>中定义<code>favicon</code>的链接：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">params</span>]
-  <span style="color:#a6e22e">favicon</span> = <span style="color:#e6db74">&#34;https://avatars0.githubusercontent.com/u/14950473?s=40&amp;v=4&#34;</span>
-</code></pre></div><p>在模板<code>layouts/partials/site-favicon.html</code>中使用：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shortcut icon&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.favicon }}&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image/x-icon&#34;</span> /&gt;
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">favicon</span> = <span style="color:#e6db74">&#34;https://avatars0.githubusercontent.com/u/14950473?s=40&amp;v=4&#34;</span>
+</span></span></code></pre></div><p>在模板<code>layouts/partials/site-favicon.html</code>中使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;shortcut icon&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Site.Params.favicon }}&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image/x-icon&#34;</span> /&gt;
+</span></span></code></pre></div></li>
 <li>
 <p>在<code>config.toml</code>中定义<code>menu</code>，参考<a href="https://gohugo.io/content-management/menus/">文档</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">menu</span>]
-  [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-    <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;about&#34;</span>
-    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于&#34;</span>
-    <span style="color:#a6e22e">pre</span> = <span style="color:#e6db74">&#34;&lt;i class=&#39;fa fa-heart&#39;&gt;&lt;/i&gt;&#34;</span>
-    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about/&#34;</span>
-  [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
-    <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;Tags&#34;</span>
-    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;标签&#34;</span>
-    <span style="color:#a6e22e">post</span> = <span style="color:#e6db74">&#34;&lt;span class=&#39;alert&#39;&gt;New!&lt;/span&gt;&#34;</span>
-    <span style="color:#a6e22e">pre</span> = <span style="color:#e6db74">&#34;&lt;i class=&#39;fa fa-road&#39;&gt;&lt;/i&gt;&#34;</span>
-    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/tags/&#34;</span>
-</code></pre></div><p>在模板中使用：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ if .Site.Menus.main }}
-  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pl0 mr3&#34;</span>&gt;
-    {{ range .Site.Menus.main }}
-    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list f5 f4-ns fw4 dib pr3&#34;</span>&gt;
-      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hover-white no-underline white-90&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .URL }}&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Name }} page&#34;</span>&gt;
-        {{ .Name }}
-      &lt;/<span style="color:#f92672">a</span>&gt;
-    &lt;/<span style="color:#f92672">li</span>&gt;
-    {{ end }}
-  &lt;/<span style="color:#f92672">ul</span>&gt;
-{{ end }}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">menu</span>]
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;about&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;关于&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pre</span> = <span style="color:#e6db74">&#34;&lt;i class=&#39;fa fa-heart&#39;&gt;&lt;/i&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/about/&#34;</span>
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;Tags&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;标签&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">post</span> = <span style="color:#e6db74">&#34;&lt;span class=&#39;alert&#39;&gt;New!&lt;/span&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pre</span> = <span style="color:#e6db74">&#34;&lt;i class=&#39;fa fa-road&#39;&gt;&lt;/i&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;/tags/&#34;</span>
+</span></span></code></pre></div><p>在模板中使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ if .Site.Menus.main }}
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pl0 mr3&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ range .Site.Menus.main }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list f5 f4-ns fw4 dib pr3&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hover-white no-underline white-90&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .URL }}&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Name }} page&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ .Name }}
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div></li>
 <li>
 <p>在首页标题下添加时间</p>
 <p>找到文件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">layouts/index.html -&gt; summary-with-image.html
-</code></pre></div><p><code>summary-with-image.html</code>文件是带图片和概要的文章列表，在显示标题的代码段添加显示日期的代码，如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f3 fw1 athelas mt0 lh-title&#34;</span>&gt;
-  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.URL}}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color-inherit dim link&#34;</span>&gt;
-    {{ .Title }}
-    &lt;/<span style="color:#f92672">a</span>&gt;
-&lt;/<span style="color:#f92672">h1</span>&gt;
-&lt;<span style="color:#f92672">h4</span>&gt;{{ .Date.Format &#34;January 2, 2006&#34; }}&lt;/<span style="color:#f92672">h4</span>&gt;
-&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f6 f5-l lh-copy nested-copy-line-height nested-links&#34;</span>&gt;
-  {{ .Summary }}
-&lt;/<span style="color:#f92672">div</span>&gt;
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>layouts/index.html -&gt; summary-with-image.html
+</span></span></code></pre></div><p><code>summary-with-image.html</code>文件是带图片和概要的文章列表，在显示标题的代码段添加显示日期的代码，如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f3 fw1 athelas mt0 lh-title&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.URL}}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color-inherit dim link&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ .Title }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">h4</span>&gt;{{ .Date.Format &#34;January 2, 2006&#34; }}&lt;/<span style="color:#f92672">h4</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f6 f5-l lh-copy nested-copy-line-height nested-links&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  {{ .Summary }}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div></li>
 <li>
 <p>文章中嵌入图片</p>
 <p>例如<code>![](/images/room_msg_lifetime.png)</code>，则默认图片的存放路径是<code>static/images/room_msg_lifetime.png</code></p>
@@ -160,38 +157,53 @@
 </ul>
 <h2 id="部署">部署</h2>
 <p>DNS设置<code>CNAME</code>域名映射，新建一个<code>github</code>项目，例如<code>kongoole.github.io</code>，<code>clone</code>到<code>hugo</code>项目中的文件夹<code>public</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/kongoole/kongoole.github.io public
-</code></pre></div><p>部署到<code>github</code>参考<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">文档</a>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git clone https://github.com/kongoole/kongoole.github.io public
+</span></span></code></pre></div><p>部署到<code>github</code>参考<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">文档</a>。</p>
 
-		</section>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/hugo">hugo</a></li>
+              
+            </ul>
+          </nav>
+          
+          
+        </div>
+      </div>
 
-		<div class="post-tags">
-			
-			
-			<nav class="nav tags">
-				<ul class="tags">
-					
-					<li><a href="/tags/hugo">hugo</a></li>
-					
-				</ul>
-			</nav>
-			
-			
-		</div>
-	</article>
+      
+      
+      <div class="toc">
+        <strong>Table of contents:</strong>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#小试牛刀">小试牛刀</a></li>
+    <li><a href="#部署">部署</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    </article>
 </main>
 <footer>
-  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><i data-feather="github"></i></a>
-    <a class="border"></a></div>
+  <div style="display:flex"><a class="soc" href="https://github.com/zqkgo" rel="me" title="zqkgo"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a></div>
   <div class="footer-info">
-    2023  © 张乾坤 |  <a
+    2025  © 张乾坤 |  <a
       href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
 </footer>
 
 
-<script>
-  feather.replace()
-</script></div>
+
+</div>
     </body>
 </html>
