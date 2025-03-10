@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Z.Q.K</title>
+    <link>http://www.qiankun.info/posts/</link>
+    <description>Recent content in Posts on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Mon, 10 Mar 2025 17:10:03 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gin 路由组</title>
+      <link>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</link>
+      <pubDate>Mon, 10 Mar 2025 17:10:03 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Gin 框架中的 &lt;strong&gt;RouterGroup（路由组）&lt;/strong&gt; 是组织和管理路由的重要机制，它允许将一组具有相同前缀路径或共用中间件的路由逻辑性地分组，提高代码的可读性和可维护性。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>列前缀匹配索引的原理</title>
+      <link>http://www.qiankun.info/posts/%E5%88%97%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 10 Mar 2025 12:53:00 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E5%88%97%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
+      <description>
+        
+          
+            &lt;p&gt;当对 &lt;code&gt;name&lt;/code&gt; 列的所有内容建立完整索引时，&lt;code&gt;WHERE name LIKE &#39;John%&#39;&lt;/code&gt; 仍然可以利用索引的核心原因在于 &lt;strong&gt;B+Tree 索引的排序存储特性&lt;/strong&gt;和 &lt;strong&gt;前缀匹配的天然优势&lt;/strong&gt;。以下是详细解释：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go Micro Watcher</title>
+      <link>http://www.qiankun.info/posts/go-micro-watcher/</link>
+      <pubDate>Mon, 10 Mar 2025 10:43:41 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go-micro-watcher/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Go-Micro 中，&lt;strong&gt;Watcher&lt;/strong&gt; 是 &lt;code&gt;Registry&lt;/code&gt; 组件的一个核心功能，用于&lt;strong&gt;实时监听服务实例的变化&lt;/strong&gt;（如服务注册、注销、元数据更新等）。它的作用是通过事件驱动机制，让客户端或服务消费者能够动态感知服务实例的上下线状态，从而实现服务发现的实时性和动态路由。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go Micro Registry</title>
+      <link>http://www.qiankun.info/posts/go-micro-registry/</link>
+      <pubDate>Mon, 10 Mar 2025 10:27:39 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go-micro-registry/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;strong&gt;Registry&lt;/strong&gt; 是 Go-Micro 中一个关键组件，负责服务的注册与发现（Service Discovery），确保微服务之间能够动态发现和通信。以下是 &lt;code&gt;Registry&lt;/code&gt; 组件的详细介绍：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Gin 核心组件</title>
+      <link>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Sun, 09 Mar 2025 20:02:48 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Gin 框架是一个高性能的 Go Web 框架，其核心组件设计简洁但功能强大，以下是其主要核心组件及其作用：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>服务熔断</title>
+      <link>http://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/</link>
+      <pubDate>Sun, 09 Mar 2025 09:08:40 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/</guid>
+      <description>
+        
+          
+            &lt;p&gt;分布式系统中的&lt;strong&gt;服务熔断&lt;/strong&gt;是一种&lt;strong&gt;容错保护机制&lt;/strong&gt;，其核心目标是通过**快速失败（Fail Fast）**防止服务间的级联故障，避免系统雪崩。它的设计灵感来源于电路中的熔断器：当电路过载时，熔断器自动断开，保护整个系统。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>内联函数</title>
+      <link>http://www.qiankun.info/posts/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Sat, 08 Mar 2025 07:39:25 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</guid>
+      <description>
+        
+          
+            &lt;p&gt;内联函数（Inline Function）是编程中用于优化程序性能的一种机制，尤其在C++中常见。以下是关于内联函数的详细说明：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>热路径优化</title>
+      <link>http://www.qiankun.info/posts/%E7%83%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Fri, 07 Mar 2025 20:21:06 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E7%83%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96/</guid>
+      <description>
+        
+          
+            &lt;p&gt;热路径（Hot Path）是代码中执行频率最高、耗时最长的关键路径，通常占用了程序运行时的绝大部分资源。优化热路径可以显著提升程序性能。以下是对热路径的详细解析：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go反射优缺点</title>
+      <link>http://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E4%BC%98%E7%BC%BA%E7%82%B9/</link>
+      <pubDate>Fri, 07 Mar 2025 10:26:44 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E4%BC%98%E7%BC%BA%E7%82%B9/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Go语言的反射（&lt;code&gt;reflect&lt;/code&gt; 包）提供了在运行时动态操作类型和值的能力，但它是一把双刃剑，既有强大的灵活性，也存在明显的局限性。以下是其优缺点分析：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go反射用法</title>
+      <link>http://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Fri, 07 Mar 2025 10:08:26 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E7%94%A8%E6%B3%95/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Go语言的反射（Reflection）机制允许程序在运行时动态地操作变量、结构体、函数等，获取其类型信息或修改其值。反射的核心是 &lt;code&gt;reflect&lt;/code&gt; 包，通过它可以在运行时检查类型、调用方法、修改变量值等。以下是反射的详细用法和示例：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>网络轮询器的职责和工作方式</title>
+      <link>http://www.qiankun.info/posts/go%E8%BF%90%E8%A1%8C%E6%97%B6%E4%B8%AD%E7%BD%91%E7%BB%9C%E8%BD%AE%E8%AF%A2%E5%99%A8%E7%9A%84%E8%81%8C%E8%B4%A3%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Fri, 07 Mar 2025 07:57:00 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go%E8%BF%90%E8%A1%8C%E6%97%B6%E4%B8%AD%E7%BD%91%E7%BB%9C%E8%BD%AE%E8%AF%A2%E5%99%A8%E7%9A%84%E8%81%8C%E8%B4%A3%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Go运行时中的网络轮询器（Netpoller）是Go语言实现高并发I/O的核心组件，其职责和工作方式可以概括如下：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>布隆过滤器的原理</title>
+      <link>http://www.qiankun.info/posts/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Thu, 06 Mar 2025 18:22:40 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
+      <description>
+        
+          
+            &lt;p&gt;布隆过滤器（Bloom Filter）是一种&lt;strong&gt;空间高效的概率型数据结构&lt;/strong&gt;，用于快速判断一个元素是否可能存在于集合中。其核心工作原理基于&lt;strong&gt;哈希函数&lt;/strong&gt;和&lt;strong&gt;位数组&lt;/strong&gt;的配合，通过牺牲一定的准确性（允许假阳性）来换取极低的空间占用和极高的查询速度。以下是其工作原理的详细分解：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Context 跨服务传递</title>
+      <link>http://www.qiankun.info/posts/context-%E8%B7%A8%E6%9C%8D%E5%8A%A1%E4%BC%A0%E9%80%92/</link>
+      <pubDate>Thu, 06 Mar 2025 11:44:26 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/context-%E8%B7%A8%E6%9C%8D%E5%8A%A1%E4%BC%A0%E9%80%92/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Go 开发的分布式系统中，&lt;code&gt;context.Context&lt;/code&gt; 的跨服务传递是实现链路跟踪、超时控制、元数据共享等分布式功能的核心机制。以下是其工作原理和实现方式的详细说明：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>惊群效应</title>
+      <link>http://www.qiankun.info/posts/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</link>
+      <pubDate>Thu, 06 Mar 2025 10:53:52 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;strong&gt;惊群效应（Thundering Herd Problem）&lt;/strong&gt; 是计算机科学中的一个术语，通常指在多进程、多线程或分布式系统中，多个任务（如进程、线程）因同时竞争同一资源或等待同一事件而被唤醒，但最终只有一个任务能成功处理事件，其余任务被无效唤醒并重新进入等待状态的现象。这种“无效唤醒”会导致系统资源浪费和性能下降。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Jitter Before Starting</title>
+      <link>http://www.qiankun.info/posts/jitter-before-starting/</link>
+      <pubDate>Thu, 06 Mar 2025 09:50:46 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/jitter-before-starting/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;code&gt;go-micro&lt;/code&gt; 的 &lt;code&gt;registry&lt;/code&gt; 缓存层针对每个服务监听注册中心事件的代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// run starts the cache watcher loop&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// it creates a new watcher if there&amp;#39;s a problem.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cache&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;service&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Lock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;watchedRunning&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;service&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Unlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// reset watcher on exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;defer&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Lock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;watched&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;watchedRunning&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;service&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Unlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;}()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;// exit early if already dead&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;quit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;// jitter before starting&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;rand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Int63n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Sleep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Duration&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Millisecond&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;// create new watcher&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Registry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Watch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;registry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;WatchService&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;service&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;quit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;				&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;33&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;34&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;backoff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;35&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;setStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;36&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;37&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;38&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;				&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;39&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;40&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;41&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Sleep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;43&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;44&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;45&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;46&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;47&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;// reset a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;48&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;49&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;// watch for events&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;51&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;watch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;52&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;quit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;53&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;				&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;54&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;55&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;56&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;backoff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;57&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;setStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;58&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;59&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;60&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;				&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;61&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;62&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;63&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Sleep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;64&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;65&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;66&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;67&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;68&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;69&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;// reset b&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;70&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;71&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;72&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在分布式系统或并发编程中，“jitter before starting”的作用是&lt;strong&gt;通过引入随机延迟来避免多个客户端或协程同时执行操作，从而减少资源竞争、服务端压力或“惊群效应”（thundering herd problem）&lt;/strong&gt;。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>MySQL中索引哪些场景下能避免排序</title>
+      <link>http://www.qiankun.info/posts/mysql%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%83%BD%E9%81%BF%E5%85%8D%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Thu, 06 Mar 2025 08:34:27 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/mysql%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%83%BD%E9%81%BF%E5%85%8D%E6%8E%92%E5%BA%8F/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在MySQL中，索引在以下场景中可以避免排序操作：&lt;/p&gt;
+&lt;h3 id=&#34;1-order-by顺序与索引最左前缀匹配&#34;&gt;1. &lt;strong&gt;ORDER BY顺序与索引最左前缀匹配&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;当&lt;code&gt;ORDER BY&lt;/code&gt;的列顺序与索引的&lt;strong&gt;最左前缀&lt;/strong&gt;完全一致时，MySQL可以直接利用索引的有序性返回结果，无需额外排序。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;CREATE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INDEX&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;idx_a_b&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ON&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 避免排序
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>inode 基础</title>
+      <link>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 05 Mar 2025 16:08:28 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Linux 和其他类 Unix 文件系统中，&lt;strong&gt;inode&lt;/strong&gt;（索引节点，Index Node）是一个核心数据结构，用于存储文件或目录的&lt;strong&gt;元数据&lt;/strong&gt;（metadata）。你可以将 inode 理解为文件的“身份证”，它记录了文件的基础信息和存储位置，但&lt;strong&gt;不包含文件名和文件内容本身&lt;/strong&gt;。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Reactor 模式</title>
+      <link>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 05 Mar 2025 12:22:47 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Reactor 模式是一种广泛应用于&lt;strong&gt;高并发网络编程&lt;/strong&gt;的&lt;strong&gt;事件驱动设计模式&lt;/strong&gt;，核心思想是&lt;strong&gt;用少量线程处理大量I/O事件&lt;/strong&gt;，通过&lt;strong&gt;非阻塞I/O&lt;/strong&gt;和&lt;strong&gt;事件分发机制&lt;/strong&gt;实现高效资源管理。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>如何计算TCP的payload数据大小</title>
+      <link>http://www.qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</link>
+      <pubDate>Wed, 31 Mar 2021 17:31:11 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>记一次redis攻击排查</title>
+      <link>http://www.qiankun.info/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</link>
+      <pubDate>Thu, 15 Oct 2020 16:18:14 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go中复制map可能遇到坑</title>
+      <link>http://www.qiankun.info/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</link>
+      <pubDate>Sat, 02 Nov 2019 14:03:25 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go Module本地依赖的两种玩法</title>
+      <link>http://www.qiankun.info/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</link>
+      <pubDate>Sun, 23 Jun 2019 11:34:55 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>slice底层struct的数据结构</title>
+      <link>http://www.qiankun.info/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</link>
+      <pubDate>Thu, 13 Jun 2019 17:51:40 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</guid>
+      <description>
+        
+          
+            通过slice成员的地址观察其底层struct的数据结构
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>折腾hugo</title>
+      <link>http://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/</link>
+      <pubDate>Sun, 09 Jun 2019 22:42:17 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/</guid>
+      <description>
+        
+          
+            hugo折腾过程的一些记录
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>索引与缓存的坑</title>
+      <link>http://www.qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</link>
+      <pubDate>Sun, 09 Jun 2019 21:45:40 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>数据类型在网络传输中的表现</title>
+      <link>http://www.qiankun.info/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</link>
+      <pubDate>Sat, 08 Jun 2019 21:56:26 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>代理小故障排查</title>
+      <link>http://www.qiankun.info/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</link>
+      <pubDate>Sat, 08 Jun 2019 21:55:46 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</guid>
+      <description>
+        
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>位运算在PHP错误级别中的运用</title>
+      <link>http://www.qiankun.info/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</link>
+      <pubDate>Sat, 08 Jun 2019 21:54:53 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</guid>
+      <description>
+        
+          
+            &lt;p&gt;首先，我们要解决的第一个问题是&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>C语言中的数组和指针</title>
+      <link>http://www.qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</link>
+      <pubDate>Sat, 08 Jun 2019 21:54:28 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+      <description>
+        
+          
+            &lt;p&gt;先看段代码&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go-Micro on Z.Q.K</title>
+    <link>http://www.qiankun.info/tags/go-micro/</link>
+    <description>Recent content in Go-Micro on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Mon, 10 Mar 2025 10:43:41 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/tags/go-micro/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Micro Watcher</title>
+      <link>http://www.qiankun.info/posts/go-micro-watcher/</link>
+      <pubDate>Mon, 10 Mar 2025 10:43:41 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go-micro-watcher/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Go-Micro 中，&lt;strong&gt;Watcher&lt;/strong&gt; 是 &lt;code&gt;Registry&lt;/code&gt; 组件的一个核心功能，用于&lt;strong&gt;实时监听服务实例的变化&lt;/strong&gt;（如服务注册、注销、元数据更新等）。它的作用是通过事件驱动机制，让客户端或服务消费者能够动态感知服务实例的上下线状态，从而实现服务发现的实时性和动态路由。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go Micro Registry</title>
+      <link>http://www.qiankun.info/posts/go-micro-registry/</link>
+      <pubDate>Mon, 10 Mar 2025 10:27:39 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/go-micro-registry/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;strong&gt;Registry&lt;/strong&gt; 是 Go-Micro 中一个关键组件，负责服务的注册与发现（Service Discovery），确保微服务之间能够动态发现和通信。以下是 &lt;code&gt;Registry&lt;/code&gt; 组件的详细介绍：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gin on Z.Q.K</title>
+    <link>http://www.qiankun.info/tags/gin/</link>
+    <description>Recent content in Gin on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Mon, 10 Mar 2025 17:10:03 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/tags/gin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gin 路由组</title>
+      <link>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</link>
+      <pubDate>Mon, 10 Mar 2025 17:10:03 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Gin 框架中的 &lt;strong&gt;RouterGroup（路由组）&lt;/strong&gt; 是组织和管理路由的重要机制，它允许将一组具有相同前缀路径或共用中间件的路由逻辑性地分组，提高代码的可读性和可维护性。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Gin 核心组件</title>
+      <link>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Sun, 09 Mar 2025 20:02:48 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Gin 框架是一个高性能的 Go Web 框架，其核心组件设计简洁但功能强大，以下是其主要核心组件及其作用：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

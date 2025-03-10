@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Z.Q.K</title>
+    <link>http://www.qiankun.info/tags/linux/</link>
+    <description>Recent content in Linux on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Wed, 05 Mar 2025 16:08:28 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>inode 基础</title>
+      <link>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 05 Mar 2025 16:08:28 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Linux 和其他类 Unix 文件系统中，&lt;strong&gt;inode&lt;/strong&gt;（索引节点，Index Node）是一个核心数据结构，用于存储文件或目录的&lt;strong&gt;元数据&lt;/strong&gt;（metadata）。你可以将 inode 理解为文件的“身份证”，它记录了文件的基础信息和存储位置，但&lt;strong&gt;不包含文件名和文件内容本身&lt;/strong&gt;。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Reactor 模式</title>
+      <link>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 05 Mar 2025 12:22:47 +0800</pubDate>
+      
+      <guid>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Reactor 模式是一种广泛应用于&lt;strong&gt;高并发网络编程&lt;/strong&gt;的&lt;strong&gt;事件驱动设计模式&lt;/strong&gt;，核心思想是&lt;strong&gt;用少量线程处理大量I/O事件&lt;/strong&gt;，通过&lt;strong&gt;非阻塞I/O&lt;/strong&gt;和&lt;strong&gt;事件分发机制&lt;/strong&gt;实现高效资源管理。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
