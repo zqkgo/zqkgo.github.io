@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gin on Z.Q.K</title>
-    <link>http://www.qiankun.info/tags/gin/</link>
+    <link>https://www.qiankun.info/tags/gin/</link>
     <description>Recent content in Gin on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Mon, 10 Mar 2025 17:10:03 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/tags/gin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Mar 2025 17:10:03 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/gin/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gin 路由组</title>
-      <link>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</link>
+      <link>https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</link>
       <pubDate>Mon, 10 Mar 2025 17:10:03 +0800</pubDate>
       
-      <guid>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</guid>
+      <guid>https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@
     
     <item>
       <title>Gin 核心组件</title>
-      <link>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
+      <link>https://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
       <pubDate>Sun, 09 Mar 2025 20:02:48 +0800</pubDate>
       
-      <guid>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</guid>
+      <guid>https://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</guid>
       <description>
         
           

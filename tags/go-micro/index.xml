@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go-Micro on Z.Q.K</title>
-    <link>http://www.qiankun.info/tags/go-micro/</link>
+    <link>https://www.qiankun.info/tags/go-micro/</link>
     <description>Recent content in Go-Micro on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Mon, 10 Mar 2025 10:43:41 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/tags/go-micro/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Mar 2025 10:43:41 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/go-micro/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go Micro Watcher</title>
-      <link>http://www.qiankun.info/posts/go-micro-watcher/</link>
+      <link>https://www.qiankun.info/posts/go-micro-watcher/</link>
       <pubDate>Mon, 10 Mar 2025 10:43:41 +0800</pubDate>
       
-      <guid>http://www.qiankun.info/posts/go-micro-watcher/</guid>
+      <guid>https://www.qiankun.info/posts/go-micro-watcher/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@
     
     <item>
       <title>Go Micro Registry</title>
-      <link>http://www.qiankun.info/posts/go-micro-registry/</link>
+      <link>https://www.qiankun.info/posts/go-micro-registry/</link>
       <pubDate>Mon, 10 Mar 2025 10:27:39 +0800</pubDate>
       
-      <guid>http://www.qiankun.info/posts/go-micro-registry/</guid>
+      <guid>https://www.qiankun.info/posts/go-micro-registry/</guid>
       <description>
         
           

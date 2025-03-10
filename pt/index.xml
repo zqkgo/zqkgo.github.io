@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>http://www.qiankun.info/pt/</link>
+    <link>https://www.qiankun.info/pt/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt</language>
-    <copyright>Copyright © Z.Q.K</copyright><atom:link href="http://www.qiankun.info/pt/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Copyright © Z.Q.K</copyright><atom:link href="https://www.qiankun.info/pt/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

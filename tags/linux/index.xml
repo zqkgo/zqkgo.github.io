@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Z.Q.K</title>
-    <link>http://www.qiankun.info/tags/linux/</link>
+    <link>https://www.qiankun.info/tags/linux/</link>
     <description>Recent content in Linux on Z.Q.K</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Wed, 05 Mar 2025 16:08:28 +0800</lastBuildDate><atom:link href="http://www.qiankun.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Mar 2025 16:08:28 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>inode 基础</title>
-      <link>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</link>
+      <link>https://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Wed, 05 Mar 2025 16:08:28 +0800</pubDate>
       
-      <guid>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@
     
     <item>
       <title>Reactor 模式</title>
-      <link>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Wed, 05 Mar 2025 12:22:47 +0800</pubDate>
       
-      <guid>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</guid>
       <description>
         
           

@@ -2,200 +2,200 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.qiankun.info/</loc>
+    <loc>https://www.qiankun.info/</loc>
     <lastmod>2025-03-10T17:10:03+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/"
+                href="https://www.qiankun.info/pt/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/"
+                href="https://www.qiankun.info/"
                 />
   </url><url>
-    <loc>http://www.qiankun.info/tags/gin/</loc>
+    <loc>https://www.qiankun.info/tags/gin/</loc>
     <lastmod>2025-03-10T17:10:03+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</loc>
+    <loc>https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</loc>
     <lastmod>2025-03-10T17:10:03+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/go/</loc>
+    <loc>https://www.qiankun.info/tags/go/</loc>
     <lastmod>2025-03-10T17:10:03+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/</loc>
+    <loc>https://www.qiankun.info/posts/</loc>
     <lastmod>2025-03-10T17:10:03+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/</loc>
+    <loc>https://www.qiankun.info/tags/</loc>
     <lastmod>2025-03-10T17:10:03+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/tags/"
+                href="https://www.qiankun.info/pt/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/tags/"
+                href="https://www.qiankun.info/tags/"
                 />
   </url><url>
-    <loc>http://www.qiankun.info/tags/mysql/</loc>
+    <loc>https://www.qiankun.info/tags/mysql/</loc>
     <lastmod>2025-03-10T12:53:00+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E5%88%97%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://www.qiankun.info/posts/%E5%88%97%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-03-10T12:53:00+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
+    <loc>https://www.qiankun.info/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2025-03-10T12:53:00+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go-micro-watcher/</loc>
+    <loc>https://www.qiankun.info/posts/go-micro-watcher/</loc>
     <lastmod>2025-03-10T10:43:41+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/go-micro/</loc>
+    <loc>https://www.qiankun.info/tags/go-micro/</loc>
     <lastmod>2025-03-10T10:43:41+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go-micro-registry/</loc>
+    <loc>https://www.qiankun.info/posts/go-micro-registry/</loc>
     <lastmod>2025-03-10T10:27:39+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</loc>
+    <loc>https://www.qiankun.info/posts/gin-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</loc>
     <lastmod>2025-03-09T20:02:48+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/%E5%AE%B9%E9%94%99/</loc>
+    <loc>https://www.qiankun.info/tags/%E5%AE%B9%E9%94%99/</loc>
     <lastmod>2025-03-09T09:08:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/</loc>
+    <loc>https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/</loc>
     <lastmod>2025-03-09T09:08:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/%E6%9E%B6%E6%9E%84/</loc>
+    <loc>https://www.qiankun.info/tags/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2025-03-09T09:08:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/</loc>
+    <loc>https://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/</loc>
     <lastmod>2025-03-09T09:08:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</loc>
+    <loc>https://www.qiankun.info/posts/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/</loc>
     <lastmod>2025-03-08T07:39:25+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>https://www.qiankun.info/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2025-03-08T07:39:25+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E7%83%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96/</loc>
+    <loc>https://www.qiankun.info/posts/%E7%83%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2025-03-07T20:21:06+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E4%BC%98%E7%BC%BA%E7%82%B9/</loc>
+    <loc>https://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E4%BC%98%E7%BC%BA%E7%82%B9/</loc>
     <lastmod>2025-03-07T10:26:44+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E7%94%A8%E6%B3%95/</loc>
+    <loc>https://www.qiankun.info/posts/go%E5%8F%8D%E5%B0%84%E7%94%A8%E6%B3%95/</loc>
     <lastmod>2025-03-07T10:08:26+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go%E8%BF%90%E8%A1%8C%E6%97%B6%E4%B8%AD%E7%BD%91%E7%BB%9C%E8%BD%AE%E8%AF%A2%E5%99%A8%E7%9A%84%E8%81%8C%E8%B4%A3%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F/</loc>
+    <loc>https://www.qiankun.info/posts/go%E8%BF%90%E8%A1%8C%E6%97%B6%E4%B8%AD%E7%BD%91%E7%BB%9C%E8%BD%AE%E8%AF%A2%E5%99%A8%E7%9A%84%E8%81%8C%E8%B4%A3%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2025-03-07T07:57:00+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://www.qiankun.info/posts/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-03-06T18:22:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/context-%E8%B7%A8%E6%9C%8D%E5%8A%A1%E4%BC%A0%E9%80%92/</loc>
+    <loc>https://www.qiankun.info/posts/context-%E8%B7%A8%E6%9C%8D%E5%8A%A1%E4%BC%A0%E9%80%92/</loc>
     <lastmod>2025-03-06T11:44:26+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</loc>
+    <loc>https://www.qiankun.info/posts/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</loc>
     <lastmod>2025-03-06T10:53:52+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/jitter-before-starting/</loc>
+    <loc>https://www.qiankun.info/posts/jitter-before-starting/</loc>
     <lastmod>2025-03-06T09:50:46+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/mysql%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%83%BD%E9%81%BF%E5%85%8D%E6%8E%92%E5%BA%8F/</loc>
+    <loc>https://www.qiankun.info/posts/mysql%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%83%BD%E9%81%BF%E5%85%8D%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2025-03-06T08:34:27+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2025-03-05T16:08:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/linux/</loc>
+    <loc>https://www.qiankun.info/tags/linux/</loc>
     <lastmod>2025-03-05T16:08:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://www.qiankun.info/posts/reactor%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2025-03-05T12:22:47+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/tcp/</loc>
+    <loc>https://www.qiankun.info/tags/tcp/</loc>
     <lastmod>2021-03-31T17:31:11+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</loc>
+    <loc>https://www.qiankun.info/posts/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97tcp%E7%9A%84payload%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B0%8F/</loc>
     <lastmod>2021-03-31T17:31:11+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</loc>
+    <loc>https://www.qiankun.info/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1redis%E6%94%BB%E5%87%BB%E6%8E%92%E6%9F%A5/</loc>
     <lastmod>2020-10-15T16:18:14+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</loc>
+    <loc>https://www.qiankun.info/posts/go%E4%B8%AD%E5%A4%8D%E5%88%B6map%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E5%9D%91/</loc>
     <lastmod>2019-11-02T14:03:25+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</loc>
+    <loc>https://www.qiankun.info/posts/go-module%E6%9C%AC%E5%9C%B0%E4%BE%9D%E8%B5%96%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%8E%A9%E6%B3%95/</loc>
     <lastmod>2019-06-23T11:34:55+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</loc>
+    <loc>https://www.qiankun.info/posts/slice%E5%BA%95%E5%B1%82struct%E7%9A%84%E5%9C%B0%E5%9D%80/</loc>
     <lastmod>2019-06-13T17:51:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/hugo/</loc>
+    <loc>https://www.qiankun.info/tags/hugo/</loc>
     <lastmod>2019-06-09T22:42:17+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/</loc>
+    <loc>https://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/</loc>
     <lastmod>2019-06-09T22:42:17+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/cache/</loc>
+    <loc>https://www.qiankun.info/tags/cache/</loc>
     <lastmod>2019-06-09T21:45:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</loc>
+    <loc>https://www.qiankun.info/posts/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BC%93%E5%AD%98%E7%9A%84%E5%9D%91/</loc>
     <lastmod>2019-06-09T21:45:40+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/network/</loc>
+    <loc>https://www.qiankun.info/tags/network/</loc>
     <lastmod>2019-06-08T21:56:26+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</loc>
+    <loc>https://www.qiankun.info/posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%8E%B0/</loc>
     <lastmod>2019-06-08T21:56:26+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</loc>
+    <loc>https://www.qiankun.info/posts/%E4%BB%A3%E7%90%86%E5%B0%8F%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</loc>
     <lastmod>2019-06-08T21:55:46+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/php/</loc>
+    <loc>https://www.qiankun.info/tags/php/</loc>
     <lastmod>2019-06-08T21:54:53+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</loc>
+    <loc>https://www.qiankun.info/posts/%E4%BD%8D%E8%BF%90%E7%AE%97%E5%9C%A8php%E9%94%99%E8%AF%AF%E7%BA%A7%E5%88%AB%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/</loc>
     <lastmod>2019-06-08T21:54:53+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/tags/c%E8%AF%AD%E8%A8%80/</loc>
+    <loc>https://www.qiankun.info/tags/c%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2019-06-08T21:54:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</loc>
+    <loc>https://www.qiankun.info/posts/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/</loc>
     <lastmod>2019-06-08T21:54:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/archives/</loc>
+    <loc>https://www.qiankun.info/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/about/</loc>
+    <loc>https://www.qiankun.info/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://www.qiankun.info/categories/</loc>
+    <loc>https://www.qiankun.info/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/categories/"
+                href="https://www.qiankun.info/pt/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/categories/"
+                href="https://www.qiankun.info/categories/"
                 />
   </url><url>
-    <loc>http://www.qiankun.info/search/</loc>
+    <loc>https://www.qiankun.info/search/</loc>
   </url><url>
-    <loc>http://www.qiankun.info/series/</loc>
+    <loc>https://www.qiankun.info/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/series/"
+                href="https://www.qiankun.info/pt/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/series/"
+                href="https://www.qiankun.info/series/"
                 />
   </url>
 </urlset>

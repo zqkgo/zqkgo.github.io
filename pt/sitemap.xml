@@ -2,52 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.qiankun.info/pt/</loc>
+    <loc>https://www.qiankun.info/pt/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/"
+                href="https://www.qiankun.info/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/"
+                href="https://www.qiankun.info/pt/"
                 />
   </url><url>
-    <loc>http://www.qiankun.info/pt/categories/</loc>
+    <loc>https://www.qiankun.info/pt/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/categories/"
+                href="https://www.qiankun.info/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/categories/"
+                href="https://www.qiankun.info/pt/categories/"
                 />
   </url><url>
-    <loc>http://www.qiankun.info/pt/series/</loc>
+    <loc>https://www.qiankun.info/pt/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/series/"
+                href="https://www.qiankun.info/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/series/"
+                href="https://www.qiankun.info/pt/series/"
                 />
   </url><url>
-    <loc>http://www.qiankun.info/pt/tags/</loc>
+    <loc>https://www.qiankun.info/pt/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://www.qiankun.info/tags/"
+                href="https://www.qiankun.info/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="http://www.qiankun.info/pt/tags/"
+                href="https://www.qiankun.info/pt/tags/"
                 />
   </url>
 </urlset>
