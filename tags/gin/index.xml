@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Mon, 10 Mar 2025 19:46:49 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/gin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Mar 2025 07:13:53 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/gin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gin 中间件</title>
+      <link>https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+      <pubDate>Tue, 11 Mar 2025 07:13:53 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在Gin框架中，中间件（Middleware）是处理HTTP请求的重要组成部分，允许开发者在请求到达处理函数前后执行特定逻辑。以下是对Gin中间件的详细解释：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Gin Engine</title>
       <link>https://www.qiankun.info/posts/gin-engine/</link>

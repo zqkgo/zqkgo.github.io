@@ -7,13 +7,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Mon, 10 Mar 2025 19:46:49 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/tag_name2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Mar 2025 07:13:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/tag_name2/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Gin Engine</title>
-      <link>http://localhost:1313/posts/gin-engine/</link>
-      <pubDate>Mon, 10 Mar 2025 19:46:49 +0800</pubDate>
+      <title>Gin 中间件</title>
+      <link>http://localhost:1313/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+      <pubDate>Tue, 11 Mar 2025 07:13:53 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/gin-engine/</guid>
+      <guid>http://localhost:1313/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
       <description>
         
           

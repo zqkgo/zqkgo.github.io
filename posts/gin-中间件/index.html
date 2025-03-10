@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  data-figures=""
+  data-figures="true"
   
     class="page"
   
   
   >
   <head>
-<title>折腾hugo | Z.Q.K</title>
+<title>Gin 中间件 | Z.Q.K</title>
 <meta charset="utf-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -22,22 +22,22 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="hugo折腾过程的一些记录" />
+<meta name="description" content="Article description." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="">
-<meta name="twitter:title" content="折腾hugo" />
-<meta name="twitter:image" content="https://www.qiankun.info/images/thumbnail.png"/>
-<meta property="og:url" content="https://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/" />
-<meta property="og:title" content="折腾hugo" />
-<meta property="og:description" content="hugo折腾过程的一些记录" />
-<meta property="og:image" content="https://www.qiankun.info/images/thumbnail.png" />
-  <meta name="keywords" content="hugo" />
+<meta name="twitter:title" content="Gin 中间件" />
+<meta name="twitter:image" content="https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/images/path/share.png"/>
+<meta property="og:url" content="https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
+<meta property="og:title" content="Gin 中间件" />
+<meta property="og:description" content="Article description." />
+<meta property="og:image" content="https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/images/path/share.png" />
+  <meta name="keywords" content="go,gin" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://www.qiankun.info/icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.qiankun.info/icons/favicon-32x32.png">
 <link rel="manifest" href="https://www.qiankun.info/icons/site.webmanifest">
 
-<link rel="canonical" href="https://www.qiankun.info/posts/%E6%8A%98%E8%85%BEhugo/">
+<link rel="canonical" href="https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/">
 
 
 
@@ -53,7 +53,7 @@
 
   </head>
   <body
-    data-code="7"
+    data-code="10"
     data-lines="false"
     id="documentTop"
     data-lang="en"
@@ -121,7 +121,7 @@
   
 <div class="grid-inverse wrap content">
   <article class="post_content">
-    <h1 class="post_title">折腾hugo</h1>
+    <h1 class="post_title">Gin 中间件</h1>
   <div class="post_meta">
     <span><svg class="icon">
   <title>calendar</title>
@@ -129,130 +129,167 @@
 </svg>
 </span>
     <span class="post_date">
-      Jun 9, 2019	  
+      Mar 11, 2025	  
     </span>
-    <span class="post_time"> · 2 min read</span><span>&nbsp;· <a href='https://www.qiankun.info/tags/hugo/' title="hugo" class="post_tag button button_translucent">hugo
+    <span class="post_time"> · 2 min read</span><span>&nbsp;· <a href='https://www.qiankun.info/tags/go/' title="go" class="post_tag button button_translucent">go
+        </a><a href='https://www.qiankun.info/tags/gin/' title="gin" class="post_tag button button_translucent">gin
         </a>
     </span>
   </div>
+<div class="post_featured">
+  <figure>
+  <picture>
 
-      <div class="post_toc">
-        <h2>Overview</h2>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#小试牛刀">小试牛刀</a></li>
-    <li><a href="#部署">部署</a></li>
-  </ul>
-</nav>
-      </div>
     
-    <div class="post_body"><p>阿里云的服务器过期，费用不菲，暂不续，迁到<code>github page</code>。以前用hexo，觉得不错，静态网页，完全控制页面功能不简单，速度块。之前用阿里云，因为用<code>Laravel</code>写博客页面功能容易掌控。既然是信息类网站，类似<code>hexo</code>或<code>hugo</code>这种直接基于<code>markdown</code>文件配合主题根据配置生成静态页面的工具完全能够胜任一些基本的展示工作。为什么选<code>hugo</code>而不是<code>hexo</code>？一是因为<code>hugo</code>采用<code>Go</code>实现，执行常规的命令例如创建页面，构建网站等速度上稍微快一些。并且，支持<code>Go</code>。二是因为实在不想看到<code>hexo</code>下载的一堆依赖。前端深似海，入行需谨慎。</p>
-<h2 id="小试牛刀">小试牛刀</h2>
-<p><code>hugo</code>的文档挺多，方方面面，跟着文档走靠谱。但可能不想通读文档，遇到需要的功能点直接搜，以下是我用到的功能点和相关文档。</p>
-<ul>
-<li>
-<p>直接使用<code>hugo</code>构建网站，设置<code>draft: true</code>的文章不会被构建，使用<code>-D --buildDrafts</code>参数，<a href="https://gohugo.io/getting-started/usage/#draft-future-and-expired-content">参考</a>。</p>
-</li>
-<li>
-<p>文章的<code>front matter</code>默认使用<code>yaml</code>格式（<code>hugo</code>版本<code>v0.55.6/extended</code>），参考<a href="https://gohugo.io/content-management/front-matter/">front matter</a>。</p>
-</li>
-<li>
-<p>自定义摘要，在<code>front matter</code>中定义<code>summary: this is summary of your article</code></p>
-</li>
-<li>
-<p>定义文章标签，在<code>front matter</code>中定义，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">tags:
-</span></span><span class="line"><span class="ln">2</span><span class="cl">  - go
-</span></span><span class="line"><span class="ln">3</span><span class="cl">  - php
-</span></span></code></pre></div></li>
-<li>
-<p>在列表也显示与标题对应的图片，在<code>front matter</code>中定义，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">featured_image: /images/default.png
-</span></span></code></pre></div><p>图片<code>default.png</code>放在<code>static/images/</code>目录，<code>/images/default.png</code>这种用法也可以在文章中使用。</p>
-</li>
-<li>
-<p>在<code>config.toml</code>中设置网站语言，例如<code>defaultContentLanguage: zh</code>。渲染文章内容的主题（目前使用<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>）模板是<code>layouts/_default/single.html</code>，显示右侧“目录”和“相关内容”的<code>html</code>如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">&lt;</span><span class="nt">aside</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;w-30-l mt6-l&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">    {{- partial &#34;menu-contextual.html&#34; . -}}
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">&lt;/</span><span class="nt">aside</span><span class="p">&gt;</span>
-</span></span></code></pre></div><p>在<code>menu-contextual.html</code>中使用如下的调用来显示&quot;相关文章&quot;四字。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl">{{ i18n &#34;related&#34;}}
-</span></span></code></pre></div><p>而<code>related</code>的定义在<code>i18n/zh.toml</code>中，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[</span><span class="nx">related</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;相关文章&#34;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>定一个目录的简要描述，可定义例如<code>posts/_index.md</code>文件，内容如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">  </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;文章&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;想写就写的&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">  </span><span class="nt">featured_image</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
-</span></span></span></code></pre></div><p>参考主题<a href="https://github.com/budparr/gohugo-theme-ananke">ananke</a>的<a href="https://github.com/budparr/gohugo-theme-ananke/tree/master/exampleSite">exampleSite</a>。</p>
-</li>
-<li>
-<p>在<code>config.toml</code>中定义<code>favicon</code>的链接：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">favicon</span> <span class="p">=</span> <span class="s2">&#34;https://avatars0.githubusercontent.com/u/14950473?s=40&amp;v=4&#34;</span>
-</span></span></code></pre></div><p>在模板<code>layouts/partials/site-favicon.html</code>中使用：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;shortcut icon&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ .Site.Params.favicon }}&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;image/x-icon&#34;</span> <span class="p">/&gt;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>在<code>config.toml</code>中定义<code>menu</code>，参考<a href="https://gohugo.io/content-management/menus/">文档</a>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">[</span><span class="nx">menu</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;about&#34;</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;关于&#34;</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">pre</span> <span class="p">=</span> <span class="s2">&#34;&lt;i class=&#39;fa fa-heart&#39;&gt;&lt;/i&gt;&#34;</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/about/&#34;</span>
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;Tags&#34;</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;标签&#34;</span>
-</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">post</span> <span class="p">=</span> <span class="s2">&#34;&lt;span class=&#39;alert&#39;&gt;New!&lt;/span&gt;&#34;</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">pre</span> <span class="p">=</span> <span class="s2">&#34;&lt;i class=&#39;fa fa-road&#39;&gt;&lt;/i&gt;&#34;</span>
-</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/tags/&#34;</span>
-</span></span></code></pre></div><p>在模板中使用：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln"> 1</span><span class="cl">{{ if .Site.Menus.main }}
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;pl0 mr3&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    {{ range .Site.Menus.main }}
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;list f5 f4-ns fw4 dib pr3&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;hover-white no-underline white-90&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ .URL }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ .Name }} page&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        {{ .Name }}
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    {{ end }}
-</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">{{ end }}
-</span></span></code></pre></div></li>
-<li>
-<p>在首页标题下添加时间</p>
-<p>找到文件</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl">layouts/index.html -&gt; summary-with-image.html
-</span></span></code></pre></div><p><code>summary-with-image.html</code>文件是带图片和概要的文章列表，在显示标题的代码段添加显示日期的代码，如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;f3 fw1 athelas mt0 lh-title&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{.URL}}&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;color-inherit dim link&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">3</span><span class="cl">    {{ .Title }}
-</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{ .Date.Format &#34;January 2, 2006&#34; }}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;f6 f5-l lh-copy nested-copy-line-height nested-links&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="ln">8</span><span class="cl">  {{ .Summary }}
-</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>文章中嵌入图片</p>
-<p>例如<code>![](/images/room_msg_lifetime.png)</code>，则默认图片的存放路径是<code>static/images/room_msg_lifetime.png</code></p>
-</li>
-<li>
-<p>如果public文件夹为空</p>
-<p><code>hugo --verbose</code></p>
-</li>
-</ul>
-<h2 id="部署">部署</h2>
-<p>DNS设置<code>CNAME</code>域名映射，新建一个<code>github</code>项目，例如<code>kongoole.github.io</code>，<code>clone</code>到<code>hugo</code>项目中的文件夹<code>public</code>。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">git clone https://github.com/kongoole/kongoole.github.io public
-</span></span></code></pre></div><p>部署到<code>github</code>参考<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">文档</a>。</p>
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="Description of image"
+      
+        class="image_figure image_featured image_internal image_unprocessed"
+        src="https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/images/path/file.jpg"
+      
+      
+        title="This is the featured image."
+      
+    />
 
+    <figcaption class="caption_figure caption_featured caption_internal">This is the featured image.</figcaption></picture>
+</figure>
+
+      </div>
+    <div class="post_body"><p>在Gin框架中，中间件（Middleware）是处理HTTP请求的重要组成部分，允许开发者在请求到达处理函数前后执行特定逻辑。以下是对Gin中间件的详细解释：</p>
+<hr>
+<h3 id="1-中间件的基本概念"><strong>1. 中间件的基本概念</strong></h3>
+<p>中间件是一种函数（类型为<code>gin.HandlerFunc</code>），接收<code>*gin.Context</code>参数，用于：</p>
+<ul>
+<li><strong>拦截请求</strong>：在请求处理前或处理后执行代码。</li>
+<li><strong>共享逻辑</strong>：复用如日志、认证、错误处理等逻辑。</li>
+<li><strong>控制流程</strong>：决定是否继续执行后续中间件或终止请求。</li>
+</ul>
+<hr>
+<h3 id="2-中间件的执行流程"><strong>2. 中间件的执行流程</strong></h3>
+<p>Gin中间件遵循<strong>洋葱模型</strong>，按添加顺序依次执行，流程如下：</p>
+<ol>
+<li><strong>顺序执行</strong>：先添加的中间件先执行。</li>
+<li><strong><code>c.Next()</code></strong>：调用后，暂停当前中间件，执行后续中间件及路由处理函数。</li>
+<li><strong>逆序返回</strong>：后续处理完成后，回到当前中间件继续执行剩余代码。</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">func</span> <span class="nf">Middleware1</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Start Middleware1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="c1">// 执行后续中间件</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;End Middleware1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kd">func</span> <span class="nf">Middleware2</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Start Middleware2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;End Middleware2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1">// 添加顺序：Middleware1 → Middleware2</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1">// 输出顺序：</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1">// Start Middleware1 → Start Middleware2 → 处理请求 → End Middleware2 → End Middleware1</span>
+</span></span></code></pre></div><hr>
+<h3 id="3-中间件的使用方式"><strong>3. 中间件的使用方式</strong></h3>
+<h4 id="全局中间件"><strong>全局中间件</strong></h4>
+<p>通过<code>gin.Engine.Use()</code>添加，对所有路由生效：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nx">Middleware1</span><span class="p">,</span> <span class="nx">Middleware2</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="路由组中间件"><strong>路由组中间件</strong></h4>
+<p>对特定路由组生效：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">adminGroup</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Group</span><span class="p">(</span><span class="s">&#34;/admin&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">adminGroup</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">AuthMiddleware</span><span class="p">())</span> <span class="c1">// 仅/admin路径生效</span>
+</span></span></code></pre></div><h4 id="路由级别中间件"><strong>路由级别中间件</strong></h4>
+<p>在定义路由时添加：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/user&#34;</span><span class="p">,</span> <span class="nf">AuthMiddleware</span><span class="p">(),</span> <span class="nx">UserHandler</span><span class="p">)</span>
+</span></span></code></pre></div><hr>
+<h3 id="4-常用中间件场景"><strong>4. 常用中间件场景</strong></h3>
+<h4 id="日志记录"><strong>日志记录</strong></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">func</span> <span class="nf">Logger</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">        <span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">duration</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;路径: %s | 耗时: %v&#34;</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span> <span class="nx">duration</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="身份验证"><strong>身份验证</strong></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">func</span> <span class="nf">AuthMiddleware</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="nx">token</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">GetHeader</span><span class="p">(</span><span class="s">&#34;Authorization&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="k">if</span> <span class="nx">token</span> <span class="o">!=</span> <span class="s">&#34;valid_token&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">            <span class="nx">c</span><span class="p">.</span><span class="nf">AbortWithStatusJSON</span><span class="p">(</span><span class="mi">401</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;error&#34;</span><span class="p">:</span> <span class="s">&#34;未授权&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="错误处理"><strong>错误处理</strong></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">func</span> <span class="nf">RecoveryMiddleware</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">            <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">                <span class="nx">c</span><span class="p">.</span><span class="nf">AbortWithStatusJSON</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;error&#34;</span><span class="p">:</span> <span class="s">&#34;服务器内部错误&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="p">}()</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="跨域处理cors"><strong>跨域处理（CORS）</strong></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">func</span> <span class="nf">CorsMiddleware</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Access-Control-Allow-Origin&#34;</span><span class="p">,</span> <span class="s">&#34;*&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Access-Control-Allow-Methods&#34;</span><span class="p">,</span> <span class="s">&#34;GET, POST, PUT, DELETE&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><hr>
+<h3 id="5-关键方法"><strong>5. 关键方法</strong></h3>
+<ul>
+<li><strong><code>c.Next()</code></strong>：执行后续中间件和路由处理函数。</li>
+<li><strong><code>c.Abort()</code></strong>：终止后续处理，当前中间件后的逻辑不再执行。</li>
+<li><strong><code>c.AbortWithStatus(code)</code></strong>：终止并返回HTTP状态码。</li>
+<li><strong><code>c.Set(key, value)</code> / <code>c.Get(key)</code></strong>：在中间件间传递数据。</li>
+</ul>
+<hr>
+<h3 id="6-内置中间件"><strong>6. 内置中间件</strong></h3>
+<p>Gin默认提供两个中间件：</p>
+<ul>
+<li><strong><code>gin.Logger()</code></strong>：记录请求日志。</li>
+<li><strong><code>gin.Recovery()</code></strong>：捕获panic并返回500错误。</li>
+</ul>
+<p>通过<code>gin.Default()</code>自动加载，而<code>gin.New()</code>则不会。</p>
+<hr>
+<h3 id="7-自定义中间件示例"><strong>7. 自定义中间件示例</strong></h3>
+<p><strong>记录响应时间</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">func</span> <span class="nf">ResponseTime</span><span class="p">()</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">        <span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;X-Response-Time&#34;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%v&#34;</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)))</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>使用中间件</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">r</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nf">ResponseTime</span><span class="p">())</span>
+</span></span></code></pre></div><hr>
+<h3 id="8-注意事项"><strong>8. 注意事项</strong></h3>
+<ul>
+<li><strong>执行顺序</strong>：中间件按添加顺序执行，需注意依赖关系。</li>
+<li><strong>性能</strong>：避免在中间件中执行阻塞操作（如同步数据库查询）。</li>
+<li><strong>上下文安全</strong>：<code>*gin.Context</code>是协程安全的，可传递请求级别数据。</li>
+</ul>
+<hr>
+<p>通过合理使用中间件，可以极大提升Gin应用的灵活性和可维护性，实现功能解耦和逻辑复用。</p>
     </div><div class="post_comments">
   
   

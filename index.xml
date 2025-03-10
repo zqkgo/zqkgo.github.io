@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Mon, 10 Mar 2025 20:00:00 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Mar 2025 07:13:53 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gin 中间件</title>
+      <link>https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+      <pubDate>Tue, 11 Mar 2025 07:13:53 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在Gin框架中，中间件（Middleware）是处理HTTP请求的重要组成部分，允许开发者在请求到达处理函数前后执行特定逻辑。以下是对Gin中间件的详细解释：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>goim 核心组件</title>
       <link>https://www.qiankun.info/posts/goim-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
