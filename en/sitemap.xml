@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.qiankun.info/</loc>
-    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
+    <lastmod>2025-03-10T20:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -15,20 +15,20 @@
                 href="https://www.qiankun.info/"
                 />
   </url><url>
-    <loc>https://www.qiankun.info/tags/gin/</loc>
-    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
-  </url><url>
-    <loc>https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</loc>
-    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
-  </url><url>
     <loc>https://www.qiankun.info/tags/go/</loc>
-    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
+    <lastmod>2025-03-10T20:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://www.qiankun.info/tags/goim/</loc>
+    <lastmod>2025-03-10T20:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://www.qiankun.info/posts/goim-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</loc>
+    <lastmod>2025-03-10T20:00:00+08:00</lastmod>
   </url><url>
     <loc>https://www.qiankun.info/posts/</loc>
-    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
+    <lastmod>2025-03-10T20:00:00+08:00</lastmod>
   </url><url>
     <loc>https://www.qiankun.info/tags/</loc>
-    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
+    <lastmod>2025-03-10T20:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -39,6 +39,15 @@
                 hreflang="en"
                 href="https://www.qiankun.info/tags/"
                 />
+  </url><url>
+    <loc>https://www.qiankun.info/tags/gin/</loc>
+    <lastmod>2025-03-10T19:46:49+08:00</lastmod>
+  </url><url>
+    <loc>https://www.qiankun.info/posts/gin-engine/</loc>
+    <lastmod>2025-03-10T19:46:49+08:00</lastmod>
+  </url><url>
+    <loc>https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</loc>
+    <lastmod>2025-03-10T17:10:03+08:00</lastmod>
   </url><url>
     <loc>https://www.qiankun.info/tags/mysql/</loc>
     <lastmod>2025-03-10T12:53:00+08:00</lastmod>

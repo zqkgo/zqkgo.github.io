@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tag_name1 on Z.Q.K</title>
+    <link>http://localhost:1313/tags/tag_name1/</link>
+    <description>Recent content in Tag_name1 on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Mon, 10 Mar 2025 19:46:49 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/tag_name1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gin Engine</title>
+      <link>http://localhost:1313/posts/gin-engine/</link>
+      <pubDate>Mon, 10 Mar 2025 19:46:49 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/gin-engine/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;strong&gt;Insert Lead paragraph here.&lt;/strong&gt;&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

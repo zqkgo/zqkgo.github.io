@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Goim on Z.Q.K</title>
+    <link>https://www.qiankun.info/tags/goim/</link>
+    <description>Recent content in Goim on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Mon, 10 Mar 2025 20:00:00 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/goim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>goim 核心组件</title>
+      <link>https://www.qiankun.info/posts/goim-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Mon, 10 Mar 2025 20:00:00 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/goim-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</guid>
+      <description>
+        
+          
+            &lt;p&gt;goim 是一个基于 Go 语言实现的高性能即时通讯框架，其核心组件包括以下四个部分：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -7,7 +7,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Mon, 10 Mar 2025 17:10:03 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Mar 2025 20:00:00 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>goim 核心组件</title>
+      <link>https://www.qiankun.info/posts/goim-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Mon, 10 Mar 2025 20:00:00 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/goim-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</guid>
+      <description>
+        
+          
+            &lt;p&gt;goim 是一个基于 Go 语言实现的高性能即时通讯框架，其核心组件包括以下四个部分：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Gin Engine</title>
+      <link>https://www.qiankun.info/posts/gin-engine/</link>
+      <pubDate>Mon, 10 Mar 2025 19:46:49 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/gin-engine/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Gin 框架中，&lt;strong&gt;Engine&lt;/strong&gt; 是整个 Web 应用的核心容器，负责管理路由、中间件、请求处理流程等核心功能。以下从多个角度详细解释其设计与作用：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Gin 路由组</title>
       <link>https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/</link>
