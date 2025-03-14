@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Tue, 11 Mar 2025 07:13:53 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Mar 2025 11:09:39 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mutex 和 RWMutex 场景选择</title>
+      <link>https://www.qiankun.info/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/</link>
+      <pubDate>Thu, 13 Mar 2025 11:09:39 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Go 语言中，&lt;code&gt;sync.Mutex&lt;/code&gt; 和 &lt;code&gt;sync.RWMutex&lt;/code&gt; 的选择取决于&lt;strong&gt;并发场景的读写比例&lt;/strong&gt;和&lt;strong&gt;性能需求&lt;/strong&gt;。以下是具体的使用场景和选择原则：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Gin 中间件</title>
       <link>https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>

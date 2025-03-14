@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tagog_name2 on Z.Q.K</title>
+    <link>http://localhost:1313/tags/tagog_name2/</link>
+    <description>Recent content in Tagog_name2 on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Thu, 13 Mar 2025 11:09:39 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/tagog_name2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mutex和RWMutex场景选择</title>
+      <link>http://localhost:1313/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/</link>
+      <pubDate>Thu, 13 Mar 2025 11:09:39 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Go 语言中，&lt;code&gt;sync.Mutex&lt;/code&gt; 和 &lt;code&gt;sync.RWMutex&lt;/code&gt; 的选择取决于&lt;strong&gt;并发场景的读写比例&lt;/strong&gt;和&lt;strong&gt;性能需求&lt;/strong&gt;。以下是具体的使用场景和选择原则：&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;一&#34;&gt;&lt;strong&gt;一、&lt;code&gt;sync.Mutex&lt;/code&gt;（互斥锁）适用场景&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;1-读写操作频率均衡&#34;&gt;&lt;strong&gt;1. 读写操作频率均衡&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;场景特点&lt;/strong&gt;：对共享资源的&lt;strong&gt;读和写操作频率接近&lt;/strong&gt;，或写操作频繁。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;高频更新的计数器（如实时统计）。&lt;/li&gt;
+&lt;li&gt;需要原子性修改的配置项（如开关状态）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：实现简单，无额外性能开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2-临界区操作耗时短&#34;&gt;&lt;strong&gt;2. 临界区操作耗时短&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;场景特点&lt;/strong&gt;：临界区代码执行时间极短（如简单赋值或原子操作）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;更新一个结构体的某个字段。&lt;/li&gt;
+&lt;li&gt;操作一个共享的 &lt;code&gt;map&lt;/code&gt; 中的单个键值对。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：短耗时操作下，互斥锁的竞争开销可以忽略。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;3-需要严格互斥&#34;&gt;&lt;strong&gt;3. 需要严格互斥&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;场景特点&lt;/strong&gt;：任何并发操作必须完全互斥，不允许并行读。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;银行账户的余额修改（必须串行化）。&lt;/li&gt;
+&lt;li&gt;分布式锁的本地实现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;二&#34;&gt;&lt;strong&gt;二、&lt;code&gt;sync.RWMutex&lt;/code&gt;（读写锁）适用场景&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;1-读多写少高并发读低频写&#34;&gt;&lt;strong&gt;1. 读多写少（高并发读，低频写）&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;场景特点&lt;/strong&gt;：&lt;strong&gt;读操作频率远高于写操作&lt;/strong&gt;（如 90% 读 + 10% 写）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;缓存系统（如 Redis 风格的本地缓存）。&lt;/li&gt;
+&lt;li&gt;配置中心的配置读取（配置热更新时写）。&lt;/li&gt;
+&lt;li&gt;只读为主的共享数据（如全局路由表）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：允许多个 &lt;code&gt;goroutine&lt;/code&gt; 并行读，大幅提升读性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2-读操作耗时较长&#34;&gt;&lt;strong&gt;2. 读操作耗时较长&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;场景特点&lt;/strong&gt;：读操作需要较长时间（如复杂计算或 IO 操作）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;读取一个大文件到内存并解析数据。&lt;/li&gt;
+&lt;li&gt;执行一个复杂的查询逻辑（如数据库查询）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：通过并行读减少总体等待时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;3-写操作频率低但需要强一致性&#34;&gt;&lt;strong&gt;3. 写操作频率低但需要强一致性&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;场景特点&lt;/strong&gt;：写操作较少，但需要保证写操作的原子性和最新数据可见性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;日志系统的日志写入（低频批量写，高频读日志状态）。&lt;/li&gt;
+&lt;li&gt;全局唯一 ID 生成器（偶尔分配新 ID 区间，频繁读取当前 ID）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;三选择原则&#34;&gt;&lt;strong&gt;三、选择原则&lt;/strong&gt;&lt;/h3&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;指标&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;&lt;code&gt;sync.Mutex&lt;/code&gt;&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;&lt;code&gt;sync.RWMutex&lt;/code&gt;&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;读写比例&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;读写接近或写多读少&lt;/td&gt;
+          &lt;td&gt;读多写少（如 10:1 以上）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;性能需求&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;简单、低开销&lt;/td&gt;
+          &lt;td&gt;高并发读性能优化&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;临界区耗时&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;短耗时操作（纳秒级）&lt;/td&gt;
+          &lt;td&gt;长耗时读操作（微秒级或更长）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;代码复杂度&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;简单（只需 &lt;code&gt;Lock/Unlock&lt;/code&gt;）&lt;/td&gt;
+          &lt;td&gt;稍复杂（区分 &lt;code&gt;RLock/RUnlock&lt;/code&gt;）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;四注意事项&#34;&gt;&lt;strong&gt;四、注意事项&lt;/strong&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;避免锁嵌套&lt;/strong&gt;：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

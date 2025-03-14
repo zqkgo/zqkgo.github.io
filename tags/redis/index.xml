@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on Z.Q.K</title>
+    <link>https://www.qiankun.info/tags/redis/</link>
+    <description>Recent content in Redis on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Wed, 12 Mar 2025 10:21:43 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis Slot</title>
+      <link>https://www.qiankun.info/posts/redis-%E6%A7%BD/</link>
+      <pubDate>Wed, 12 Mar 2025 10:21:43 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/redis-%E6%A7%BD/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Redis 集群中的槽（Slot）是一种核心的数据分片机制，用于将数据均匀分布到多个节点，实现负载均衡和高可用性。以下是槽的详细解释：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

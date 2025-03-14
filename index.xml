@@ -7,7 +7,88 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Tue, 11 Mar 2025 07:13:53 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Mar 2025 14:28:49 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> B&#43;Tree </title>
+      <link>https://www.qiankun.info/posts/b&#43;tree/</link>
+      <pubDate>Thu, 13 Mar 2025 14:28:49 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/b&#43;tree/</guid>
+      <description>
+        
+          
+            &lt;p&gt;B+Tree （B+树）是一种广泛应用于数据库和文件系统的多路平衡搜索树结构，其设计核心在于高效支持大规模数据存储、快速检索及范围查询。以下从结构特点、与B-Tree的差异、优势及实际应用等方面进行详细解析：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>位图 Bitmap</title>
+      <link>https://www.qiankun.info/posts/%E4%BD%8D%E5%9B%BEbitmap/</link>
+      <pubDate>Thu, 13 Mar 2025 11:30:14 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E4%BD%8D%E5%9B%BEbitmap/</guid>
+      <description>
+        
+          
+            &lt;h4 id=&#34;1-基本概念&#34;&gt;&lt;strong&gt;1. 基本概念&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;位图（Bitmap），又称位数组（Bit Array）或位集合（Bitset），是一种通过二进制位（0或1）高效存储和操作数据的数据结构。每个二进制位表示某种状态（如存在/不存在、开启/关闭），常用于处理大规模布尔值集合。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Mutex 和 RWMutex 场景选择</title>
+      <link>https://www.qiankun.info/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/</link>
+      <pubDate>Thu, 13 Mar 2025 11:09:39 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Go 语言中，&lt;code&gt;sync.Mutex&lt;/code&gt; 和 &lt;code&gt;sync.RWMutex&lt;/code&gt; 的选择取决于&lt;strong&gt;并发场景的读写比例&lt;/strong&gt;和&lt;strong&gt;性能需求&lt;/strong&gt;。以下是具体的使用场景和选择原则：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>eq_ref 访问类型</title>
+      <link>https://www.qiankun.info/posts/eq_ref-%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Wed, 12 Mar 2025 11:43:24 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/eq_ref-%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在MySQL的EXPLAIN输出中，&lt;code&gt;type&lt;/code&gt;字段为&lt;code&gt;eq_ref&lt;/code&gt;表示查询使用了&lt;strong&gt;唯一索引的等值匹配&lt;/strong&gt;，且&lt;strong&gt;每个索引值在关联表中对应唯一一条记录&lt;/strong&gt;。这是性能较好的查询类型，仅次于&lt;code&gt;system&lt;/code&gt;和&lt;code&gt;const&lt;/code&gt;。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Redis Slot</title>
+      <link>https://www.qiankun.info/posts/redis-%E6%A7%BD/</link>
+      <pubDate>Wed, 12 Mar 2025 10:21:43 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/redis-%E6%A7%BD/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Redis 集群中的槽（Slot）是一种核心的数据分片机制，用于将数据均匀分布到多个节点，实现负载均衡和高可用性。以下是槽的详细解释：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Gin 中间件</title>
       <link>https://www.qiankun.info/posts/gin-%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>

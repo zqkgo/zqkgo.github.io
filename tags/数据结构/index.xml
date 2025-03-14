@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据结构 on Z.Q.K</title>
+    <link>https://www.qiankun.info/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <description>Recent content in 数据结构 on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Thu, 13 Mar 2025 14:28:49 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> B&#43;Tree </title>
+      <link>https://www.qiankun.info/posts/b&#43;tree/</link>
+      <pubDate>Thu, 13 Mar 2025 14:28:49 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/b&#43;tree/</guid>
+      <description>
+        
+          
+            &lt;p&gt;B+Tree （B+树）是一种广泛应用于数据库和文件系统的多路平衡搜索树结构，其设计核心在于高效支持大规模数据存储、快速检索及范围查询。以下从结构特点、与B-Tree的差异、优势及实际应用等方面进行详细解析：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>位图 Bitmap</title>
+      <link>https://www.qiankun.info/posts/%E4%BD%8D%E5%9B%BEbitmap/</link>
+      <pubDate>Thu, 13 Mar 2025 11:30:14 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E4%BD%8D%E5%9B%BEbitmap/</guid>
+      <description>
+        
+          
+            &lt;h4 id=&#34;1-基本概念&#34;&gt;&lt;strong&gt;1. 基本概念&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;位图（Bitmap），又称位数组（Bit Array）或位集合（Bitset），是一种通过二进制位（0或1）高效存储和操作数据的数据结构。每个二进制位表示某种状态（如存在/不存在、开启/关闭），常用于处理大规模布尔值集合。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
