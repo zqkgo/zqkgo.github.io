@@ -7,7 +7,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Wed, 05 Mar 2025 16:08:28 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Mar 2025 10:10:17 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>脏页</title>
+      <link>https://www.qiankun.info/posts/%E8%84%8F%E9%A1%B5/</link>
+      <pubDate>Wed, 19 Mar 2025 10:10:17 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E8%84%8F%E9%A1%B5/</guid>
+      <description>
+        
+          
+            &lt;p&gt;页缓存的脏页（Dirty Page）是操作系统中内存管理的关键概念，特指&lt;strong&gt;已被应用程序修改但尚未同步到磁盘的内存数据页&lt;/strong&gt;。以下从定义、产生原因、刷新机制及影响等方面进行详细说明：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>DIRECT I/O 文件</title>
+      <link>https://www.qiankun.info/posts/direct-io/</link>
+      <pubDate>Fri, 14 Mar 2025 18:21:29 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/direct-io/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Linux 系统中的 &lt;strong&gt;DIRECT I/O&lt;/strong&gt;（直接输入/输出）是一种绕过操作系统内核缓存（Page Cache）、直接在用户空间与存储设备之间传输数据的机制。它通过减少数据拷贝和上下文切换次数，提升特定场景下的性能表现，但也对应用层提出了更高的管理要求。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>inode 基础</title>
       <link>https://www.qiankun.info/posts/inode%E5%9F%BA%E7%A1%80/</link>

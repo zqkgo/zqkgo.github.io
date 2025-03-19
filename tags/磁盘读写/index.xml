@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>磁盘读写 on Z.Q.K</title>
+    <link>https://www.qiankun.info/tags/%E7%A3%81%E7%9B%98%E8%AF%BB%E5%86%99/</link>
+    <description>Recent content in 磁盘读写 on Z.Q.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © Z.Q.K</copyright>
+    <lastBuildDate>Fri, 14 Mar 2025 18:21:29 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/tags/%E7%A3%81%E7%9B%98%E8%AF%BB%E5%86%99/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DIRECT I/O 文件</title>
+      <link>https://www.qiankun.info/posts/direct-io/</link>
+      <pubDate>Fri, 14 Mar 2025 18:21:29 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/direct-io/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Linux 系统中的 &lt;strong&gt;DIRECT I/O&lt;/strong&gt;（直接输入/输出）是一种绕过操作系统内核缓存（Page Cache）、直接在用户空间与存储设备之间传输数据的机制。它通过减少数据拷贝和上下文切换次数，提升特定场景下的性能表现，但也对应用层提出了更高的管理要求。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

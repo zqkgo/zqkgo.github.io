@@ -7,7 +7,103 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © Z.Q.K</copyright>
-    <lastBuildDate>Thu, 13 Mar 2025 14:28:49 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Mar 2025 10:10:17 +0800</lastBuildDate><atom:link href="https://www.qiankun.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>脏页</title>
+      <link>https://www.qiankun.info/posts/%E8%84%8F%E9%A1%B5/</link>
+      <pubDate>Wed, 19 Mar 2025 10:10:17 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E8%84%8F%E9%A1%B5/</guid>
+      <description>
+        
+          
+            &lt;p&gt;页缓存的脏页（Dirty Page）是操作系统中内存管理的关键概念，特指&lt;strong&gt;已被应用程序修改但尚未同步到磁盘的内存数据页&lt;/strong&gt;。以下从定义、产生原因、刷新机制及影响等方面进行详细说明：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>index.md 与 _index.md 文件</title>
+      <link>https://www.qiankun.info/posts/index%E4%B8%8E_index/</link>
+      <pubDate>Mon, 17 Mar 2025 16:16:16 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/index%E4%B8%8E_index/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 Hugo 中，&lt;code&gt;index.md&lt;/code&gt; 和 &lt;code&gt;_index.md&lt;/code&gt; 的作用与内容组织结构密切相关，两者分别承担不同的角色：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>LRU 算法原理</title>
+      <link>https://www.qiankun.info/posts/lru-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 14 Mar 2025 21:57:25 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/lru-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</guid>
+      <description>
+        
+          
+            &lt;p&gt;LRU（Least Recently Used）算法的核心原理是&lt;strong&gt;淘汰最近最少使用的数据&lt;/strong&gt;，基于“如果一个数据最近未被访问，未来被访问的概率也较低”的假设。其实现依赖于高效的数据结构来维护访问顺序，以下是详细解析：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>DIRECT I/O 文件</title>
+      <link>https://www.qiankun.info/posts/direct-io/</link>
+      <pubDate>Fri, 14 Mar 2025 18:21:29 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/direct-io/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Linux 系统中的 &lt;strong&gt;DIRECT I/O&lt;/strong&gt;（直接输入/输出）是一种绕过操作系统内核缓存（Page Cache）、直接在用户空间与存储设备之间传输数据的机制。它通过减少数据拷贝和上下文切换次数，提升特定场景下的性能表现，但也对应用层提出了更高的管理要求。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>页在 InnoDB 与操作系统的区别</title>
+      <link>https://www.qiankun.info/posts/%E9%A1%B5%E5%9C%A8innodb%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Fri, 14 Mar 2025 10:10:38 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E9%A1%B5%E5%9C%A8innodb%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>
+        
+          
+            &lt;p&gt;InnoDB的页（Page）与操作系统的页（Page）在功能和设计目标上有显著差异，但两者在I/O操作和内存管理中存在协同关系。以下是具体分析：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>叶子节点与叶子页</title>
+      <link>https://www.qiankun.info/posts/%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E4%B8%8E%E5%8F%B6%E5%AD%90%E9%A1%B5/</link>
+      <pubDate>Fri, 14 Mar 2025 09:10:02 +0800</pubDate>
+      
+      <guid>https://www.qiankun.info/posts/%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E4%B8%8E%E5%8F%B6%E5%AD%90%E9%A1%B5/</guid>
+      <description>
+        
+          
+            &lt;p&gt;在 InnoDB 的聚簇索引中，&lt;strong&gt;叶子“页”和叶子“节点”本质上是同一物理存储单元的逻辑与物理视角的表述&lt;/strong&gt;，但两者在概念层次上有细微差异：&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title> B&#43;Tree </title>
       <link>https://www.qiankun.info/posts/b&#43;tree/</link>
