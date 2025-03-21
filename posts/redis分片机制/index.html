@@ -2,12 +2,14 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  data-figures=""
+  data-figures="true"
+  
+    class="page"
   
   
   >
   <head>
-<title>高可用 | Z.Q.K</title>
+<title>Redis 分片机制 | Z.Q.K</title>
 <meta charset="utf-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -20,22 +22,22 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="" />
+<meta name="description" content="Article description." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="">
-<meta name="twitter:title" content="高可用" />
-<meta name="twitter:image" content="https://www.qiankun.info/images/thumbnail.png"/>
-<meta property="og:url" content="https://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/" />
-<meta property="og:title" content="高可用" />
-<meta property="og:description" content="" />
-<meta property="og:image" content="https://www.qiankun.info/images/thumbnail.png" />
+<meta name="twitter:title" content="Redis 分片机制" />
+<meta name="twitter:image" content="https://www.qiankun.info/posts/redis%E5%88%86%E7%89%87%E6%9C%BA%E5%88%B6/images/path/share.png"/>
+<meta property="og:url" content="https://www.qiankun.info/posts/redis%E5%88%86%E7%89%87%E6%9C%BA%E5%88%B6/" />
+<meta property="og:title" content="Redis 分片机制" />
+<meta property="og:description" content="Article description." />
+<meta property="og:image" content="https://www.qiankun.info/posts/redis%E5%88%86%E7%89%87%E6%9C%BA%E5%88%B6/images/path/share.png" />
+  <meta name="keywords" content="redis" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://www.qiankun.info/icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.qiankun.info/icons/favicon-32x32.png">
 <link rel="manifest" href="https://www.qiankun.info/icons/site.webmanifest">
 
-<link rel="canonical" href="https://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/">
-<link rel="alternate" type="application/rss+xml" href="https://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/index.xml" title="Z.Q.K" />
+<link rel="canonical" href="https://www.qiankun.info/posts/redis%E5%88%86%E7%89%87%E6%9C%BA%E5%88%B6/">
 
 
 
@@ -51,7 +53,7 @@
 
   </head>
   <body
-    data-code="7"
+    data-code="10"
     data-lines="false"
     id="documentTop"
     data-lang="en"
@@ -116,19 +118,10 @@
 </header>
 
     <main>
-
-
-
+  
 <div class="grid-inverse wrap content">
-  <div>
-    <ul class="posts" id="posts">
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/" title="服务熔断">服务熔断</a>
-      </h3>
-      
+  <article class="post_content">
+    <h1 class="post_title">Redis 分片机制</h1>
   <div class="post_meta">
     <span><svg class="icon">
   <title>calendar</title>
@@ -136,60 +129,142 @@
 </svg>
 </span>
     <span class="post_date">
-      Mar 9, 2025	  
+      Mar 21, 2025	  
     </span>
-    <span class="post_time"> · 1 min read</span><span>&nbsp;· <a href='https://www.qiankun.info/tags/%E6%9E%B6%E6%9E%84/' title="架构" class="post_tag button button_translucent">架构
-        </a><a href='https://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/' title="高可用" class="post_tag button button_translucent">高可用
-        </a><a href='https://www.qiankun.info/tags/%E5%AE%B9%E9%94%99/' title="容错" class="post_tag button button_translucent">容错
+    <span class="post_time"> · 1 min read</span><span>&nbsp;· <a href='https://www.qiankun.info/tags/redis/' title="redis" class="post_tag button button_translucent">redis
         </a>
     </span>
   </div>
 
-    </div>
-    <div class="excerpt_footer partition">
-      <div class="excerpt_thumbnail">
-  <figure>
-  <picture>
+    <div class="post_body"><p>Redis 集群的分片机制是其分布式架构的核心，通过 <strong>哈希槽（Hash Slot）</strong> 实现数据在多节点间的分布与管理。以下是其分片机制的详细解析：</p>
+<hr>
+<h3 id="一哈希槽的基本原理">一、<strong>哈希槽的基本原理</strong></h3>
+<ol>
+<li>
+<p><strong>槽位划分与键值映射</strong><br>
+Redis 集群将数据划分为 <strong>16384 个固定哈希槽</strong>（编号 0-16383），每个键通过以下步骤确定所属槽位：</p>
+<ul>
+<li><strong>Step 1</strong>：计算键的 CRC16 校验和，得到一个 16bit 的哈希值。</li>
+<li><strong>Step 2</strong>：对哈希值取模 <code>CRC16(key) % 16384</code>，确定具体槽号。<br>
+例如，键 <code>user:1000</code> 的哈希值为 <code>12345</code>，则分配到槽 12345。</li>
+</ul>
+</li>
+<li>
+<p><strong>槽位分配规则</strong></p>
+<ul>
+<li><strong>自动分配</strong>：通过 <code>redis-cli --cluster create</code> 命令创建集群时，槽位会均分到各主节点。</li>
+<li><strong>手动分配</strong>：使用 <code>CLUSTER ADDSLOTS</code> 手动指定节点负责的槽范围（需覆盖全部 16384 个槽）。</li>
+</ul>
+</li>
+<li>
+<p><strong>槽位与节点的动态映射</strong><br>
+每个节点维护完整的槽位分配表，并通过 <strong>Gossip 协议</strong> 与其他节点同步状态。客户端请求时，若目标键不在此节点，返回 <code>MOVED</code> 重定向响应，指引客户端访问正确节点。</p>
+</li>
+</ol>
+<hr>
+<h3 id="二分片机制的核心优势">二、<strong>分片机制的核心优势</strong></h3>
+<ol>
+<li>
+<p><strong>灵活的数据分布</strong></p>
+<ul>
+<li>相比一致性哈希，哈希槽允许 <strong>手动调整槽位分配</strong>，例如为高性能节点分配更多槽，避免数据倾斜。</li>
+<li>解耦数据与节点的直接绑定，简化扩缩容流程。</li>
+</ul>
+</li>
+<li>
+<p><strong>高效的分片迁移</strong><br>
+数据迁移以 <strong>槽位为单位</strong>（而非单个键），减少网络开销。例如，新增节点时，通过 <code>CLUSTER REBALANCE</code> 命令从现有节点转移部分槽到新节点。</p>
+</li>
+<li>
+<p><strong>高可用性与容错</strong></p>
+<ul>
+<li>每个主节点（Master）有 1-N 个从节点（Slave），主节点故障时，从节点通过 <strong>类似 Raft 的选举机制</strong> 晋升为主节点，接管原槽位。</li>
+<li>故障检测基于心跳超时和多数派确认机制（超过半数主节点判定节点不可达时触发故障转移）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="三分片机制的关键限制">三、<strong>分片机制的关键限制</strong></h3>
+<ol>
+<li>
+<p><strong>跨槽操作的限制</strong></p>
+<ul>
+<li><strong>事务与 Lua 脚本</strong>：要求所有操作的键必须位于同一槽。可通过 <strong>哈希标签（Hash Tags）</strong> 强制多个键映射到同一槽。<br>
+例如：键 <code>{user1000}.profile</code> 和 <code>{user1000}.orders</code> 均以 <code>user1000</code> 计算槽位。</li>
+<li><strong>批量操作</strong>：如 <code>MGET</code>、<code>MSET</code> 仅支持同一槽内的键，否则需客户端分批处理。</li>
+</ul>
+</li>
+<li>
+<p><strong>客户端路由复杂性</strong></p>
+<ul>
+<li><strong>智能客户端</strong>：需缓存槽位映射表，直接定位目标节点，减少重定向次数。</li>
+<li><strong>非智能客户端</strong>：依赖 <code>MOVED</code> 和 <code>ASK</code> 响应动态更新路由信息。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="四动态扩缩容与数据迁移">四、<strong>动态扩缩容与数据迁移</strong></h3>
+<ol>
+<li>
+<p><strong>扩容流程</strong></p>
+<ul>
+<li>新增节点后，通过 <code>CLUSTER REBALANCE</code> 从现有节点迁移部分槽到新节点，实现负载均衡。</li>
+<li>迁移期间，客户端请求可能收到 <code>ASK</code> 临时重定向，保证服务可用性。</li>
+</ul>
+</li>
+<li>
+<p><strong>缩容流程</strong></p>
+<ul>
+<li>需先将要移除节点的槽位迁移至其他节点，再执行节点下线。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="五与其他分片方案的对比">五、<strong>与其他分片方案的对比</strong></h3>
+<table>
+  <thead>
+      <tr>
+          <th><strong>方案</strong></th>
+          <th><strong>原理</strong></th>
+          <th><strong>优点</strong></th>
+          <th><strong>缺点</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Redis Cluster</strong></td>
+          <td>哈希槽（16384固定槽）</td>
+          <td>灵活分配、高效迁移、高可用</td>
+          <td>跨槽操作受限，需客户端适配</td>
+      </tr>
+      <tr>
+          <td><strong>客户端分片</strong></td>
+          <td>客户端按规则（如范围）分片</td>
+          <td>实现简单，无需服务端支持</td>
+          <td>无自动故障转移，扩缩容复杂</td>
+      </tr>
+      <tr>
+          <td><strong>代理分片</strong></td>
+          <td>中间件（如Twemproxy）路由</td>
+          <td>客户端无感知，统一入口</td>
+          <td>性能瓶颈，增加运维复杂度</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="总结">总结</h3>
+<p>Redis 集群通过哈希槽机制实现了 <strong>水平扩展、负载均衡与高可用性</strong>，适用于海量数据和高并发场景。其核心在于槽位的逻辑分片与动态管理，但需注意跨槽操作限制及客户端适配问题。</p>
+    </div><div class="post_comments">
+  
+  
+  
+  
+</div>
 
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="服务熔断"
-      
-        class="image_figure image_thumbnail image_internal image_unprocessed"
-        src="https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/circuit_breaker.png"
-      
-      
-    />
 
-    </picture>
-</figure>
 
-      </div>
-      
-        <div class="pale">
-          
-            分布式系统中的<strong>服务熔断</strong>是一种<strong>容错保护机制</strong>，其核心目标是通过**快速失败（Fail Fast）**防止服务间的级联故障，避免系统雪崩。它的设计灵感来源于电路中的熔断器：当电路过载时，熔断器自动断开，保护整个系统。
-          
-          <br>
-          <a href="https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/" title="Read More" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
 
-      <li>
-      </li>
-    </ul>
-  </div>
+  </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
     <br>
@@ -437,9 +512,8 @@
   </section>
 </aside>
 
+  
 </div>
-
-
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>

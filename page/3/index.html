@@ -136,6 +136,70 @@
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
+        <a href="https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/" title="服务熔断">服务熔断</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Mar 9, 2025	  
+    </span>
+    <span class="post_time"> · 1 min read</span><span>&nbsp;· <a href='https://www.qiankun.info/tags/%E6%9E%B6%E6%9E%84/' title="架构" class="post_tag button button_translucent">架构
+        </a><a href='https://www.qiankun.info/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/' title="高可用" class="post_tag button button_translucent">高可用
+        </a><a href='https://www.qiankun.info/tags/%E5%AE%B9%E9%94%99/' title="容错" class="post_tag button button_translucent">容错
+        </a>
+    </span>
+  </div>
+
+    </div>
+    <div class="excerpt_footer partition">
+      <div class="excerpt_thumbnail">
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="服务熔断"
+      
+        class="image_figure image_thumbnail image_internal image_unprocessed"
+        src="https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/circuit_breaker.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+
+      </div>
+      
+        <div class="pale">
+          
+            分布式系统中的<strong>服务熔断</strong>是一种<strong>容错保护机制</strong>，其核心目标是通过**快速失败（Fail Fast）**防止服务间的级联故障，避免系统雪崩。它的设计灵感来源于电路中的熔断器：当电路过载时，熔断器自动断开，保护整个系统。
+          
+          <br>
+          <a href="https://www.qiankun.info/posts/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/" title="Read More" class="excerpt_more button">Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
         <a href="https://www.qiankun.info/posts/%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/" title="内联函数">内联函数</a>
       </h3>
       
@@ -444,48 +508,6 @@
     </div>
   </li>
 
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://www.qiankun.info/posts/mysql%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%83%BD%E9%81%BF%E5%85%8D%E6%8E%92%E5%BA%8F/" title="MySQL中索引哪些场景下能避免排序">MySQL中索引哪些场景下能避免排序</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Mar 6, 2025	  
-    </span>
-    <span class="post_time"> · 1 min read</span><span>&nbsp;· <a href='https://www.qiankun.info/tags/mysql/' title="mysql" class="post_tag button button_translucent">mysql
-        </a>
-    </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>在MySQL中，索引在以下场景中可以避免排序操作：</p>
-<h3 id="1-order-by顺序与索引最左前缀匹配">1. <strong>ORDER BY顺序与索引最左前缀匹配</strong></h3>
-<ul>
-<li>当<code>ORDER BY</code>的列顺序与索引的<strong>最左前缀</strong>完全一致时，MySQL可以直接利用索引的有序性返回结果，无需额外排序。</li>
-<li><strong>示例</strong>：
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_a_b</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">table</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 避免排序
-</span></span></span></code></pre></div></li>
-</ul>
-          
-          <br>
-          <a href="https://www.qiankun.info/posts/mysql%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%83%BD%E9%81%BF%E5%85%8D%E6%8E%92%E5%BA%8F/" title="Read More" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
       <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -537,6 +559,9 @@
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
+        <a href="https://www.qiankun.info/posts/redis%E5%88%86%E7%89%87%E6%9C%BA%E5%88%B6/" class="nav-link" title="Redis 分片机制">Redis 分片机制</a>
+      </li>
+      <li>
         <a href="https://www.qiankun.info/posts/%E8%84%8F%E9%A1%B5/" class="nav-link" title="脏页">脏页</a>
       </li>
       <li>
@@ -557,12 +582,12 @@
       <li>
         <a href="https://www.qiankun.info/posts/b&#43;tree/" class="nav-link" title=" B&#43;Tree ">B+Tree</a>
       </li>
-      <li>
-        <a href="https://www.qiankun.info/posts/%E4%BD%8D%E5%9B%BEbitmap/" class="nav-link" title="位图 Bitmap">位图 Bitmap</a>
-      </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="https://www.qiankun.info/posts/%E4%BD%8D%E5%9B%BEbitmap/" class="nav-link" title="位图 Bitmap">位图 Bitmap</a>
+      </li>
       <li>
         <a href="https://www.qiankun.info/posts/mutex%E5%92%8Crwmutex%E5%9C%BA%E6%99%AF%E9%80%89%E6%8B%A9/" class="nav-link" title="Mutex 和 RWMutex 场景选择">Mutex 和 RWMutex 场景选择</a>
       </li>
@@ -583,9 +608,6 @@
       </li>
       <li>
         <a href="https://www.qiankun.info/posts/gin-%E8%B7%AF%E7%94%B1%E7%BB%84/" class="nav-link" title="Gin 路由组">Gin 路由组</a>
-      </li>
-      <li>
-        <a href="https://www.qiankun.info/posts/%E5%88%97%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/" class="nav-link" title="列前缀匹配索引的原理">列前缀匹配索引的原理</a>
       </li>
     </ul>
     <div>
@@ -641,6 +663,11 @@
           <span class="button_tally">2</span>
         </a>
         
+        <a href='https://www.qiankun.info/tags/redis/' class="post_tag button button_translucent" title="redis">
+          REDIS
+          <span class="button_tally">2</span>
+        </a>
+        
         <a href='https://www.qiankun.info/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/' class="post_tag button button_translucent" title="数据结构">
           数据结构
           <span class="button_tally">2</span>
@@ -653,11 +680,6 @@
         
         <a href='https://www.qiankun.info/tags/c%E8%AF%AD%E8%A8%80/' class="post_tag button button_translucent" title="c语言">
           C语言
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='https://www.qiankun.info/tags/goim/' class="post_tag button button_translucent" title="goim">
-          GOIM
           <span class="button_tally">1</span>
         </a>
         
@@ -715,7 +737,7 @@
             </a>
             
             
-            <a href='https://www.qiankun.info/tags/redis/' class=" post_tag button button_translucent" data-position=1 title="redis">REDIS<span class="button_tally">1</span>
+            <a href='https://www.qiankun.info/tags/redis/' class=" post_tag button button_translucent" data-position=2 title="redis">REDIS<span class="button_tally">2</span>
             </a>
             
             
